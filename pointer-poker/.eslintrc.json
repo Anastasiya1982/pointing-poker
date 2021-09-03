@@ -26,7 +26,9 @@
             1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
         ],
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"]
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "react/jsx-uses-vars": "error",
+        "react/jsx-uses-react": "error"
     },
     "settings": {
         "react": {
