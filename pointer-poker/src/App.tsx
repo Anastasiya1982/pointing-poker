@@ -1,8 +1,11 @@
 import React from 'react';
+import style from './App.module.css';
 
 function App() {
   return (
-      <div>Pointer-poker</div>
+    <div className={style.App}>
+         <h1>Pointer-poker</h1>
+    </div>
   );
 }
 
