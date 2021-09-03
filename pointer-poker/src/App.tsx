@@ -1,12 +1,13 @@
 import React from 'react';
-import Main from './pages/Main/Main';
+import MainPage from './pages/mainPage/MainPage';
+
 
 import './styles.scss';
 
 export const App = () => {
   return (
     <div>
-      <Main />
+      <MainPage />
     </div>
   );
 };
