@@ -1,0 +1,19 @@
+.btn-start-new-game {
+  width: 241px;
+  height: 47px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 15px 30px;
+  margin: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 40px 40px #2B3A67 inset, 0 0 0 0 #2B3A67;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: white;
+  transition: .15s ease-in-out;
+}
+.btn-start-new-game:hover {
+  box-shadow: 0 0 10px 0 #2B3A67 inset, 0 0 10px 4px #2B3A67;
+  color: #2B3A67;
+}
