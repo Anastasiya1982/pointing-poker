@@ -1,9 +1,8 @@
-import React, {FC} from "react";
-import styles from './Main.module.css';
+import React from 'react';
+import './Main.scss';
 
-const Main: FC=() => {
-    return (
-        <div className={styles.mainPage}>Main</div>
-    )
-}
+export const Main = () => {
+  return <div>Main Page</div>;
+};
+
 export default Main;

@@ -1,25 +1,14 @@
 import React from 'react';
-import style from './App.module.css';
-import Main from "./pages/Main/Main";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import Chat from "./pages/ChatComponent/Chat";
+import Main from './pages/Main/Main';
 
+import './styles.scss';
 
-function App() {
+export const App = () => {
   return (
-    <div className={style.App}>
-        <Header/>
-        <>
-        <Main/>
-        <Chat/>
-        {/*<Game/>*/}
-        {/*<LobbyPage/>*/}
-        {/*<Results/>*/}
-        </>
-        <Footer/>
+    <div>
+      <Main />
     </div>
   );
-}
+};
 
 export default App;
