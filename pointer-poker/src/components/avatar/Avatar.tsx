@@ -10,7 +10,9 @@ const Avatar = () => {
         </div>
       </div>
       <div className="avatar-image">
-        <img src="" alt="avatar" />
+        <div className="avatar-image-photo">
+          <img src="" alt="" />
+        </div>
       </div>
     </div>
   );
