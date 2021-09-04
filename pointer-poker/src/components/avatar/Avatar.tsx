@@ -9,10 +9,9 @@ const Avatar = () => {
           PP
         </div>
       </div>
-      <div className="avatar-image">
-        <div className="avatar-image-photo">
-          <img src="" alt="" />
-        </div>
+
+      <div className="avatar-image-container">
+        <img className="avatar-image" src="" alt="" />
       </div>
     </div>
   );
