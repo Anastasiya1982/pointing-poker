@@ -1,20 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './avatar.css';
 
-const Avatar = () => {
-  return (
-    <div className="avatar-container">
-      <div className="avatar-info" id="avatar">
-        <div className="avatar-info-name" id="name">
-          PP
-        </div>
-      </div>
+type Props = {
+  img: string;
+  fallbackText: string;
+};
 
-      <div className="avatar-image-container">
-        <img className="avatar-image" src="" alt="" />
-      </div>
-    </div>
-  );
+const Avatar: FC<Props> = ({ img, fallbackText }) => {
+  return <div className="avatar-info">{img ? <img src={img} alt="" /> : fallbackText}</div>;
 };
 
 export default Avatar;
