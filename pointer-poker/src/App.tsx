@@ -1,14 +1,12 @@
 import React from 'react';
-import Avatar from './components/avatar/Avatar';
-import Plate from './components/plate/Plate';
+import Main from './pages/Main/Main';
 
 import './styles.scss';
 
 export const App = () => {
   return (
     <div>
-      <Plate />
-      <Avatar />
+      <Main />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import './avatar.css';
 
 type Props = {
-  img: string;
+  img?: string;
   fallbackText: string;
 };
 
