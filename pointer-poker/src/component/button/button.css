@@ -1,0 +1,84 @@
+/* базовая кнопка  */
+.button-full {
+  width: 189px;
+  height: 47px;
+  display: inline-block;
+  padding: 15px 30px;
+  margin: 10px 20px;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: white;
+  transition: .15s ease-in-out;
+}
+
+/* закрашенная */
+
+.btn-confirm,
+.btn-connect,
+.btn-copy,
+.btn-next-issue,
+.btn-restrt-round,
+.btn-start-game,
+.btn-start-new-game,
+.btn-stop-game,
+.btn-yes {
+  box-shadow: 0 0 40px 40px #2B3A67 inset, 0 0 0 0 #2B3A67;
+}
+
+.button-full:hover,
+.btn-confirm:hover,
+.btn-copy:hover,
+.btn-next-issue:hover,
+.btn-restrt-round:hover,
+.btn-start-game:hover,
+.btn-start-new-game:hover,
+.btn-stop-game:hover,
+.btn-yes:hover  {
+  box-shadow: 0 0 10px 0 #2B3A67 inset, 0 0 10px 4px #2B3A67;
+  color: #2B3A67;
+}
+
+.btn-confirm {
+  height: 60px;
+}
+
+.btn-connect,
+.btn-start-new-game {
+  width: 241px;
+}
+
+/* без фона(пустая) */
+.btn-сancel,
+.btn-сancel-game,
+.btn-choose-file,
+.btn-connect,
+.btn-exit,
+.btn-no {
+  border: solid 1px #2B3A67;
+  color: #2B3A67;
+  background-color: white;
+}
+
+.btn-choose-file{
+  width: 276px;
+  height: 47px;
+}
+
+.btn-connect {
+  width: 241px;
+  height: 47px;
+}
+
+.btn-сancel:hover,
+.btn-сancel-game:hover,
+.btn-choose-file:hover,
+.btn-connect:hover,
+.btn-exit:hover,
+.btn-no:hover {
+  box-shadow: 0 0 40px 40px #2B3A67 inset, 0 0 0 0 #2B3A67;
+  color: white;
+}
+
+
