@@ -2,8 +2,13 @@ import React, { FC } from 'react';
 import classNames from 'classnames';
 import './button.css';
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-const Button: FC<propTypes> = ({
+interface Props {
+  label: string,
+  onClick: () => void,
+  className: string,
+}
+
+const Button: FC<Props> = ({
   label, onClick, className
 }) => {
 
@@ -21,12 +26,6 @@ const Button: FC<propTypes> = ({
       {label}
     </button>
   );
-};
-
-type propTypes = {
-  label: string,
-  onClick: () => {},
-  className: string,
 };
 
 export default Button;
