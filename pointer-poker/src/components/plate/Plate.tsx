@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import './plate.css';
 
 interface PropsPlate {
-  children: string;
+  children: React.ReactNode;
 }
 
 const Plate: FC<PropsPlate> = ({ children }) => {
