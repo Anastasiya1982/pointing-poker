@@ -6,19 +6,19 @@ interface Props {
   label: string,
   onClick: () => void,
   className?: string,
-  typeBtn: string,
+  TypeBtn:  'filled' | 'unfilled',
 }
 
-type typeBtn = 'filled' | 'unfilled'
+type TypeBtn = 'filled' | 'unfilled'
 
 const Button: FC<Props> = ({
-  label, onClick, className, typeBtn
+  label, onClick, className, TypeBtn
 }) => {
 
   return (
     <button
       type="button"
-      className={classNames(typeBtn==='filled' ? 'filledBtn' : 'unfilledBtn', className )} 
+      className={classNames(TypeBtn==='filled' ? 'filledBtn' : 'unfilledBtn', className )} 
       onClick={onClick}
       >
       {label}

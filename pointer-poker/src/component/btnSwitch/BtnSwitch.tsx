@@ -1,13 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import './btnSwitch.scss';
 
 interface Props {
-  onClick: () => void,
+  callback: () => void,
 }
 
-const BtnSwitch: FC<Props> = (onClick) => {
+const BtnSwitch: FC<Props> = (props: Props) => {
+
+  const [toggle, setToggle] = useState(false);
+
   return (
-    <label htmlFor="sw" className="switch">
+    <label htmlFor="sw" className="switch" onClick={props.callback}>
       <input type="checkbox" id="sw" />
       <span className="slider round" />
     </label>
