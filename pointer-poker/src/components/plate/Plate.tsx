@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import './plate.css';
+import './plate.scss';
 
 interface PropsPlate {
   children: React.ReactNode;
