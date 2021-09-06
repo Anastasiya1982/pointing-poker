@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import './avatar.css';
+import './avatar.scss';
 
 interface Props {
   img?: string;
