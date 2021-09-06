@@ -1,26 +1,24 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
-import './button.css';
+import './button.scss';
 
 interface Props {
   label: string,
   onClick: () => void,
-  className: string,
+  className?: string,
+  typeBtn: string,
 }
 
-const Button: FC<Props> = ({
-  label, onClick, className
-}) => {
+type typeBtn = 'filled' | 'unfilled'
 
-  const classes = classNames (
-    'button-full',
-    className
-  );
+const Button: FC<Props> = ({
+  label, onClick, className, typeBtn
+}) => {
 
   return (
     <button
       type="button"
-      className={classes}
+      className={classNames(typeBtn==='filled' ? 'filledBtn' : 'unfilledBtn', className )} 
       onClick={onClick}
       >
       {label}

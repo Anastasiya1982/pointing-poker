@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import './btnSwitch.css';
+import './btnSwitch.scss';
 
 interface Props {
   onClick: () => void,
