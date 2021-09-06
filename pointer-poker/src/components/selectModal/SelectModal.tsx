@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './selectModal.scss';
 
-const SelectModal = () => {
+interface PropsSelect {
+  value: string;
+  onChange: () => void;
+}
+
+const SelectModal: FC<PropsSelect> = ({ value, onChange }) => {
   return (
     <div>
-      <label className="label-select-modal" htmlFor="typepayment">
-        <select className="select-modal" name="priority">
+      <label className="label-select-modal" htmlFor="priority">
+        <select className="select-modal" name="priority" onChange={onChange} value={value}>
           <option>Low</option>
           <option>Middle</option>
           <option>Hight</option>
