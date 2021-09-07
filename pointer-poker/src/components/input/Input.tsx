@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import classNames from 'classnames';
 import './input.scss';
 
 interface PropsInput {
   className?: string;
   value: string;
-  onChange: () => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: FC<PropsInput> = ({ className, value, onChange }) => {

@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import './selectModal.scss';
 
 interface PropsSelect {
   value: string;
-  onChange: () => void;
+  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const SelectModal: FC<PropsSelect> = ({ value, onChange }) => {
