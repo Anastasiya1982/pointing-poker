@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './store';
+import { RootState } from '../store';
 
 export interface UserState {
   firstName: string;
@@ -11,17 +11,19 @@ export interface UserState {
   type: 'player' | 'observer';
 }
 
+const initialState: UserState = {
+  firstName: '',
+  lastName: '',
+  jobPosition: '',
+  img: '',
+  id: '',
+  isScrumMaster: false,
+  type: 'player',
+};
+
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    firstName: '',
-    lastName: '',
-    jobPosition: '',
-    img: '',
-    id: '',
-    isScrumMaster: false,
-    type: 'player',
-  } as UserState,
+  initialState,
   reducers: {
     setFirstName: (state, action) => {
       state.firstName = action.payload.value;
@@ -55,7 +57,5 @@ export const {
   setIsScrumMaster,
   setType,
 } = userSlice.actions;
-
-export const selectCount = (state: RootState) => state.user;
 
 export default userSlice.reducer;
