@@ -34,8 +34,8 @@ app.use( (req, res, next) => {
     next();
 });
 
-
-const users={}
+let clients = [];
+let players = [];
 
 // app.get('/',(req,res)=>{
 //     res.send({rooms:rooms});
@@ -55,8 +55,9 @@ const users={}
 // })
 
 // connection io
-io.on('connection', (socket) => {
+io.on('connection', (socket) => { console.log("New client connected: ", socket.id);
 
+    registerNewClient(socket);
     socket.on("join_room",(data)=>{
         console.log( "user join the room" + data)
         socket.join(data);
@@ -68,17 +69,85 @@ io.on('connection', (socket) => {
 
     });
 
-    socket.on("disconnect", () => {
-         console.log("user disconnected")
-    })
+    socket.on('reset-game', () => {
+        console.log('reset-game: ', socket.id);
+
+        players.forEach(player => player.value = -1);
+        broadcastPlayers(socket);
+        resetGame(socket);
+    });
+
+    socket.on('set-name', value => {
+        console.log('set-name: ', socket.id, value);
+
+        players.forEach(player => {
+            if (player.id === socket.id) {
+                player.name = value;
+            }
+        });
+
+        broadcastPlayers(socket);
+    });
+
+    socket.on('select-card', value => {
+        console.log('select-card: ', socket.id, value);
+
+        players.forEach(player => {
+            if (player.id === socket.id) {
+                player.value = value;
+            }
+        });
+
+        broadcastPlayers(socket);
+    });
+
+    socket.on("disconnect", (data) => {
+        console.log("Client disconnected: ", socket.id);
+
+        // Update clients id.
+        clients = clients.filter(client => client.id !== socket.id);
+        playerRemove(socket);
+    });
+
+
+
 });
 
+const registerNewClient = socket => {
+    // Connections pool.
+    clients.push(socket);
+    playerAdd(socket);
+}
+const broadcastPlayers = socket => {
+    clients.forEach(client => {
+        client.emit("players-update", { players: players });
+    });
+}
+const resetGame = socket => {
+    clients.forEach(client => {
+        client.emit("reset-game");
+    });
+}
+const defaultAvatar = 'avatar';
 
+const playerAdd = socket => {
+    players.push({
+        name: 'Anonymous',
+        id: socket.id,
+        value: -1,
+        avatar: defaultAvatar
+    });
 
+    broadcastPlayers(socket);
+};
+const playerRemove = socket => {
+    players = players.filter(player => player.id !== socket.id);
+    broadcastPlayers(socket);
+};
 
 server.listen(port, () => {
     console.log(`Listening to ${port}`);
-})
+});
 
 
 
