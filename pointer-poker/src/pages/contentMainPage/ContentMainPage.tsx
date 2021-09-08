@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
+import ModalView from '../modalViewMainPage.css/ModalView';
 import './contentMainPage.scss';
 
 const ContentMainPage = () => {
+
+  const [modalActive, setModalActive] = useState(false);
+  
   return (
     <div className="wrapper-content">
       <img className="pp-img" src="../../assets/Group.svg" alt="pp_logo" />
@@ -23,11 +27,21 @@ const ContentMainPage = () => {
         // value={value}
         // onChange={onChange}
         />
+        
         <Button 
           label={'Connect'}
           TypeBtn={'filled'}
-          onClick={() => console.log('click')}
+          onClick={() => setModalActive(true)}
         />
+
+        <ModalView active={modalActive} setActive={setModalActive}>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure nemo maxime
+            ad sequi sapiente harum eum odit ducimus, necessitatibus placeat! 
+            Doloremque eaque suscipit, fugiat nihil error tenetur corporis rem dolorem!
+          </p>
+        </ModalView>
+                
       </div>
       
 
