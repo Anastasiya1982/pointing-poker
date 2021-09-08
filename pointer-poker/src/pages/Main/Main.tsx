@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentMainPage from '../../components/contentMainPage/ContentMainPage';
+import ContentMainPage from '../contentMainPage/ContentMainPage';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/header/Header';
 import './Main.scss';

@@ -1,6 +1,6 @@
 import React from 'react'
-import Button from '../button/Button';
-import Input from '../input/Input';
+import Button from '../../components/button/Button';
+import Input from '../../components/input/Input';
 import './contentMainPage.scss';
 
 const ContentMainPage = () => {
@@ -11,9 +11,9 @@ const ContentMainPage = () => {
         <h2 className="h2-main_page">Start your planning:</h2>
         <span>Create session:</span>
         <Button 
-        label={'Start new game'}
-        TypeBtn={'filled'}
-        onClick={() => console.log('click')}
+          label={'Start new game'}
+          TypeBtn={'filled'}
+          onClick={() => console.log('click')}
         />
       </div>
       <div className="wrapper-connect">
@@ -24,9 +24,9 @@ const ContentMainPage = () => {
         // onChange={onChange}
         />
         <Button 
-        label={'Connect'}
-        TypeBtn={'filled'}
-        onClick={() => console.log('click')}
+          label={'Connect'}
+          TypeBtn={'filled'}
+          onClick={() => console.log('click')}
         />
       </div>
       
