@@ -55,7 +55,8 @@ let players = [];
 // })
 
 // connection io
-io.on('connection', (socket) => { console.log("New client connected: ", socket.id);
+io.on('connection', (socket) => {
+    console.log("New client connected: ", socket.id);
 
     registerNewClient(socket);
     socket.on("join_room",(data)=>{
@@ -108,9 +109,6 @@ io.on('connection', (socket) => { console.log("New client connected: ", socket.i
         clients = clients.filter(client => client.id !== socket.id);
         playerRemove(socket);
     });
-
-
-
 });
 
 const registerNewClient = socket => {
@@ -132,8 +130,11 @@ const defaultAvatar = 'avatar';
 
 const playerAdd = socket => {
     players.push({
-        name: 'Anonymous',
+        firstName: 'Anonymous',
+        LastName:'',
         id: socket.id,
+        status:'',
+        type:'',
         value: -1,
         avatar: defaultAvatar
     });
