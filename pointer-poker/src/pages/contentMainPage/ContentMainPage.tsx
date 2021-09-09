@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
-import ModalView from '../modalViewMainPage.css/ModalView';
+import ModalView from '../modalView/ModalView';
 import './contentMainPage.scss';
 
 const ContentMainPage = () => {
 
   const [modalActive, setModalActive] = useState(false);
   
+  const openModalStartGame = useCallback(
+    () => {
+      setModalActive(true);
+    },
+    [],
+  );
+
   return (
     <div className="wrapper-content">
       <img className="pp-img" src="../../assets/Group.svg" alt="pp_logo" />
@@ -17,7 +24,7 @@ const ContentMainPage = () => {
         <Button 
           label={'Start new game'}
           TypeBtn={'filled'}
-          onClick={() => console.log('click')}
+          onClick={openModalStartGame}
         />
       </div>
       <div className="wrapper-connect">
@@ -31,7 +38,7 @@ const ContentMainPage = () => {
         <Button 
           label={'Connect'}
           TypeBtn={'filled'}
-          onClick={() => setModalActive(true)}
+          onClick={() => console.log('click')}
         />
 
         <ModalView active={modalActive} setActive={setModalActive}>
