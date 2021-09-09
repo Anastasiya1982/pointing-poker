@@ -7,7 +7,7 @@ export interface GameState {
   isTimerNeeded: boolean;
   scoreType: string;
   startGame: boolean;
-  timer: boolean;
+  timeOfRound: number;
   issue: string | number;
   cards: [];
 }
@@ -19,7 +19,7 @@ const initialState: GameState = {
   isTimerNeeded: false,
   scoreType: 'SP',
   startGame: false,
-  timer: false,
+  timeOfRound: 1,
   issue: '',
   cards: [],
 };
@@ -47,7 +47,7 @@ export const gameSlice = createSlice({
       state.startGame = action.payload;
     },
     setTimer: (state, action) => {
-      state.timer = action.payload;
+      state.timeOfRound = action.payload.value;
     },
     setIssue: (state, action) => {
       state.issue = action.payload.value;
