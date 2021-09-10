@@ -1,95 +1,94 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import './CheckingBackend.scss';
-
-const io = require('socket.io-client');
-
-let socket: any;
-const CONNECTION_PORT = 'localhost:5000';
+import axios from 'axios';
+import socket from '../../socket';
 
 export const ComponentForCheckingBackend = () => {
   // before entering
-  const [room, setRoom] = useState(' ');
+  const [roomId, setRoomId] = useState<number | null>(5);
   const [userName, setUserName] = useState('');
-  const [loggedIn, setLoggidIn] = useState(false);
-
-  // after enter the room
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [massage, setMessage] = useState('');
-  const [userList, setUserList] = useState([{ userName: 'Anna' }, { userName: 'Marina' }]);
-
-  useEffect(() => {
-    socket = io(CONNECTION_PORT);
-  }, [CONNECTION_PORT]);
+  const [isCreateNewGame, setIsCreateNewGame] = useState(false);
+  // const [massage, setMessage] = useState('');
+  const [userList, setUserList] = useState([{ firstName: 'Anna' }, { firstName: 'Marina' }]);
+  const [isInit, setUserInit] = useState(false);
+  // useEffect(() => {
+  //   socket = io(CONNECTION_PORT);
+  // }, [CONNECTION_PORT]);
 
   useEffect(() => {
-    socket.on('receive_user', (data: any) => {
-      setUserList([...userList, data]);
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    socket.on('ROOM: user join the room', (userList) => {
+      console.log('Новый пользователь', userList);
     });
-  });
-  const connectToRoom = () => {
-    setLoggidIn(true);
-    console.log('connect to room');
-    socket.emit('join_room', room);
+  }, []);
+
+  const createSession = (e: ChangeEvent<HTMLInputElement>) => {
+    setRoomId(Number(e.currentTarget.value));
+  };
+
+  const createRoom = () => {
+    axios.post('http://localhost:5000/rooms', { roomId }).then((res) => {
+      setIsCreateNewGame(true);
+      console.log(res.config.data);
+      // dispatch(setNewGame)
+    });
+    socket.emit('ROOM:JOIN', roomId);
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function sendUser() {
     const user = {
-      room,
-      content: {
-        userName,
-      },
+      firstName: userName,
+      lastName: 'www',
+      id: socket.id,
+      status: 'player',
+      type: 'player',
+      value: -1,
+      avatar: '',
     };
-    socket.emit('join_user', user);
+    setUserInit(true);
     // @ts-ignore
-    setUserList([...userList, user.content]);
+    setUserList([...userList, { ...user }]);
+    socket.emit('USER:JOIN ROOM', { roomId, user });
+    setUserName('');
   }
 
   return (
-    <div>
-      {!loggedIn ? (
+    <>
+      <div>
+        {!isCreateNewGame ? (
+          <div>
+            <input type="text" onChange={createSession} />
+            <button onClick={createRoom}>Enter the room</button>
+          </div>
+        ) : (
+          <div className="registerForm">
+            <input
+              value={userName}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setUserName(e.currentTarget.value);
+              }}
+              placeholder="userName"
+            />
+            <button onClick={sendUser}>RegisterNewUser</button>
+          </div>
+        )}
+      </div>
+      {isInit ? (
         <div>
-          <input
-            value={userName}
-            type="text"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setUserName(e.currentTarget.value);
-            }}
-            placeholder="Name..."
-          />
-          <input
-            value={room}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setRoom(e.currentTarget.value);
-            }}
-            placeholder="Room"
-          />
-          <button onClick={connectToRoom}>Enter the room</button>
+          {userList.map((user) => {
+            return (
+              <div key={user}>
+                <span>userName:</span>
+                <span>{user.firstName}</span>
+              </div>
+            );
+          })}
         </div>
       ) : (
-        <div>
-          Lobby Room
-          <div>
-            user <b>{userName}</b> want to enter the lobby{' '}
-          </div>{' '}
-          <button onClick={sendUser}>Add to lobby</button>
-          <div>
-            <div>
-              {' '}
-              {userList.map((user: any, index: number) => {
-                // eslint-disable-next-line react/no-array-index-key
-                return (
-                  <div key={index}>
-                    <span>userName:</span>
-                    {user.userName}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+        <div> user not enter </div>
       )}
-    </div>
+    </>
   );
 };
 

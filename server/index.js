@@ -1,14 +1,30 @@
 const express = require('express');
-app=express();
+
+const app=express();
 const server = require('http').createServer(app);
 const bodyParser=require('body-parser');
 const cors = require('cors');
 
+// eslint-disable-next-line import/no-dynamic-require
+const io = require('socket.io')(server,
+  {
+    cors: {
+        origin: "http://localhost:8080",
+        // methods: ["GET", "POST"],
+        // transports: ['websocket', 'polling'],
+        // credentials: true
+    },
+    allowEIO3: true
+}
+);
+
+
 
 const dotenv = require('dotenv');
+
 dotenv.config();
 const host='127.0.0.1';
-const port =process.env.PORT ||5000;
+const port = 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -17,35 +33,119 @@ app.use(express.urlencoded({extended:true}));
 
 app.use(cors({
     credentials:true,
-    origin:"http://localhost:5000"
+    // origin:"http://localhost:5000"
 }));
 app.use( (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", `http://127.0.0.1:5000`);
+    res.header("Access-Control-Allow-Origin");
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
+app.get('/',(req,res)=> {
+    res.send({ room });
+});
 
+const room=new Map();
 
-// app.get('/',(req,res)=>{
-//     res.send({rooms:rooms});
-// });
+app.post('/room',(req,res)=> {
+    const {roomId}=req.body;
+    room.set()
+})
+
+const players = [];
+
+const defaultAvatar = 'avatar';
+
 //
-// app.get('/:room',(req,res)=>{
-//     res.send({room:req.params.room});
-// });
+// const broadcastPlayers = () => {
+//     players.forEach(player => {
+//         player.emit("players-update", players);
+//     });
+// };
+// const resetGame = () => {
+//    players.forEach(player => {
+//         player.emit("reset-game");
+//     });
+// };
 //
-// app.post('/room',(req,res)=>{
-//     if(rooms[req.body.room]!=null){
-//         return res.redirect('/');
-//     }
-//     rooms[req.body.room]={users:{}}
-//     res.redirect(req.body.room);
-//     //send message that new room was created
-// })
+//
+// const addUser =socket => {
+//     players.push({
+//         firstName: socket.firstName,
+//         LastName:socket.lastName,
+//         id: socket.id,
+//         status:socket.status,
+//         type:'',
+//         value: -1,
+//         avatar: defaultAvatar
+//     });
+//
+// };
+//
+// const playerRemove = socket => {
+//     players = players.filter(player => player.id !== socket.id);
+//     broadcastPlayers(socket);
+// };
 
-// connection io
+// eslint-disable-next-line no-shadow
+io.on('connection', (socket) => {
+    console.log("New connection : ",socket.id);
+
+    // registerNewPlayer(socket);
+    // eslint-disable-next-line no-undef
+    socket.on("ROOM:JOIN",(data)=>{
+        console.log( `user join the room ; ${data}`);
+           socket.join(data);
+
+    });
+    socket.on("USER:JOIN ROOM",(data)=>{
+        console.log(data);
+        socket.to(data.roomId).emit("ROOM:New user join",data.user);
+
+    });
+
+    socket.on('reset-game', (data) => {
+        console.log('reset-game: ', data);
+        players.forEach(player => player.value = -1);
+        // broadcastPlayers(data);
+        // resetGame(data);
+    });
+
+    socket.on('set-issue', value => {
+        console.log('set-issue: ', socket.id, value);
+
+        players.forEach(player => {
+            if (player.id === socket.id) {
+                player.name = value;
+            }
+        });
+
+        // broadcastPlayers(socket);
+    });
+
+    socket.on('select-card', value => {
+        console.log('select-card: ', socket.id, value);
+
+        players.forEach(player => {
+            if (player.id === socket.id) {
+                player.value = value;
+            }
+        });
+
+        // broadcastPlayers(socket);
+    });
+
+    socket.on("disconnect", socket => {
+        console.log("Client disconnected: ", socket.id);
+
+        // Update clients id.
+       // players = players.filter(player => player.id !== socket.id);
+       //  // playerRemove(socket);
+    });
+});
+
+
 
 server.listen(port, () => {
     console.log(`Listening to ${port}`);
