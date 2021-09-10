@@ -3,15 +3,7 @@ app=express();
 const server = require('http').createServer(app);
 const bodyParser=require('body-parser');
 const cors = require('cors');
-const io = require('socket.io')(server,{
-    cors: {
-        origin: "http://localhost:8080",
-        methods: ["GET", "POST"],
-        transports: ['websocket', 'polling'],
-        credentials: true
-    },
-    allowEIO3: true
-});
+
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -35,7 +27,6 @@ app.use( (req, res, next) => {
 });
 
 
-const users={}
 
 // app.get('/',(req,res)=>{
 //     res.send({rooms:rooms});
@@ -55,30 +46,10 @@ const users={}
 // })
 
 // connection io
-io.on('connection', (socket) => {
-
-    socket.on("join_room",(data)=>{
-        console.log( "user join the room" + data)
-        socket.join(data);
-
-    });
-    socket.on("join_user",(data)=>{
-        console.log(data)
-        socket.to(data.room).emit("receive_user",data.content)
-
-    });
-
-    socket.on("disconnect", () => {
-         console.log("user disconnected")
-    })
-});
-
-
-
 
 server.listen(port, () => {
     console.log(`Listening to ${port}`);
-})
+});
 
 
 
