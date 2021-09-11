@@ -49,31 +49,35 @@ app.get('/rooms',(req,res)=> {
 const rooms=new Map();
 
 
-
-const players = [];
+let players = [];
 
 const defaultAvatar = 'avatar';
 
-//
-// const broadcastPlayers = () => {
-//     players.forEach(player => {
-//         player.emit("players-update", players);
-//     });
-// };
 // const resetGame = () => {
 //    players.forEach(player => {
 //         player.emit("reset-game");
 //     });
 // };
 
-// const playerRemove = socket => {
-//     players = players.filter(player => player.id !== socket.id);
-//     broadcastPlayers(socket);
-// };
 
 // eslint-disable-next-line no-shadow
 io.on('connection', (socket) => {
     console.log("New connection : ",socket.id);
+
+   // function to show all info to all users
+    // eslint-disable-next-line no-shadow
+    const broadcastPlayers = (socket) => {
+    players.forEach(player => {
+        socket.emit("ROOM:show all users in Room", players);
+    });
+};
+    const playerRemove = data => {
+        // eslint-disable-next-line no-const-assign
+       players=players.filter(player => player.id !== data);
+        broadcastPlayers(socket);
+        console.log(players)
+    };
+
 
     // registerNewPlayer(socket);
     // eslint-disable-next-line no-undef
@@ -83,15 +87,17 @@ io.on('connection', (socket) => {
 
     });
     socket.on("USER:JOIN ROOM",(data)=>{
-        console.log(data);
         players.push(data.user);
-        console.log(players);
         // socket.to(data.roomId).emit("ROOM:New user join",data.user);
-        socket.emit("ROOM:all users in Room",players);
+        broadcastPlayers(socket);
     });
     socket.on('sendMessage',message=>{
         socket.emit("recieve-message",message);
-    })
+    });
+
+    socket.on("User:delete",(data)=>{
+       playerRemove(data)
+    });
 
     socket.on('reset-game', (data) => {
         console.log('reset-game: ', data);
@@ -102,7 +108,6 @@ io.on('connection', (socket) => {
 
     socket.on('set-issue', value => {
         console.log('set-issue: ', socket.id, value);
-
         players.forEach(player => {
             if (player.id === socket.id) {
                 player.name = value;

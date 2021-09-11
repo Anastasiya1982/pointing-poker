@@ -5,20 +5,23 @@ import Input from '../../components/input/Input';
 import ModalView from '../modalView/ModalView';
 import './contentMainPage.scss';
 
-// eslint-disable-next-line import/order
 import { io } from 'socket.io-client';
 
+
 const CONNECTION_PORT = 'http://localhost:5000';
-let  socket;
+let  socket:any;
 
 const ContentMainPage = () => {
   const [modalActive, setModalActive] = useState(false);
   const [roomId, setRoomId] = useState<number | null>(5);
   const [userList, setUserList] = useState([]);
   const [userName, setUserName] = useState('');
-  const [userInit,setUserInit]=useState(false)
+  const [userInit,setUserInit]=useState(false);
 
-
+const geterateRandomId=()=>{
+  const id=Math.floor(Math.random() *100);
+  return id;
+}
 
   useEffect(() => {
     socket = io(CONNECTION_PORT);
@@ -26,7 +29,7 @@ const ContentMainPage = () => {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-shadow
-    socket.on('ROOM:all users in Room', (users: any) => {
+    socket.on('ROOM:show all users in Room', (users: any) => {
      setUserList( users);
     });
   }, [userList]);
@@ -41,15 +44,25 @@ const ContentMainPage = () => {
     const user = {
       firstName: userName,
       lastName: 'www',
+      id:geterateRandomId()
     };
     // @ts-ignore
     setUserList([...userList, { ...user }]);
     socket.emit('USER:JOIN ROOM', { roomId, user });
     setUserInit(true);
     setUserName('');
-  }
+  };
+
+ const  deleteUser=(id:number)=> {
+   console.log(id);
+   socket.emit("User:delete", id);
+   //  удаляем юзера из стора
+
+ }
+
 
   console.log(userList);
+
 
   return (
     <div className="wrapper-content">
@@ -62,39 +75,20 @@ const ContentMainPage = () => {
       <div className="wrapper-connect">
         <h2 className="h2-main_page">OR:</h2>
         <p>Connect to lobby by URL:</p>
-        <Input
-          // value={value}
-          // onChange={onChange}
-        />
+        {/*<Input*/}
+        {/*  // value={value}*/}
+        {/*  // onChange={onChange}*/}
+        {/*/>*/}
 
         <Button label="Connect" TypeBtn="filled" onClick={() => console.log('click')}/>
 
         <ModalView active={modalActive} setActive={setModalActive}>
-
             <p>
               successfully connect: roomId:{roomId}
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure nemo maxime ad sequi
               sapiente harum eum odit ducimus, necessitatibus placeat! Doloremque eaque suscipit,
               fugiat nihil error tenetur corporis rem dolorem!
             </p>
-            <input
-              value={userName}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setUserName(e.currentTarget.value);
-              }}
-              placeholder="userName"
-            />
-            <button onClick={sendUser}>RegisterNewUser</button>
-            <div>
-              {userList.map((user) => {
-                return (
-                  <div key={user}>
-                    <div>userName: <span>{user.firstName}</span></div>
-                    <div>userLastName: <span>{user.lastName}</span></div>
-                  </div>
-                );
-              })}
-            </div>
         </ModalView>
       </div>
     </div>
