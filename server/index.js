@@ -42,16 +42,13 @@ app.use( (req, res, next) => {
     next();
 });
 
-app.get('/',(req,res)=> {
+app.get('/rooms',(req,res)=> {
     res.send({ room });
 });
 
-const room=new Map();
+const rooms=new Map();
 
-app.post('/room',(req,res)=> {
-    const {roomId}=req.body;
-    room.set()
-})
+
 
 const players = [];
 
@@ -68,21 +65,7 @@ const defaultAvatar = 'avatar';
 //         player.emit("reset-game");
 //     });
 // };
-//
-//
-// const addUser =socket => {
-//     players.push({
-//         firstName: socket.firstName,
-//         LastName:socket.lastName,
-//         id: socket.id,
-//         status:socket.status,
-//         type:'',
-//         value: -1,
-//         avatar: defaultAvatar
-//     });
-//
-// };
-//
+
 // const playerRemove = socket => {
 //     players = players.filter(player => player.id !== socket.id);
 //     broadcastPlayers(socket);
@@ -101,9 +84,14 @@ io.on('connection', (socket) => {
     });
     socket.on("USER:JOIN ROOM",(data)=>{
         console.log(data);
-        socket.to(data.roomId).emit("ROOM:New user join",data.user);
-
+        players.push(data.user);
+        console.log(players);
+        // socket.to(data.roomId).emit("ROOM:New user join",data.user);
+        socket.emit("ROOM:all users in Room",players);
     });
+    socket.on('sendMessage',message=>{
+        socket.emit("recieve-message",message);
+    })
 
     socket.on('reset-game', (data) => {
         console.log('reset-game: ', data);
