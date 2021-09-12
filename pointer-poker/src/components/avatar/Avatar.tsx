@@ -8,7 +8,7 @@ interface Props {
   className?: string;
 }
 
-const Avatar: FC<Props> = ({ img, fallbackText, className}) => {
+const Avatar: FC<Props> = ({ img, fallbackText, className }) => {
   const classes = classNames('avatar-info', className);
   return <div className={classes}>{img ? <img src={img} alt="" /> : fallbackText}</div>;
 };
