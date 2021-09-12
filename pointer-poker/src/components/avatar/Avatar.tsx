@@ -6,11 +6,12 @@ interface Props {
   img?: string;
   fallbackText: string;
   className?: string;
+  id?: string;
 }
 
-const Avatar: FC<Props> = ({ img, fallbackText, className }) => {
+const Avatar: FC<Props> = ({ img, fallbackText, className, id  }) => {
   const classes = classNames('avatar-info', className);
-  return <div className={classes}>{img ? <img src={img} alt="" /> : fallbackText}</div>;
+  return <div className={classes}>{img ? <img src={img} id={id} alt="" /> : fallbackText}</div>;
 };
 
 export default Avatar;
