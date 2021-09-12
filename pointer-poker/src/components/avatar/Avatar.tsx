@@ -1,9 +1,11 @@
+import classNames from 'classnames';
 import React, { FC } from 'react';
 import './avatar.scss';
 
 interface Props {
   img?: string  | undefined | HTMLImageElement;
   fallbackText?: string;
+  className?: string;
   id?: string;
 }
 
