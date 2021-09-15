@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import users from '../../usersStore';
 
 export interface GameState {
-  users: [];
+  users: Array<any>;
   isScrumMasterAPlayer: boolean;
   changingCardInRoundEnd: boolean;
   isTimerNeeded: boolean;
@@ -13,7 +14,7 @@ export interface GameState {
 }
 
 const initialState: GameState = {
-  users: [],
+  users,
   isScrumMasterAPlayer: false,
   changingCardInRoundEnd: false,
   isTimerNeeded: false,
@@ -29,7 +30,7 @@ export const gameSlice = createSlice({
   initialState,
   reducers: {
     setUsers: (state, action) => {
-      state.users = action.payload.data;
+      state.users =  [action.payload.data,...state.users];
     },
     setIsScrumMasterAPlayer: (state, action) => {
       state.isScrumMasterAPlayer = action.payload;

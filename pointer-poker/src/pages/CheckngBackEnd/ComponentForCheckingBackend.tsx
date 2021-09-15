@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import ModalView from '../modalView/ModalView';
+// eslint-disable-next-line import/no-unresolved
 import './contentMainPage.scss';
 
 import { io } from 'socket.io-client';

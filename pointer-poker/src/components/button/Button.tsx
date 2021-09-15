@@ -4,7 +4,7 @@ import './button.scss';
 
 interface Props {
   label: string,
-  onClick: () => void,
+  onClick: (e: any) => void;
   className?: string,
   TypeBtn:  'filled' | 'unfilled',
 }
@@ -18,7 +18,7 @@ const Button: FC<Props> = ({
   return (
     <button
       type="button"
-      className={classNames(TypeBtn==='filled' ? 'filledBtn' : 'unfilledBtn', className )} 
+      className={classNames(TypeBtn==='filled' ? 'filledBtn' : 'unfilledBtn', className )}
       onClick={onClick}
       >
       {label}

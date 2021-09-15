@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import './btnSwitch.scss';
 
 interface Props {
-  callback: () => void,
+  callback?: () => void,
 }
 
 const BtnSwitch: FC<Props> = (props: Props) => {

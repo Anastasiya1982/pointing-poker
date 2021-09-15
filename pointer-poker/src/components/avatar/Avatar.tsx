@@ -4,7 +4,7 @@ import './avatar.scss';
 
 interface Props {
   img?: string;
-  fallbackText: string;
+  fallbackText?: string;
   className?: string;
   id?: string;
 }

@@ -6,7 +6,7 @@ export interface UserState {
   lastName?: string;
   jobPosition: string;
   img: string;
-  id: string;
+  id: number| null;
   isScrumMaster: boolean;
   type: 'player' | 'observer';
 }
@@ -16,7 +16,7 @@ const initialState: UserState = {
   lastName: '',
   jobPosition: '',
   img: '',
-  id: '',
+  id: null,
   isScrumMaster: false,
   type: 'player',
 };
