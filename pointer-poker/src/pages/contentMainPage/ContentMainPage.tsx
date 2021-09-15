@@ -1,19 +1,18 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import ModalView from '../modalView/ModalView';
 import './contentMainPage.scss';
+import BtnSwitch from '../../components/btnSwitch/BtnSwitch';
+import Avatar from '../../components/avatar/Avatar';
+import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 
 const ContentMainPage = () => {
-
   const [modalActive, setModalActive] = useState(false);
-  
-  const openModalStartGame = useCallback(
-    () => {
-      setModalActive(true);
-    },
-    [],
-  );
+
+  const openModalStartGame = useCallback(() => {
+    setModalActive(true);
+  }, []);
 
   return (
     <div className="wrapper-content">
@@ -21,39 +20,35 @@ const ContentMainPage = () => {
       <div className="wrapper-start_game">
         <h2 className="h2-main_page">Start your planning:</h2>
         <span>Create session:</span>
-        <Button 
-          label={'Start new game'}
-          TypeBtn={'filled'}
-          onClick={openModalStartGame}
-        />
+        <Button label="Start new game" TypeBtn="filled" onClick={openModalStartGame} />
       </div>
       <div className="wrapper-connect">
         <h2 className="h2-main_page">OR:</h2>
         <p>Connect to lobby by URL:</p>
-        <Input 
+        <Input
         // value={value}
         // onChange={onChange}
         />
-        
-        <Button 
-          label={'Connect'}
-          TypeBtn={'filled'}
-          onClick={() => console.log('click')}
-        />
+
+        <Button label="Connect" TypeBtn="filled" onClick={() => console.log('click')} />
 
         <ModalView active={modalActive} setActive={setModalActive}>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure nemo maxime
-            ad sequi sapiente harum eum odit ducimus, necessitatibus placeat! 
-            Doloremque eaque suscipit, fugiat nihil error tenetur corporis rem dolorem!
-          </p>
+          <div className="wrapper-modal">
+            <div className="wrapper-header">
+              <div className="name-modal">Connect to lobby</div>
+              <div className="name-button">Connect as Observer</div>
+              <div className="wrapper-button">
+                <BtnSwitch callback={function (): void {}} />
+              </div>
+            </div>
+            <div className="wrapper-form">
+              <RegistrationForm setModalIsActive={setModalActive} />
+            </div>
+          </div>
         </ModalView>
-                
       </div>
-      
-
     </div>
-  )
-}
+  );
+};
 
 export default ContentMainPage;

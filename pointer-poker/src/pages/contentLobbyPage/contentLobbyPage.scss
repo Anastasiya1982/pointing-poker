@@ -1,0 +1,117 @@
+.lobby-page-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+}
+
+.lobby-page-scrum-master {
+  margin-left: 18%;
+  margin-bottom: 7px;
+}
+
+.lobby-page-scrum-master-title {
+  margin-bottom: 7px;
+}
+
+.lobby-page-entry {
+  margin-left: 18%;
+  margin-bottom: 30px;
+}
+
+.lobby-page-entry-title {
+  display: flex;
+  align-items: center;
+  height: 47px;
+}
+
+.lobby-page-input {
+  width: 276px;
+  height: 47px;
+}
+
+.lobby-page-button-copy {
+  width: 189px;
+  border-radius: 0px;
+  margin: 0px;
+}
+
+.lobby-page-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 18%;
+  margin-right: 18%;
+}
+
+.lobby-page-button-star-game {
+  margin: 0px;
+  width: 189px;
+  height: 47px;
+}
+
+.lobby-page-button-cancel-game {
+  margin: 0px;
+  width: 189px;
+  height: 47px;
+}
+
+.lobby-page-button-members {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lobby-page-button-members-title,
+.lobby-page-issues-title,
+.lobby-page-game-settings-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 118px;
+}
+
+.lobby-page-issues-plate {
+  margin-left: 18%;
+}
+
+.lobby-page-issues-plate-title {
+  margin-left: 5%;
+}
+
+.lobby-page-icon {
+  margin-right: 5%;
+}
+
+.btn-add-issues {
+  border: none;
+  background-color: white;
+  padding: 0 20px 0 0;
+}
+
+  .header-modal-lobby-addIssues {
+    font-weight: bold;
+    font-size: 44px;
+    line-height: 75px;
+    text-align: center;
+    margin: 0 0 34px 0;
+  }
+
+.footer-modal-lobby-addIssues {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper-content-modal-lobby-addIssues {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 15px 0;
+}
+
+.content-modal-lobby-addIssues {
+  margin: 0 0 113px 0;
+}
