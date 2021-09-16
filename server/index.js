@@ -82,12 +82,12 @@ io.on('connection', (socket) => {
     // registerNewPlayer(socket);
     // eslint-disable-next-line no-undef
     socket.on("ROOM:JOIN",(data)=>{
-        console.log( `user join the room ; ${data}`);
+        console.log( `connection to room  ; ${data}`);
            socket.join(data);
 
     });
-    socket.on("USER:JOIN ROOM",(data)=>{
-        players.push(data.user);
+    socket.on("USER:JOIN ROOM",({roomId, newUser})=>{
+        players.push(newUser);
         // socket.to(data.roomId).emit("ROOM:New user join",data.user);
         broadcastPlayers(socket);
     });

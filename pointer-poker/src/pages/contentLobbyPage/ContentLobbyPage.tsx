@@ -25,7 +25,7 @@ const ContentLobbyPage = () => {
     socket.emit('USER:JOIN ROOM', { roomId:5, newUser });
   },[newUser]);
 
-
+ 
   const master = players.find((player) => player.isScrumMaster === true);
 
   const openModalAddIssues = useCallback(() => {
