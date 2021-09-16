@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import './button.scss';
 
 interface Props {
-  label: string,
-  onClick: (e: any) => void;
+  label?: string,
+  onClick?: (e: any) => void;
   className?: string,
   TypeBtn:  'filled' | 'unfilled',
 }

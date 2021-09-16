@@ -42,27 +42,20 @@ app.use( (req, res, next) => {
     next();
 });
 
-app.get('/rooms',(req,res)=> {
-    res.send({ room });
+const rooms=new Map();
+app.get('/',(req,res)=> {
+    res.send(rooms);
 });
 
-const rooms=new Map();
-
-
 let players = [];
-
-const defaultAvatar = 'avatar';
-
-// const resetGame = () => {
-//    players.forEach(player => {
-//         player.emit("reset-game");
-//     });
-// };
+const connection=[];
+const messages=[];
 
 
 // eslint-disable-next-line no-shadow
 io.on('connection', (socket) => {
-    console.log("New connection : ",socket.id);
+    console.log("Успешное соединение  : ",socket.id);
+    connection.push(socket);
 
    // function to show all info to all users
     // eslint-disable-next-line no-shadow
@@ -88,11 +81,18 @@ io.on('connection', (socket) => {
     });
     socket.on("USER:JOIN ROOM",({roomId, newUser})=>{
         players.push(newUser);
-        // socket.to(data.roomId).emit("ROOM:New user join",data.user);
-        broadcastPlayers(socket);
+        console.log("всего игроков в комнате:", players)
+        socket.to(roomId).emit("ROOM:New user join",players);
+        // broadcastPlayers(socket);
     });
-    socket.on('sendMessage',message=>{
-        socket.emit("recieve-message",message);
+    // socket.on('sendMessage',({roomId, message})=>{
+    //     socket.to(roomId).emit("add-message",);
+    //     broadcastPlayers(socket);
+    // });
+
+    socket.on('sendMessage',(data)=>{
+        io.sockets.emit("add-message",{message:data});
+        // broadcastPlayers(socket);
     });
 
     socket.on("User:delete",(data)=>{
@@ -129,8 +129,10 @@ io.on('connection', (socket) => {
         // broadcastPlayers(socket);
     });
 
-    socket.on("disconnect", socket => {
+    socket.on("disconnect", (socket) => {
         console.log("Client disconnected: ", socket.id);
+        connection.splice(connection.indexOf(socket),1)
+
 
         // Update clients id.
        // players = players.filter(player => player.id !== socket.id);

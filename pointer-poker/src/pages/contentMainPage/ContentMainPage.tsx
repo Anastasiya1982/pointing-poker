@@ -4,7 +4,7 @@ import ModalView from '../modalView/ModalView';
 import './contentMainPage.scss';
 import BtnSwitch from '../../components/btnSwitch/BtnSwitch';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 import socket  from '../../socket';
 
 const CONNECTION_PORT = 'http://localhost:5000';
