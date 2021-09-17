@@ -10,13 +10,15 @@ const Countdown = ({ roundTime }: { roundTime: number }) => {
   const value = timerActive ? 'stop' : 'start';
 
   useEffect(() => {
-    let timer;
+    let timer: number | undefined;
     if (seconds > 0 && timerActive) {
       timer = setTimeout(() => setSeconds((prevSeconds) => prevSeconds - 1), 1000);
     } else {
       setTimerActive(false);
       clearTimeout(timer);
     }
+
+    return () => clearTimeout(timer);
   }, [seconds, timerActive]);
 
   return (
