@@ -1,10 +1,10 @@
-const users = [
+const usersStore = [
   {
     firstName: 'Valeria',
     lastName: 'III',
     jobPosition: 'developer',
     img: 'https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Emotes-face-angel-icon.png',
-    id: 10,
+    id: 100000,
     isScrumMaster: false,
     type: 'player',
   },
@@ -13,7 +13,7 @@ const users = [
     lastName: 'RRR',
     jobPosition: 'front-end',
     img: 'https://icons.iconarchive.com/icons/hopstarter/superhero-avatar/256/Avengers-Iron-Man-icon.png',
-    id: 12,
+    id: 120000,
     isScrumMaster: false,
     type: 'player',
   },
@@ -22,8 +22,8 @@ const users = [
     lastName: 'YYY',
     jobPosition: 'react-dev',
     img: 'https://icons.iconarchive.com/icons/hopstarter/superhero-avatar/256/Avengers-Iron-Man-icon.png',
-    id: 45,
-    isScrumMaster: true,
+    id: 450000,
+    isScrumMaster: false,
     type: 'player',
   },
   {
@@ -31,7 +31,7 @@ const users = [
     lastName: 'FDDD',
     jobPosition: 'master',
     img: 'https://icons.iconarchive.com/icons/hopstarter/superhero-avatar/256/Avengers-Iron-Man-icon.png',
-    id: 16,
+    id: 160000,
     isScrumMaster: false,
     type: 'player',
   },
@@ -40,10 +40,10 @@ const users = [
     lastName: 'LLMMH',
     jobPosition: 'trainy',
     img: '',
-    id: 5,
+    id: 5000,
     isScrumMaster: false,
     type: 'player',
   },
 ];
 
-export default users;
+export default usersStore;

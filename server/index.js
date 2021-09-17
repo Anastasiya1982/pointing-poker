@@ -57,13 +57,11 @@ io.on('connection', (socket) => {
     console.log("Успешное соединение  : ",socket.id);
     connection.push(socket);
 
-   // function to show all info to all users
-    // eslint-disable-next-line no-shadow
-    const broadcastPlayers = (socket) => {
-    players.forEach(player => {
-        socket.emit("ROOM:show all users in Room", players);
-    });
-};
+//     const broadcastPlayers = (socket) => {
+//     players.forEach(player => {
+//         io.sockets.emit("ROOM:show all users in Room", players);
+//     });
+// };
     const playerRemove = data => {
         // eslint-disable-next-line no-const-assign
        players=players.filter(player => player.id !== data);
@@ -79,24 +77,26 @@ io.on('connection', (socket) => {
            socket.join(data);
 
     });
-    socket.on("USER:JOIN ROOM",({roomId, newUser})=>{
+    socket.on("USER:JOIN ROOM",( newUser)=>{
         players.push(newUser);
-        console.log("всего игроков в комнате:", players)
-        socket.to(roomId).emit("ROOM:New user join",players);
+        console.log("Новый пользователь ",newUser.firstName);
+        console.log("всего игроков в комнате:", players.length)
+        io.sockets.emit("ROOM:New user join",{user:newUser});
         // broadcastPlayers(socket);
     });
-    // socket.on('sendMessage',({roomId, message})=>{
-    //     socket.to(roomId).emit("add-message",);
-    //     broadcastPlayers(socket);
-    // });
 
     socket.on('sendMessage',(data)=>{
         io.sockets.emit("add-message",{message:data});
         // broadcastPlayers(socket);
     });
 
-    socket.on("User:delete",(data)=>{
-       playerRemove(data)
+    socket.on("delete user",(id)=>{
+        console.log(id);
+        players=players.filter(player => player.id !== id);
+
+        io.sockets.emit(" User deleted from room" ,{data:id});
+        console.log("Игроков после удаленияЖ" ,players);
+
     });
 
     socket.on('reset-game', (data) => {
@@ -130,8 +130,9 @@ io.on('connection', (socket) => {
     });
 
     socket.on("disconnect", (socket) => {
-        console.log("Client disconnected: ", socket.id);
-        connection.splice(connection.indexOf(socket),1)
+        console.log("Client disconnected: ", socket);
+        connection.splice(connection.indexOf(socket),1);
+
 
 
         // Update clients id.

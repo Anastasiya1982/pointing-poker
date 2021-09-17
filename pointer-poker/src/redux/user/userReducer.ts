@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { act } from 'react-dom/test-utils';
 
 export interface UserState {
   firstName: string;
   lastName?: string;
   jobPosition: string;
-  img: string;
-  id: number| null;
+  img: string | null | {};
+  id: number | null;
   isScrumMaster: boolean;
-  type: 'player' | 'observer';
+  // type: 'player' | 'observer';
+  type: string;
 }
 
 const initialState: UserState = {
@@ -35,7 +36,7 @@ export const userSlice = createSlice({
       state.jobPosition = action.payload.value;
     },
     setImg: (state, action) => {
-      state.img = action.payload.value;
+      state.img = action.payload;
     },
     setId: (state, action) => {
       state.id = action.payload.value;
@@ -46,16 +47,28 @@ export const userSlice = createSlice({
     setType: (state, action) => {
       state.type = action.payload.value;
     },
+   setUser: (state, action) => {
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.jobPosition = action.payload.jobPosition;
+      state.id = action.payload.id;
+      state.img = action.payload.img;
+      state.type = action.payload.type;
+      state.isScrumMaster = action.payload;
+    },
   },
 });
+
+
 export const {
   setFirstName,
   setLastName,
   setJobPosition,
   setImg,
+  setType,
   setId,
   setIsScrumMaster,
-  setType,
+  setUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-use-before-define
 import React, { useCallback, useEffect, useState } from 'react';
-import Avatar from '../../components/avatar/Avatar';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import Plate from '../../components/plate/Plate';
@@ -11,25 +10,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ModalView from '../modalView/ModalView';
 import SelectModal from '../../components/selectModal/SelectModal';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import socket from '../../socket';
 import Chat from '../../components/Chat/Chat';
+
+import MembersInLobby from '../../components/MembersInLobby/MembersInLobby';
+import { useAppSelector } from '../../redux/hooks';
+import Avatar from '../../components/avatar/Avatar';
 
 const ContentLobbyPage = () => {
   const [modalActive, setModalActive] = useState(false);
-  const dispatch = useAppDispatch();
-  const newUser = useAppSelector((state) => state.user);
   const players = useAppSelector((state) => state.game.users);
 
-  useEffect(() => {
-    socket.emit('USER:JOIN ROOM', { roomId: 5, newUser });
-  }, [newUser]);
-
-  const master = players.find((player) => player.isScrumMaster === true);
 
   const openModalAddIssues = useCallback(() => {
     setModalActive(true);
   }, []);
+
+  const master = players.find((player) => player.isScrumMaster === true);
+
 
   return (
     <div className="lobby-page-content">
@@ -38,8 +35,8 @@ const ContentLobbyPage = () => {
         <div className="lobby-page-scrum-master">
           <div className="lobby-page-scrum-master-title"> Scrum Master:</div>
           <Plate>
-            <Avatar img={master.img} />
-            <span>name:{master.firstName}</span>
+             <Avatar img={master.img} fallbackText="SM" />
+             <span>name:{master.firstName}</span>
           </Plate>
         </div>
         <div className="lobby-page-entry">
@@ -67,23 +64,7 @@ const ContentLobbyPage = () => {
             className="lobby-page-button-cancel-game"
           />
         </div>
-        <div className="lobby-page-button-members">
-          <h3 className="lobby-page-button-members-title">Members:</h3>
-          <div className="lobby-page-button-members-container">
-            {players.map((player) => {
-              return (
-                <Plate>
-                  <Avatar img={player.img} fallbackText="avatar" />
-                  <span>name: {player.firstName}</span>
-                  <div>
-                    {' '}
-                    <span>status: {player.type}</span>
-                  </div>
-                </Plate>
-              );
-            })}
-          </div>
-        </div>
+        <MembersInLobby />
         <div className="lobby-page-issues-container">
           <div className="lobby-page-issues-title">Issues:</div>
           <div className="lobby-page-issues-plate">
