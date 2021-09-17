@@ -28,19 +28,19 @@ const Countdown = ({ roundTime }: { roundTime: number }) => {
             <div>
               <div className="smalltext">Minutes</div>
               <span className="minutes" id="minute">
-                {minutes}
+                {minutes < 10 ? '0' + minutes : minutes}
               </span>
             </div>
             <div>
               <div className="smalltext">Seconds</div>
               <span className="seconds" id="second">
-                {correctSeconds}
+                {correctSeconds < 10 ? '0' + correctSeconds : correctSeconds}
               </span>
             </div>
           </div>
         </div>
       ) : (
-        <button onClick={() => setSeconds(60)}>ещё раз</button>
+        <Button TypeBtn={'filled'} onClick={() => setSeconds(60)} label={'Once again'} />
       )}
     </div>
   );
