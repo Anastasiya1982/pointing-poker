@@ -29,7 +29,7 @@ const ContentLobbyPage: FC<Props> = ({ date }) => {
   const openModalAddIssues = useCallback(() => {
     setModalActive(true);
   }, []);
-
+  const isTimerTrue = useAppSelector((state) => state.game.isTimerNeeded);
   const [isMasterAPlayer, setIsMasterAPlayer] = useState(false);
   const [isTimer, setIsTimer] = useState(false);
   const score = useAppSelector((state) => state.game.scoreType);
@@ -47,7 +47,7 @@ const ContentLobbyPage: FC<Props> = ({ date }) => {
 
   const isTimeNeeded = () => {
     setIsTimer(!isTimer);
-    if (isTimer) {
+    if (!isTimer) {
       dispatch(setIsTimerNeeded(true));
     } else {
       dispatch(setIsTimerNeeded(false));
@@ -139,7 +139,7 @@ const ContentLobbyPage: FC<Props> = ({ date }) => {
 
         <div className="lobby-page-game-settings-round-time-container">
           <div>Round Time:</div>
-          <Countdown />
+          {isTimerTrue ? <Countdown /> : null}
         </div>
       </div>
       <ModalView active={modalActive} setActive={setModalActive}>
