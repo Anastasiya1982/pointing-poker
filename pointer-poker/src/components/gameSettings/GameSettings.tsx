@@ -17,14 +17,14 @@ const GameSettings = () => {
   const value = scoreType === 'story point' ? 'SP' : '%';
 
   const handleIsScrumMasterAPlayer = useCallback(
-    (event) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       dispatch(setIsScrumMasterAPlayer(event.target.checked));
     },
     [dispatch],
   );
 
   const handleIsTimerNeeded = useCallback(
-    (event) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       dispatch(setIsTimerNeeded(event.target.checked));
     },
     [dispatch],
@@ -71,12 +71,11 @@ const GameSettings = () => {
         <div>Score type (Short):</div>
         <p className="lobby-page-game-settings-short">{value}</p>
       </div>
-      {isTimerNeeded ? (
+      {isTimerNeeded && (
         <div className="lobby-page-game-settings-round-time-container">
-          <div>Round Time:</div>
-          <Countdown roundTime={90} />
+          <div>Round Time:</div> <Countdown roundTime={90} />
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
