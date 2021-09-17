@@ -1,47 +1,45 @@
-import React, { useRef, useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
+import Button from '../button/Button';
 import './timer.scss';
 
-const Countdown = () => {
-  const [seconds, setSeconds] = useState(20);
-  const [minutes, setMinutes] = useState(2);
+const Countdown = ({ roundTime }: { roundTime: number }) => {
+  const [seconds, setSeconds] = useState(roundTime);
   const [timerActive, setTimerActive] = useState(false);
+  const minutes = Math.floor(seconds / 60);
+  const correctSeconds = seconds % 60;
+  const value = timerActive ? 'stop' : 'start';
 
-  React.useEffect(() => {
+  useEffect(() => {
+    let timer;
     if (seconds > 0 && timerActive) {
-      setTimeout(setSeconds, 100, seconds - 1);
-      if (seconds === 0) {
-        setTimeout(setMinutes, 100, minutes - 1);
-      }
+      timer = setTimeout(() => setSeconds((prevSeconds) => prevSeconds - 1), 1000);
     } else {
       setTimerActive(false);
+      clearTimeout(timer);
     }
-  }, [seconds, timerActive, minutes]);
+  }, [seconds, timerActive]);
 
   return (
     <div>
       {seconds ? (
-        // <Fragment>
-        <div>
-          <button onClick={() => setTimerActive(!timerActive)}>
-            {timerActive ? 'stop' : 'start'}
-          </button>
+        <div className="timer-container">
+          <Button label={value} TypeBtn={'filled'} onClick={() => setTimerActive(!timerActive)} />
           <div id="clockdiv">
             <div>
+              <div className="smalltext">Minutes</div>
               <span className="minutes" id="minute">
                 {minutes}
               </span>
-              <div className="smalltext">Minutes</div>
             </div>
             <div>
-              <span className="seconds" id="second">
-                {seconds}
-              </span>
               <div className="smalltext">Seconds</div>
+              <span className="seconds" id="second">
+                {correctSeconds}
+              </span>
             </div>
           </div>
         </div>
       ) : (
-        // </Fragment>
         <button onClick={() => setSeconds(60)}>ещё раз</button>
       )}
     </div>
