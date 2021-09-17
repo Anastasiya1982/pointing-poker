@@ -41,7 +41,6 @@ const ContentLobbyPage: FC<Props> = ({ date }) => {
         />
       </div>
       <div className="lobby-page-button-container">
-        {' '}
         <Button
           label={'Start Game'}
           TypeBtn={'filled'}
