@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2ac4af43-c4b6-4afd-96a2-3baa1e9bb6a0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pointer-poker/src/components/avatar/Avatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pointer-poker/src/components/avatar/Avatar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,10 +36,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pointer-poker" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\ACER\AppData\Roaming\npm\node_modules\prettier" />
     <property name="ts.external.directory.path" value="D:\pointer-poker\pointing-poker\pointer-poker\node_modules\typescript\lib" />
@@ -55,6 +59,8 @@
       <updated>1631717674600</updated>
       <workItem from="1631717675789" duration="643000" />
       <workItem from="1631718320143" duration="700000" />
+      <workItem from="1631787135887" duration="3281000" />
+      <workItem from="1631964036217" duration="239000" />
     </task>
     <task id="LOCAL-00001" summary="try to fix idea problem">
       <created>1631717838660</created>
@@ -63,7 +69,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631717838660</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="try to fix idea problem">
+      <created>1631787224024</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1631787224024</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -74,14 +87,18 @@
     <option name="LAST_COMMIT_MESSAGE" value="try to fix idea problem" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="442" y="7" key="CommitChangelistDialog2" timestamp="1631717837971">
+    <state x="442" y="7" key="CommitChangelistDialog2" timestamp="1631787223398">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="442" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1631717837971" />
-    <state x="598" y="167" key="FileChooserDialogImpl" timestamp="1631719019774">
+    <state x="442" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1631787223398" />
+    <state x="598" y="167" key="FileChooserDialogImpl" timestamp="1631964272133">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="598" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1631719019774" />
+    <state x="598" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1631964272133" />
+    <state x="470" y="145" key="Vcs.Push.Dialog.v2" timestamp="1631787237049">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="470" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1631787237049" />
     <state x="627" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1631718281654">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
