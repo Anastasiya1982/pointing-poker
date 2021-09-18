@@ -31,7 +31,7 @@ export const gameSlice = createSlice({
   initialState,
   reducers: {
     setUsers: (state, action) => {
-      state.users = [action.payload.data, ...state.users];
+      state.users = [...action.payload.data, ...state.users];
     },
     deleteUser:(state,action )=>{
       state.users=state.users.filter(user=>user.id!==action.payload.id);

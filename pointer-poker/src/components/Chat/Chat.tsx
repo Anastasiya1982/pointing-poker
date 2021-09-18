@@ -4,6 +4,7 @@ import './Chat.scss';
 import Input from '../input/Input';
 import socket from '../../socket';
 import { useAppSelector } from '../../redux/hooks';
+import Message from '../Message/Message';
 
 const Chat = () => {
   const [message, setMessage] = useState('');
@@ -14,28 +15,24 @@ const Chat = () => {
   const user = useAppSelector((state) => state.user);
 
   const sendMessage = () => {
-    socket.emit('sendMessage', message);
+    socket.emit('sendMessage', {message,user});
     setMessage('');
   };
 
   useEffect(() => {
-    socket.on('add-message', (data) => {
-      const newList = messageList.slice();
-      // @ts-ignore
-      newList.push(data.message);
-      setMessageList(newList);
+   socket.on("receive-message", (data) => {
+         // @ts-ignore
+      setMessageList(prev=>[...prev,data]);
     });
-  }, [messageList]);
+  }, []);
 
   return (
     <div className="chat-container">
       <h3>Chat</h3>
       <div className="all-messages">
-        {messageList.map((msg) => {
+        {messageList.map((msg,index) => {
           return (
-            <div className="messageInChat" key={msg}>
-              <span>{msg}</span>
-            </div>
+              <Message key={index} message={msg.message} user={msg.user} />
           );
         })}
       </div>

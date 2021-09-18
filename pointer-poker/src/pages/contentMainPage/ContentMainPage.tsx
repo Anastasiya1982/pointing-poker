@@ -4,23 +4,20 @@ import ModalView from '../modalView/ModalView';
 import './contentMainPage.scss';
 import BtnSwitch from '../../components/btnSwitch/BtnSwitch';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
-// import { io } from 'socket.io-client';
 import socket  from '../../socket';
-
-const CONNECTION_PORT = 'http://localhost:5000';
-// let  socket:any;
 
 const ContentMainPage = () => {
   const [modalActive, setModalActive] = useState(false);
-  const [roomId, setRoomId] = useState<number | null>(5);
+  const [room, setRoom] = useState("myRoom");
 
-  // useEffect(() => {
-  //   socket = io(CONNECTION_PORT);
-  // }, [CONNECTION_PORT]);
+  useEffect(() => {
+
+  }, []);
 
   const openModalStartGame = useCallback(() => {
-    setRoomId(5);
-    socket.emit('ROOM:JOIN', roomId);
+    if(socket){
+      socket.emit('ROOM:JOIN',room);
+    }
     setModalActive(true);
   }, []);
 

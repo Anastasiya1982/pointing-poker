@@ -6,10 +6,11 @@ export interface UserState {
   lastName?: string;
   jobPosition: string;
   img: string | null | {};
-  id: number | null;
+  id: number | null | string;
   isScrumMaster: boolean;
   // type: 'player' | 'observer';
   type: string;
+  fallbackText:string
 }
 
 const initialState: UserState = {
@@ -20,6 +21,7 @@ const initialState: UserState = {
   id: null,
   isScrumMaster: false,
   type: 'player',
+  fallbackText:''
 };
 
 export const userSlice = createSlice({
@@ -47,6 +49,9 @@ export const userSlice = createSlice({
     setType: (state, action) => {
       state.type = action.payload.value;
     },
+    setFallbackText:(state,action)=>{
+      state.fallbackText=action.payload.value
+    },
    setUser: (state, action) => {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
@@ -54,7 +59,8 @@ export const userSlice = createSlice({
       state.id = action.payload.id;
       state.img = action.payload.img;
       state.type = action.payload.type;
-      state.isScrumMaster = action.payload;
+      state.isScrumMaster = action.payload.isScrumMaster;
+      state.fallbackText=action.payload.fallbackText
     },
   },
 });

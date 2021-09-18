@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { App } from './App';
+import 'react-toastify/dist/ReactToastify.css';
 import store from './redux/store';
 
 ReactDOM.render(

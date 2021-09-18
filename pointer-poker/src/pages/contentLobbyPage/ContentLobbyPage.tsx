@@ -14,17 +14,17 @@ import Chat from '../../components/Chat/Chat';
 
 import MembersInLobby from '../../components/MembersInLobby/MembersInLobby';
 import { useAppSelector } from '../../redux/hooks';
-import Avatar from '../../components/avatar/Avatar';
+ import Avatar from '../../components/avatar/Avatar';
+
 
 const ContentLobbyPage = () => {
   const [modalActive, setModalActive] = useState(false);
   const players = useAppSelector((state) => state.game.users);
-
+  const user = useAppSelector((state) => state.user);
 
   const openModalAddIssues = useCallback(() => {
     setModalActive(true);
   }, []);
-
   const master = players.find((player) => player.isScrumMaster === true);
 
 
@@ -35,13 +35,14 @@ const ContentLobbyPage = () => {
         <div className="lobby-page-scrum-master">
           <div className="lobby-page-scrum-master-title"> Scrum Master:</div>
           <Plate>
-             <Avatar img={master.img} fallbackText="SM" />
-             <span>name:{master.firstName}</span>
+             <Avatar img={user.img} fallbackText={master.fallbackText} />
+             <span>name:{user.firstName}</span>
           </Plate>
         </div>
         <div className="lobby-page-entry">
           <p className="lobby-page-entry-title">Link to lobby:</p>
-          {/* <Input className="lobby-page-input" /> */}
+           <Input className="lobby-page-input"  onChange={()=>{
+             console.log("enter the inventation link");}}/>
           <Button
             label="Copy"
             TypeBtn="filled"
@@ -50,7 +51,6 @@ const ContentLobbyPage = () => {
           />
         </div>
         <div className="lobby-page-button-container">
-          {' '}
           <Button
             label="Start Game"
             TypeBtn="filled"
@@ -84,11 +84,11 @@ const ContentLobbyPage = () => {
           <div className="content-modal-lobby-addIssues">
             <div className="wrapper-content-modal-lobby-addIssues">
               <span>Title:</span>
-              <Input />
+              <Input onChange={()=>{console.log("title")}} value='title'  />
             </div>
             <div className="wrapper-content-modal-lobby-addIssues">
               <span>Link:</span>
-              <Input />
+              <Input   onChange={()=>{console.log("Link to connection")}} value="Link for connection"/>
             </div>
             <div className="wrapper-content-modal-lobby-addIssues">
               <span>Priority:</span>
