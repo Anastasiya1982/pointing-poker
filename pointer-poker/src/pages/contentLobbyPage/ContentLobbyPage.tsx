@@ -29,7 +29,11 @@ const ContentLobbyPage: FC<Props> = () => {
     setModalActive(true);
   }, []);
 
-//   const master = players.find((player) => player.isScrumMaster === true);
+  console.log(user)
+  // let master;
+  // if(players){
+  //   master = players.filter((player) => player.isScrumMaster === true);
+  // }
 
   return (
     <div className="lobby-page-content">

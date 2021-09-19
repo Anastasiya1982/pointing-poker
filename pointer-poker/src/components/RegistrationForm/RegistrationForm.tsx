@@ -25,12 +25,12 @@ const RegistrationForm = (props: any) => {
   const newUser = useAppSelector((state) => state.user);
 
   const history = useHistory();
+
   useEffect(()=>{
     if(connected){
       socket.emit('handle-connection', newUser);
       history.push('/lobby');
     }
-
   },[connected]);
 
   const changeUserFirstName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -49,20 +49,19 @@ const RegistrationForm = (props: any) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
      let avat=getFallbackText(firstName,lastName);
+     let isMaster=(props.typeOfUser==='player'? false : true);
     dispatch(setUser({
                             firstName,
                             lastName,
                             jobPosition,
                             id:socket.id,
-                            isScrumMaster:true,
+                            isScrumMaster:isMaster,
                             img:img,
                             type:'player',
                             fallbackText:avat
 
     }));
     setConnected(true);
-    console.log('новый пользователь присоединился ', newUser)
-    // history.push('/lobby');
   };
 
   const onSetUserPhotoToAvatar=(event: any) => {
