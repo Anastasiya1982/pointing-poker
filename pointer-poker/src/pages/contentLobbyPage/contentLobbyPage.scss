@@ -71,9 +71,12 @@
   padding: 25px;
 }
 .lobby-page-button-members-container{
+  width: 100%;
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  & .plate{
+  justify-content: center;
+    & .plate{
     margin: 10px ;
   }
 }
