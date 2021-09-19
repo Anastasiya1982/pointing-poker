@@ -29,8 +29,6 @@ const MembersInLobby = () => {
     })
   },[newUser.id]);
 
-  // const master = players.find((player) => player.isScrumMaster === true);
-
   const deleteUser = (id: number|string) => {
     socket.emit('delete user', id);
   };
