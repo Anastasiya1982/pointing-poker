@@ -19,6 +19,8 @@ const Message:FC<MessagePropType>=({message,user})=>{
       <div className="messageTop">
         <Plate>
           <Avatar img={user.img} fallbackText={user.fallbackText} />
+          <div className="userName"> Name : <span>{user.firstName}</span></div>
+
         </Plate>
          <p className={classNameForCurrent}>{message}</p>
       </div>

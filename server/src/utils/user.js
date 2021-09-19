@@ -1,13 +1,15 @@
   let  users = [];
+  let muster;
 
   const userJoin = (userData) => {
   users.push(userData);
-    console.log(users);
   return users;
 };
   const userLeave = (id) => users = users.filter(user => user.id !== id);
 
   const getUsers = () => users;
+
+  const getScrumMaster = () =>muster;
 
 module.exports={
   userJoin,

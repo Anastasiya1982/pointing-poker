@@ -24,16 +24,14 @@ const ContentMainPage =() => {
   const enterLink=((event: ChangeEvent<HTMLInputElement>) => {
      setLinkToConnect(event.currentTarget.value)
   });
-console.log(linkToConnect)
-  // @ts-ignore
-  const connectToGameByLink=useCallback(()=>{
+
+  const connectToGameByLink = useCallback(()=>{
     if(linkToConnect===link){
       setType('player');
       socket.emit('ROOM:JOIN',"MyRoom");
       setModalActive(true);
-
     }
-  })
+  },[linkToConnect])
 
   return (
     <div className="wrapper-content">

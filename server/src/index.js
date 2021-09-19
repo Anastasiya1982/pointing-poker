@@ -47,10 +47,6 @@ app.get('/',(req,res)=> {
     res.send(rooms);
 });
 
-let players = [];
-
-// const messages=[];
-
 io.on('connection', (socket) => {
     console.log("Успешное соединение  : ", socket.id);
     socket.on("ROOM:JOIN",(data)=> {
@@ -59,18 +55,20 @@ io.on('connection', (socket) => {
     });
 
     socket.on('handle-connection', (newUser) => {
-        // players.push(newUser);
-        if (userUtils.userJoin( newUser)){
-            socket.emit("user-submit-successfully");
-            io.to("MyRoom").emit("get connected users",userUtils.getUsers())
-        }
+         if (userUtils.userJoin( newUser)) {
+             // socket.emit("user-submit-successfully");
+             io.to("MyRoom").emit("get connected users", userUtils.getUsers());
+         }
     });
 
     socket.on("sendMessage",(messageData)=>{
-        console.log(messageData);
            io.to("MyRoom").emit("receive-message",messageData)
       }
     )
+
+    // socket.on("show-user-scrumMuster",(user)=>{
+    //     io.to("MyRoom").emit("show-ScrumMuster-Data",user)
+    // })
 
   socket.on("disconnect",()=>{
       userUtils.userLeave(socket.id);
