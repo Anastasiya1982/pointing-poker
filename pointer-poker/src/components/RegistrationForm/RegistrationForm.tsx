@@ -1,66 +1,90 @@
-import React, { ChangeEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import Input from '../input/Input';
 import Avatar from '../avatar/Avatar';
 import './registrationForm.scss';
-// import { setFirstName, setJobPosition, setLastName, setAvatar } from '../../redux/user/userReducer';
-
+import {
+  setFirstName,
+  setJobPosition,
+  setLastName,
+  setUser,
+} from '../../redux/user/userReducer';
 import Button from '../button/Button';
+import { useHistory } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import socket from '../../socket';
+import { getFallbackText } from '../../utils/utils';
+
 
 const RegistrationForm = (props: any) => {
-  const [userName, setUserName] = useState('');
-  const [lastName, setUserLastName] = useState('');
-  const [position, setPosition] = useState('');
-  const [img, setImg] = useState('');
-  const dispatch = useDispatch();
+  const [firstName,setFirstName]=useState('');
+  const [lastName,setLastName]=useState('');
+  const [jobPosition,setJobPosition]=useState('')
+  const [img, setImage] = useState('');
+  const[connected,setConnected]=useState(false);
+  const dispatch = useAppDispatch();
+  const newUser = useAppSelector((state) => state.user);
+
+  const history = useHistory();
+  useEffect(()=>{
+    if(connected){
+      socket.emit('handle-connection', newUser);
+      history.push('/lobby');
+    }
+
+  },[connected]);
 
   const changeUserFirstName = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserName(event.currentTarget.value);
+   setFirstName(event.currentTarget.value);
   };
-
   const changeUserLastName = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget.value);
-    setUserLastName(event.currentTarget.value);
+   setLastName( event.currentTarget.value );
   };
   const changePosition = (event: ChangeEvent<HTMLInputElement>) => {
-    setPosition(event.target.value);
+    setJobPosition( event.target.value);
   };
   const closeModal = () => {
     props.setModalIsActive(false);
   };
-  // const handleSubmit = (e: any) => {
-  //   e.preventDefault();
-  //   dispatch(setFirstName({ value: userName }));
-  //   setUserName('')
-  //   dispatch(setLastName({ value: lastName }));
-  //   setUserLastName("")
-  //   dispatch(setJobPosition({ value: position }));
-  //   setPosition('')
-  //   dispatch(setAvatar({ value: img }));
-  //   console.log('form is submit');
-  // };
 
-  const onSetUserPhotoToAvatar = (event: any) => {
-    console.log(event.target.files[0]);
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+     let avat=getFallbackText(firstName,lastName);
+    dispatch(setUser({
+                            firstName,
+                            lastName,
+                            jobPosition,
+                            id:socket.id,
+                            isScrumMaster:true,
+                            img:img,
+                            type:'player',
+                            fallbackText:avat
+
+    }));
+    setConnected(true);
+    console.log('новый пользователь присоединился ', newUser)
+    // history.push('/lobby');
+  };
+
+  const onSetUserPhotoToAvatar=(event: any) => {
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        setImg(event.target.result);
+      let reader=new FileReader();
+      reader.onload=(event: any) => {
+        setImage(event.target.result);
       };
       reader.readAsDataURL(event.target.files[0]);
     }
   };
 
+
   return (
     <div>
       <form className="content-form">
         <label>Your first name:</label>
-        <Input className="input-modal" onChange={changeUserFirstName} value={userName} />
+        <Input className="input-modal" onChange={changeUserFirstName} value ={firstName} required={true} />
         <label>Your last name:</label>
-        <Input className="input-modal" onChange={changeUserLastName} value={lastName} />
+        <Input className="input-modal" onChange={changeUserLastName} value={lastName} required={true} />
         <label>Your job position:</label>
-        <Input className="input-modal" onChange={changePosition} value={position} />
-      </form>
+        <Input className="input-modal" onChange={changePosition} value ={jobPosition} />
       <div>
         <label>Image:</label>
         <input
@@ -71,14 +95,14 @@ const RegistrationForm = (props: any) => {
           onChange={onSetUserPhotoToAvatar}
         />
       </div>
-
       <div className="image-container" id="img-reset">
-        <Avatar img={img} fallbackText="someText" className="avatarReal" />
+        <Avatar img={img} fallbackText={newUser.fallbackText} className="avatarReal" />
       </div>
       <div className="wrapper-footer">
-        <Button label="Confirm" TypeBtn="filled" onClick={()=>console.log('Confirm')} />
+        <Button label="Confirm" TypeBtn="filled" onClick={handleSubmit} />
         <Button label="Cancel" TypeBtn="unfilled" onClick={closeModal} />
       </div>
+    </form>
     </div>
   );
 };

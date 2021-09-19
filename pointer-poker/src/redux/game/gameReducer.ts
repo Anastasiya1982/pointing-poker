@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { setUser } from '../user/userReducer';
+
 
 export interface GameState {
-  users: [];
+  users: Array<any>;
   isScrumMasterAPlayer: boolean;
   changingCardInRoundEnd: boolean;
   isTimerNeeded: boolean;
@@ -31,6 +33,9 @@ export const gameSlice = createSlice({
     setUsers: (state, action) => {
       state.users = action.payload.data;
     },
+    deleteUser:(state,action )=>{
+      state.users=state.users.filter(user=>user.id!==action.payload.id);
+    },
     setIsScrumMasterAPlayer: (state, action) => {
       state.isScrumMasterAPlayer = action.payload;
     },
@@ -55,6 +60,11 @@ export const gameSlice = createSlice({
     setCards: (state, action) => {
       state.cards = action.payload;
     },
+  },
+  extraReducers: (builder: any) => {
+    builder.addCase(setUser, (state: any, action: any) => {
+      state.users = [action.payload, ...state.users];
+    });
   },
 });
 

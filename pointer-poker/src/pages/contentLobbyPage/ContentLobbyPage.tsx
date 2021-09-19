@@ -1,13 +1,19 @@
+
 import React, { ChangeEvent, FC, useCallback, useEffect, useState } from 'react';
 import Avatar from '../../components/avatar/Avatar';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import Plate from '../../components/plate/Plate';
 import './contentLobbyPage.scss';
+// eslint-disable-next-line import/order
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faPlus, faDivide } from '@fortawesome/free-solid-svg-icons';
+
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ModalView from '../modalView/ModalView';
 import SelectModal from '../../components/selectModal/SelectModal';
+import Chat from '../../components/Chat/Chat';
+import MembersInLobby from '../../components/MembersInLobby/MembersInLobby';
+import { useAppSelector } from '../../redux/hooks';
 import GameSettings from '../../components/gameSettings/GameSettings';
 
 interface Props {
@@ -16,47 +22,50 @@ interface Props {
 
 const ContentLobbyPage: FC<Props> = ({ date }) => {
   const [modalActive, setModalActive] = useState(false);
+  const players = useAppSelector((state) => state.game.users);
+  const user = useAppSelector((state) => state.user);
 
   const openModalAddIssues = useCallback(() => {
     setModalActive(true);
   }, []);
-
+  
+//   const master = players.find((player) => player.isScrumMaster === true);
+  
   return (
-    <div className="lobby-page-wrapper">
-      <div className="date">{date}</div>
-      <div className="lobby-page-scrum-master">
-        <div className="lobby-page-scrum-master-title"> Scrum Master:</div>
-        <Plate>
-          <Avatar fallbackText="AB" />
-        </Plate>
-      </div>
-      <div className="lobby-page-entry">
-        <p className="lobby-page-entry-title">Link to lobby:</p>
-        <Input className={'lobby-page-input'} />
-        <Button
-          label={'Copy'}
-          TypeBtn={'filled'}
-          onClick={() => console.log('click')}
-          className={'lobby-page-button-copy'}
-        />
-      </div>
-      <div className="lobby-page-button-container">
-        <Button
-          label={'Start Game'}
-          TypeBtn={'filled'}
-          onClick={() => console.log('click')}
-          className={'lobby-page-button-star-game'}
-        />
-        <Button
-          label={'Cancel Game'}
-          TypeBtn={'unfilled'}
-          onClick={() => console.log('click')}
-          className={'lobby-page-button-cancel-game'}
-        />
-      </div>
-      <div className="lobby-page-button-members">
-        <p className="lobby-page-button-members-title">Members:</p>
-      </div>
+    <div className="lobby-page-content">
+      <div className="lobby-page-wrapper">
+        <div className="date">Spring 23 planning (issues 13, 533, 5623, 3252, 6623, ...)</div>
+        <div className="lobby-page-scrum-master">
+          <div className="lobby-page-scrum-master-title"> Scrum Master:</div>
+          <Plate>
+             <Avatar img={user.img} fallbackText={user.fallbackText} />
+             <span>name:{user.firstName}</span>
+          </Plate>
+        </div>
+        <div className="lobby-page-entry">
+          <p className="lobby-page-entry-title">Link to lobby:</p>
+           <Input className="lobby-page-input"  onChange={()=>{
+             console.log("enter the inventation link");}}/>
+          <Button
+            label="Copy"
+            TypeBtn="filled"
+            onClick={() => console.log('click')}
+            className="lobby-page-button-copy"
+          />
+        </div>
+        <div className="lobby-page-button-container">
+          <Button
+            label="Start Game"
+            TypeBtn="filled"
+            onClick={() => console.log('click')}
+            className="lobby-page-button-star-game"
+          />
+          <Button
+            label="Cancel Game"
+            TypeBtn="unfilled"
+            onClick={() => console.log('click')}
+            className="lobby-page-button-cancel-game"
+          /> 
       <div className="lobby-page-issues-container">
         <div className="lobby-page-issues-title">Issues:</div>
         <div className="lobby-page-issues-plate">
@@ -68,6 +77,7 @@ const ContentLobbyPage: FC<Props> = ({ date }) => {
           </Plate>
         </div>
       </div>
+      <MembersInLobby />   
       <GameSettings />
       <ModalView active={modalActive} setActive={setModalActive}>
         <div className="header-modal-lobby-addIssues">Create Issue</div>
@@ -88,8 +98,9 @@ const ContentLobbyPage: FC<Props> = ({ date }) => {
         <div className="footer-modal-lobby-addIssues">
           <Button label={'Yes'} TypeBtn={'filled'} onClick={() => console.log('Confirm')} />
           <Button label={'No'} TypeBtn={'unfilled'} onClick={() => setModalActive(false)} />
-        </div>
-      </ModalView>
+        </div>     
+       </div>
+      <Chat />
     </div>
   );
 };
