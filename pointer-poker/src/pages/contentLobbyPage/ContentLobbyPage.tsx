@@ -1,5 +1,6 @@
-// eslint-disable-next-line no-use-before-define
-import React, { useCallback, useEffect, useState } from 'react';
+
+import React, { ChangeEvent, FC, useCallback, useEffect, useState } from 'react';
+import Avatar from '../../components/avatar/Avatar';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import Plate from '../../components/plate/Plate';
@@ -11,13 +12,15 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ModalView from '../modalView/ModalView';
 import SelectModal from '../../components/selectModal/SelectModal';
 import Chat from '../../components/Chat/Chat';
-
 import MembersInLobby from '../../components/MembersInLobby/MembersInLobby';
 import { useAppSelector } from '../../redux/hooks';
- import Avatar from '../../components/avatar/Avatar';
+import GameSettings from '../../components/gameSettings/GameSettings';
 
+interface Props {
+  date: string;
+}
 
-const ContentLobbyPage = () => {
+const ContentLobbyPage: FC<Props> = ({ date }) => {
   const [modalActive, setModalActive] = useState(false);
   const players = useAppSelector((state) => state.game.users);
   const user = useAppSelector((state) => state.user);
@@ -25,9 +28,9 @@ const ContentLobbyPage = () => {
   const openModalAddIssues = useCallback(() => {
     setModalActive(true);
   }, []);
-  const master = players.find((player) => player.isScrumMaster === true);
-
-
+  
+//   const master = players.find((player) => player.isScrumMaster === true);
+  
   return (
     <div className="lobby-page-content">
       <div className="lobby-page-wrapper">
@@ -62,45 +65,41 @@ const ContentLobbyPage = () => {
             TypeBtn="unfilled"
             onClick={() => console.log('click')}
             className="lobby-page-button-cancel-game"
-          />
+          /> 
+      <div className="lobby-page-issues-container">
+        <div className="lobby-page-issues-title">Issues:</div>
+        <div className="lobby-page-issues-plate">
+          <Plate>
+            <div className="lobby-page-issues-plate-title">Crete new issues</div>
+            <button className="btn-add-issues" onClick={openModalAddIssues}>
+              <FontAwesomeIcon className="lobby-page-icon" icon={faPlus} />
+            </button>
+          </Plate>
         </div>
-        <MembersInLobby />
-        <div className="lobby-page-issues-container">
-          <div className="lobby-page-issues-title">Issues:</div>
-          <div className="lobby-page-issues-plate">
-            <Plate>
-              <div className="lobby-page-issues-plate-title">Crete new issues</div>
-              <button className="btn-add-issues" onClick={openModalAddIssues}>
-                <FontAwesomeIcon className="lobby-page-icon" icon={faPlus} />
-              </button>
-            </Plate>
-          </div>
-        </div>
-        <div className="lobby-page-game-settings">
-          <div className="lobby-page-game-settings-title">Game settings</div>
-        </div>
-        <ModalView active={modalActive} setActive={setModalActive}>
-          <div className="header-modal-lobby-addIssues">Create Issue</div>
-          <div className="content-modal-lobby-addIssues">
-            <div className="wrapper-content-modal-lobby-addIssues">
-              <span>Title:</span>
-              <Input onChange={()=>{console.log("title")}} value='title'  />
-            </div>
-            <div className="wrapper-content-modal-lobby-addIssues">
-              <span>Link:</span>
-              <Input   onChange={()=>{console.log("Link to connection")}} value="Link for connection"/>
-            </div>
-            <div className="wrapper-content-modal-lobby-addIssues">
-              <span>Priority:</span>
-              <SelectModal />
-            </div>
-          </div>
-          <div className="footer-modal-lobby-addIssues">
-            <Button label="Yes" TypeBtn="filled" onClick={() => console.log('Confirm')} />
-            <Button label="No" TypeBtn="unfilled" onClick={() => setModalActive(false)} />
-          </div>
-        </ModalView>
       </div>
+      <MembersInLobby />   
+      <GameSettings />
+      <ModalView active={modalActive} setActive={setModalActive}>
+        <div className="header-modal-lobby-addIssues">Create Issue</div>
+        <div className="content-modal-lobby-addIssues">
+          <div className="wrapper-content-modal-lobby-addIssues">
+            <span>Title:</span>
+            <Input />
+          </div>
+          <div className="wrapper-content-modal-lobby-addIssues">
+            <span>Link:</span>
+            <Input />
+          </div>
+          <div className="wrapper-content-modal-lobby-addIssues">
+            <span>Priority:</span>
+            <SelectModal />
+          </div>
+        </div>
+        <div className="footer-modal-lobby-addIssues">
+          <Button label={'Yes'} TypeBtn={'filled'} onClick={() => console.log('Confirm')} />
+          <Button label={'No'} TypeBtn={'unfilled'} onClick={() => setModalActive(false)} />
+        </div>     
+       </div>
       <Chat />
     </div>
   );

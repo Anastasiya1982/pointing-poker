@@ -19,7 +19,7 @@ const initialState: GameState = {
   isScrumMasterAPlayer: false,
   changingCardInRoundEnd: false,
   isTimerNeeded: false,
-  scoreType: 'SP',
+  scoreType: 'story point',
   startGame: false,
   timeOfRound: 1,
   issue: '',
