@@ -1,8 +1,15 @@
-export const getFallbackText=(str:string)=>{
-  let string= str;
-  const first = string[0];
-  const last = string[string.length-1];
-  let res=first.toUpperCase()+last.toUpperCase()
+export const getFallbackText=(firstName:string,lastName:string)=>{
+  const first = firstName[0];
+  let last;
+
+  if(lastName ===''){
+    last = firstName[firstName.length-1];
+  }
+  else {
+    last = lastName[0];
+  }
+
+  let res = first.toUpperCase()+last.toUpperCase()
   return res
 }
 export const generateRandomId = () => {

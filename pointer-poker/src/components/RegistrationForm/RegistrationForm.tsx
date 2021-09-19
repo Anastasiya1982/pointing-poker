@@ -16,6 +16,9 @@ import { getFallbackText } from '../../utils/utils';
 
 
 const RegistrationForm = (props: any) => {
+  const [firstName,setFirstName]=useState('');
+  const [lastName,setLastName]=useState('');
+  const [jobPosition,setJobPosition]=useState('')
   const [img, setImage] = useState('');
   const[connected,setConnected]=useState(false);
   const dispatch = useAppDispatch();
@@ -31,14 +34,13 @@ const RegistrationForm = (props: any) => {
   },[connected]);
 
   const changeUserFirstName = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setFirstName({ value: event.currentTarget.value }));
-
+   setFirstName(event.currentTarget.value);
   };
   const changeUserLastName = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setLastName({ value: event.currentTarget.value }));
+   setLastName( event.currentTarget.value );
   };
   const changePosition = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setJobPosition({ value: event.target.value }));
+    setJobPosition( event.target.value);
   };
   const closeModal = () => {
     props.setModalIsActive(false);
@@ -46,11 +48,11 @@ const RegistrationForm = (props: any) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-     let avat=getFallbackText(newUser.firstName);
+     let avat=getFallbackText(firstName,lastName);
     dispatch(setUser({
-                            firstName: newUser.firstName,
-                            lastName:newUser.lastName,
-                            jobPosition:newUser.jobPosition,
+                            firstName,
+                            lastName,
+                            jobPosition,
                             id:socket.id,
                             isScrumMaster:true,
                             img:img,
@@ -78,11 +80,11 @@ const RegistrationForm = (props: any) => {
     <div>
       <form className="content-form">
         <label>Your first name:</label>
-        <Input className="input-modal" onChange={changeUserFirstName} value ={newUser.firstName} required={true} />
+        <Input className="input-modal" onChange={changeUserFirstName} value ={firstName} required={true} />
         <label>Your last name:</label>
-        <Input className="input-modal" onChange={changeUserLastName} value={newUser.lastName} />
+        <Input className="input-modal" onChange={changeUserLastName} value={lastName} required={true} />
         <label>Your job position:</label>
-        <Input className="input-modal" onChange={changePosition} value ={newUser.jobPosition} />
+        <Input className="input-modal" onChange={changePosition} value ={jobPosition} />
       <div>
         <label>Image:</label>
         <input

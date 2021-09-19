@@ -11,21 +11,16 @@ interface MessagePropType {
   message:string
   user:UserState
 }
-
-
-
 const Message:FC<MessagePropType>=({message,user})=>{
   const player = useAppSelector((state) => state.user);
-  if(player.id==user.id){
-    console.log("Happy")
-  }
+  const classNameForCurrent=player.id==user.id?" myMessage":"messageText"
   return(
     <div className="message">
       <div className="messageTop">
         <Plate>
           <Avatar img={user.img} fallbackText={user.fallbackText} />
         </Plate>
-         <p className="messageText">{message}</p>
+         <p className={classNameForCurrent}>{message}</p>
       </div>
       <div className="messageBottom"></div>
 

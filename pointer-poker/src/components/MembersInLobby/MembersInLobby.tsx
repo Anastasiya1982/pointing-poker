@@ -24,8 +24,7 @@ const MembersInLobby = () => {
 
   useEffect(()=>{
     socket.on('get connected users',(users)=>{
-      let connectedUser=users.filter((user:any)=>user.id!==newUser.id);
-      dispatch(setUsers({data:connectedUser}))
+      dispatch(setUsers({data:users}))
     })
   },[newUser.id]);
 

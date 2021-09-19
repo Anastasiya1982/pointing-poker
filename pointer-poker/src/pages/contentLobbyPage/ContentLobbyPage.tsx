@@ -35,7 +35,7 @@ const ContentLobbyPage = () => {
         <div className="lobby-page-scrum-master">
           <div className="lobby-page-scrum-master-title"> Scrum Master:</div>
           <Plate>
-             <Avatar img={user.img} fallbackText={master.fallbackText} />
+             <Avatar img={user.img} fallbackText={user.fallbackText} />
              <span>name:{user.firstName}</span>
           </Plate>
         </div>
