@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { act } from 'react-dom/test-utils';
 
 export interface UserState {
   firstName: string;
@@ -10,7 +9,7 @@ export interface UserState {
   isScrumMaster: boolean;
   // type: 'player' | 'observer';
   type: string;
-  fallbackText:string
+  fallbackText: string;
 }
 
 const initialState: UserState = {
@@ -21,7 +20,7 @@ const initialState: UserState = {
   id: null,
   isScrumMaster: false,
   type: 'player',
-  fallbackText:''
+  fallbackText: '',
 };
 
 export const userSlice = createSlice({
@@ -49,10 +48,10 @@ export const userSlice = createSlice({
     setType: (state, action) => {
       state.type = action.payload.value;
     },
-    setFallbackText:(state,action)=>{
-      state.fallbackText=action.payload.value
+    setFallbackText: (state, action) => {
+      state.fallbackText = action.payload.value;
     },
-   setUser: (state, action) => {
+    setUser: (state, action) => {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.jobPosition = action.payload.jobPosition;
@@ -60,11 +59,10 @@ export const userSlice = createSlice({
       state.img = action.payload.img;
       state.type = action.payload.type;
       state.isScrumMaster = action.payload.isScrumMaster;
-      state.fallbackText=action.payload.fallbackText
+      state.fallbackText = action.payload.fallbackText;
     },
   },
 });
-
 
 export const {
   setFirstName,

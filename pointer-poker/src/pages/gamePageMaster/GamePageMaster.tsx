@@ -5,11 +5,13 @@ import ContentGamePageMaster from '../contentGamePageMaster/ContentGamePageMaste
 import './gamePageMaster.scss';
 
 const GamePageMaster = () => {
-  return <div className="wrapper-game-page-master">
-    <Header />
-    <ContentGamePageMaster />
-    <Footer />
-  </div>
+  return (
+    <div className="wrapper-game-page-master">
+      <Header />
+      <ContentGamePageMaster />
+      <Footer />
+    </div>
+  );
 };
 
 export default GamePageMaster;

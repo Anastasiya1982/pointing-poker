@@ -8,25 +8,26 @@ import { UserState } from '../../redux/user/userReducer';
 import { useAppSelector } from '../../redux/hooks';
 
 interface MessagePropType {
-  message:string
-  user:UserState
+  message: string;
+  user: UserState;
 }
-const Message:FC<MessagePropType>=({message,user})=>{
+const Message: FC<MessagePropType> = ({ message, user }) => {
   const player = useAppSelector((state) => state.user);
-  const classNameForCurrent=player.id==user.id?" myMessage":"messageText"
-  return(
+  const classNameForCurrent = player.id == user.id ? ' myMessage' : 'messageText';
+  return (
     <div className="message">
       <div className="messageTop">
         <Plate>
           <Avatar img={user.img} fallbackText={user.fallbackText} />
-          <div className="userName"> Name : <span>{user.firstName}</span></div>
-
+          <div className="userName">
+            {' '}
+            Name : <span>{user.firstName}</span>
+          </div>
         </Plate>
-         <p className={classNameForCurrent}>{message}</p>
+        <p className={classNameForCurrent}>{message}</p>
       </div>
-      <div className="messageBottom"></div>
-
+      <div className="messageBottom" />
     </div>
-  )
-}
-export default Message
+  );
+};
+export default Message;

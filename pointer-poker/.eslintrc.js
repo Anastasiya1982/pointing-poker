@@ -18,6 +18,7 @@ module.exports = {
   },
   rules: {
     'no-unused-vars': 'off',
+     "import/prefer-default-export": "off",
     "no-use-before-define": ["error", { "variables": false }],
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/no-var-requires': 'off',

@@ -10,21 +10,21 @@ import { setMessages } from '../../redux/chat/chatReducer';
 
 const Chat = () => {
   const [message, setMessage] = useState('');
-  const messagesList= useAppSelector((state) => state.chat.messages);
+  const messagesList = useAppSelector((state) => state.chat.messages);
   const user = useAppSelector((state) => state.user);
 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const createMassage = (e: ChangeEvent<HTMLInputElement>) => {
     setMessage(e.currentTarget.value);
   };
   const sendMessage = () => {
-    socket.emit('sendMessage', {message,user});
+    socket.emit('sendMessage', { message, user });
     setMessage('');
   };
   useEffect(() => {
-   socket.on("receive-message", (data) => {
-      dispatch(setMessages({data:data}));
+    socket.on('receive-message', (data) => {
+      dispatch(setMessages({ data }));
     });
   }, []);
 
@@ -32,10 +32,8 @@ const Chat = () => {
     <div className="chat-container">
       <h3>Chat</h3>
       <div className="all-messages">
-        {messagesList.map((msg,index) => {
-          return (
-              <Message key={index} message={msg.message} user={msg.user} />
-          );
+        {messagesList.map((msg, index) => {
+          return <Message key={index} message={msg.message} user={msg.user} />;
         })}
       </div>
       <div className="createMessage">

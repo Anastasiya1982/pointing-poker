@@ -7,6 +7,8 @@ interface PropsSelect {
 }
 
 const SelectModal: FC<PropsSelect> = ({ value, onChange }) => {
+
+
   return (
     <div>
       <label className="label-select-modal" htmlFor="priority">

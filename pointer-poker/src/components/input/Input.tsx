@@ -6,10 +6,10 @@ interface PropsInput {
   className?: string;
   value?: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  required?:boolean
+  required?: boolean;
 }
 
-const Input: FC<PropsInput> = ({ className, value, onChange,required }) => {
+const Input: FC<PropsInput> = ({ className, value, onChange, required }) => {
   const classes = classNames('input-modal-main-page', className);
   return <input type="text" onChange={onChange} value={value} className={classes} />;
 };

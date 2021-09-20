@@ -1,10 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
-
 export interface ChatState {
   messages: Array<any>;
-
 }
 
 const initialState: ChatState = {
@@ -16,13 +13,11 @@ export const chatSlice = createSlice({
   initialState,
   reducers: {
     setMessages: (state, action) => {
-      state.messages = [...state.messages,action.payload.data];
+      state.messages = [...state.messages, action.payload.data];
     },
   },
 });
 
-export const {
-  setMessages,
-} = chatSlice.actions;
+export const { setMessages } = chatSlice.actions;
 
 export default chatSlice.reducer;

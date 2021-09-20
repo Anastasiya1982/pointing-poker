@@ -33,6 +33,10 @@
         "prefer-promise-reject-errors": [
             "off"
         ],
+        "prefer-const": ["error", {
+            "destructuring": "any",
+            "ignoreReadBeforeAssign": false
+        }],
         "react/jsx-filename-extension": [
             "off"
         ],

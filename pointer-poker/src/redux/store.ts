@@ -6,7 +6,7 @@ import { chatSlice } from './chat/chatReducer';
 const rootReducer = combineReducers({
   user: userSlice.reducer,
   game: gameSlice.reducer,
-  chat:chatSlice.reducer
+  chat: chatSlice.reducer,
 });
 
 const store = configureStore({

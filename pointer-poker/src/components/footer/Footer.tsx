@@ -24,10 +24,10 @@ const Footer = () => {
         </div>
         <div className="year">2021</div>
         <div className="rsschool-wrapper">
-            <a className="rsschool-link" href="https://rs.school/react/">
+          <a className="rsschool-link" href="https://rs.school/react/">
             <img src="../../assets/rs_school_js.svg" alt="rs_logo" />
-            </a>
-          </div>
+          </a>
+        </div>
       </div>
     </div>
   );

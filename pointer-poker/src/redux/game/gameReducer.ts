@@ -1,18 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { setUser, UserState } from '../user/userReducer';
 
+export interface IssueType {
+  title: string;
+  priority?: string;
+}
 
 export interface GameState {
-  users: Array<any>;
+  users: Array<UserState>;
   isScrumMasterAPlayer: boolean;
   changingCardInRoundEnd: boolean;
   isTimerNeeded: boolean;
   scoreType: string;
   startGame: boolean;
   timeOfRound: number;
-  issue: string | number;
+  issue: IssueType | null;
+  issues: Array<IssueType>;
   cards: [];
-  scrumMaster:null| UserState;
+  scrumMaster: null | UserState;
 }
 
 const initialState: GameState = {
@@ -23,9 +28,12 @@ const initialState: GameState = {
   scoreType: 'story point',
   startGame: false,
   timeOfRound: 1,
-  issue: '',
+  issue: {
+    title: '',
+  },
+  issues: [],
   cards: [],
-  scrumMaster : null,
+  scrumMaster: null,
 };
 
 export const gameSlice = createSlice({
@@ -35,11 +43,11 @@ export const gameSlice = createSlice({
     setUsers: (state, action) => {
       state.users = action.payload.data;
     },
-    setScrumMusterData:(state,action)=>{
-      state.scrumMaster=action.payload.data;
+    setScrumMusterData: (state, action) => {
+      state.scrumMaster = action.payload.data;
     },
-    deleteUser:(state,action )=>{
-      state.users=state.users.filter(user=>user.id!==action.payload.id);
+    deleteUser: (state, action) => {
+      state.users = state.users.filter((user) => user.id !== action.payload.id);
     },
     setIsScrumMasterAPlayer: (state, action) => {
       state.isScrumMasterAPlayer = action.payload;
@@ -59,8 +67,12 @@ export const gameSlice = createSlice({
     setTimer: (state, action) => {
       state.timeOfRound = action.payload.value;
     },
+
     setIssue: (state, action) => {
-      state.issue = action.payload.value;
+      state.issue.title = action.payload.data;
+    },
+    setIssues: (state, action) => {
+      state.issues = action.payload.data;
     },
     setCards: (state, action) => {
       state.cards = action.payload;
@@ -70,6 +82,10 @@ export const gameSlice = createSlice({
     builder.addCase(setUser, (state: any, action: any) => {
       state.users = [action.payload, ...state.users];
     });
+    // // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    // builder.addCase(setIssue, (state: any, action: any) => {
+    //   state.issues = [action.payload, ...state.issues];
+    // });
   },
 });
 
@@ -83,6 +99,7 @@ export const {
   setStartGame,
   setTimer,
   setIssue,
+  setIssues,
   setCards,
 } = gameSlice.actions;
 

@@ -1,37 +1,36 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import Button from '../../components/button/Button';
 import ModalView from '../modalView/ModalView';
 import './contentMainPage.scss';
 import BtnSwitch from '../../components/btnSwitch/BtnSwitch';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
-import socket  from '../../socket';
+import socket from '../../socket';
 import Input from '../../components/input/Input';
 
-const ContentMainPage =() => {
+const ContentMainPage = () => {
   const [modalActive, setModalActive] = useState(false);
   const [linkToConnect, setLinkToConnect] = useState('');
-  const [type,setType]=useState('');
-  const link="http://localhost:5000/lobby/MyRoom";
-
+  const [type, setType] = useState('');
+  const link = 'http://localhost:5000/lobby/MyRoom';
 
   const startGameAsScrumMuster = useCallback(() => {
-    if(socket){
-      socket.emit('ROOM:JOIN',"MyRoom");
+    if (socket) {
+      socket.emit('ROOM:JOIN', 'MyRoom');
     }
     setModalActive(true);
   }, []);
 
-  const enterLink=((event: ChangeEvent<HTMLInputElement>) => {
-     setLinkToConnect(event.currentTarget.value)
-  });
+  const enterLink = (event: ChangeEvent<HTMLInputElement>) => {
+    setLinkToConnect(event.currentTarget.value);
+  };
 
-  const connectToGameByLink = useCallback(()=>{
-    if(linkToConnect===link){
+  const connectToGameByLink = useCallback(() => {
+    if (linkToConnect === link) {
       setType('player');
-      socket.emit('ROOM:JOIN',"MyRoom");
+      socket.emit('ROOM:JOIN', 'MyRoom');
       setModalActive(true);
     }
-  },[linkToConnect])
+  }, [linkToConnect]);
 
   return (
     <div className="wrapper-content">
@@ -44,10 +43,7 @@ const ContentMainPage =() => {
       <div className="wrapper-connect">
         <h2 className="h2-main_page">OR:</h2>
         <p>Connect to lobby by URL:</p>
-        <Input
-        value={linkToConnect}
-        onChange={enterLink}
-        />
+        <Input value={linkToConnect} onChange={enterLink} />
 
         <Button label="Connect" TypeBtn="filled" onClick={connectToGameByLink} />
 
@@ -57,7 +53,13 @@ const ContentMainPage =() => {
               <div className="name-modal">Connect to lobby</div>
               <div className="name-button">Connect as Observer</div>
               <div className="wrapper-button">
-                <BtnSwitch  checked={false} id="kkk" onChange={()=>{console.log("switch")}}/>
+                <BtnSwitch
+                  checked={false}
+                  id="kkk"
+                  onChange={() => {
+                    console.log('switch');
+                  }}
+                />
               </div>
             </div>
             <div className="wrapper-form">

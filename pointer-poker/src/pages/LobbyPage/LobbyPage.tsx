@@ -9,7 +9,7 @@ const LobbyPage = () => {
   return (
     <div className="wrapper-lobby-page">
       <Header />
-      <ContentLobbyPage  date={"data"}/>
+      <ContentLobbyPage date="data" />
       <Footer />
     </div>
   );

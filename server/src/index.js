@@ -21,6 +21,7 @@ const io = require('socket.io')(server,
 
 const dotenv = require('dotenv');
 const userUtils =require('./utils/user');
+const issueUtils = require('./utils/issues');
 
 dotenv.config();
 const host='127.0.0.1';
@@ -67,9 +68,12 @@ io.on('connection', (socket) => {
       }
     )
 
-    // socket.on("show-user-scrumMuster",(user)=>{
-    //     io.to("MyRoom").emit("show-ScrumMuster-Data",user)
-    // })
+  socket.on("create-new-issue",(issue)=>{
+    console.log(issue);
+         if(issueUtils.issueJoin(issue)){
+           io.to("MyRoom").emit("get created issues",issueUtils.getIssues());
+         }
+  })
 
   socket.on("disconnect",()=>{
       userUtils.userLeave(socket.id);

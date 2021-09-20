@@ -1,30 +1,30 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import Plate from '../plate/Plate';
 import Avatar from '../avatar/Avatar';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import socket from '../../socket';
 import { setUsers } from '../../redux/game/gameReducer';
-import { toast } from 'react-toastify';
 
 const MembersInLobby = () => {
   const newUser = useAppSelector((state) => state.user);
- const players = useAppSelector((state) => state.game.users);
+  const players = useAppSelector((state) => state.game.users);
 
   const dispatch = useAppDispatch();
 
-  useEffect(()=>{
-    socket.on('get connected users',(users)=>{
-      dispatch(setUsers({data:users}))
-    })
-  },[newUser.id]);
+  useEffect(() => {
+    socket.on('get connected users', (users) => {
+      dispatch(setUsers({ data: users }));
+    });
+  }, [newUser.id]);
 
-  const deleteUser = (id: number|string) => {
+  const deleteUser = (id: number | string) => {
     socket.emit('delete user', id);
   };
 
   socket.on(' User deleted from room', (data) => {
-    console.log("User deleted from room",data);
+    console.log('User deleted from room', data);
     // dispatch(deleteUser({ id: data.id }));
   });
   return (
@@ -39,7 +39,7 @@ const MembersInLobby = () => {
               <div>
                 <span>status: {player.type}</span>
               </div>
-              <button onClick={() => deleteUser(player.id)}>Х</button>
+              <button onClick={() =>{console.log("delete")}}>Х</button>
             </Plate>
           );
         })}
