@@ -42,14 +42,11 @@ const ContentLobbyPage: FC<Props> = () => {
  // }
  //  },[isScrumMuster]);
  //
- //  useEffect(()=>{
- //    socket.on("show-ScrumMuster-Data",(user)=>{
- //      dispatch(setScrumMusterData({data:user}))
- //    })
- //  },[socket]);
-
-
-
+  useEffect(()=>{
+    socket.on("show-ScrumMuster-Data",(user)=>{
+      dispatch(setScrumMusterData({data:user}))
+    })
+  },[user]);
   console.log(master);
   return (
     <div className="lobby-page-content">

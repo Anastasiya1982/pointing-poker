@@ -58,6 +58,7 @@ io.on('connection', (socket) => {
          if (userUtils.userJoin( newUser)) {
              // socket.emit("user-submit-successfully");
              io.to("MyRoom").emit("get connected users", userUtils.getUsers());
+             io.to("MyRoom").emit("show-ScrumMuster-Data",userUtils.getMaster())
          }
     });
 

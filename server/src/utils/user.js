@@ -1,7 +1,10 @@
   let  users = [];
-  let muster;
+  let master;
 
   const userJoin = (userData) => {
+    if(userData.isScrumMaster===true){
+      master=userData;
+    }
   users.push(userData);
   return users;
 };
@@ -9,10 +12,12 @@
 
   const getUsers = () => users;
 
-  const getScrumMaster = () =>muster;
+  const getMaster=()=>master;
+
 
 module.exports={
   userJoin,
   userLeave,
-  getUsers
+  getUsers,
+  getMaster
 };
