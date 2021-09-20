@@ -27,5 +27,6 @@ transition: 0.4s all;
 }
 
 .modal-content.active {
+  padding: 20px;
   transform: scale(1);
 }

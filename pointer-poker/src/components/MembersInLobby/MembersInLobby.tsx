@@ -13,15 +13,6 @@ const MembersInLobby = () => {
 
   const dispatch = useAppDispatch();
 
-
-  useEffect(()=>{
-    socket.on('user-submit-successfully', () => {
-      console.log('user-submit-successfully');
-     // dispatch((setUsers({data:data.user})));
-  })
-
-  },[]);
-
   useEffect(()=>{
     socket.on('get connected users',(users)=>{
       dispatch(setUsers({data:users}))

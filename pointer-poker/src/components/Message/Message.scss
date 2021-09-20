@@ -12,6 +12,7 @@
 }
 .messageTop{
   display: flex;
+
 }
 .messageText{
   padding: 10px;
@@ -30,4 +31,7 @@
   max-width: 120px;
   width: 100%;
   margin-left: 15px;
+}
+.userName{
+  width: 60%;
 }

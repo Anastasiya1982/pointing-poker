@@ -7,6 +7,7 @@ import './Main.scss';
 const Main = () => {
   return <div className="wrapper-main_page">
     <Header />
+      <h3>  connection link <span> http://localhost:5000/lobby/MyRoom </span></h3>
     <ContentMainPage />
     <Footer />
   </div>
