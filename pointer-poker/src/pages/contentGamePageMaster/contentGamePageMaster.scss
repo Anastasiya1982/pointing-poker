@@ -1,0 +1,29 @@
+.wrapper-content-PM {
+  display: flex;
+  height: 100vh;
+}
+.content-PM {
+width: 60vw;
+}
+
+.wrapper-score {
+  width: 40vw;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.vl {
+  border-left: 2px solid rgb(24, 29, 24);
+}
+
+.wrapper-panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+}
