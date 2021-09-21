@@ -17,6 +17,8 @@ const RegistrationForm = (props: any) => {
   const [connected, setConnected] = useState(false);
   const dispatch = useAppDispatch();
   const newUser = useAppSelector((state) => state.user);
+  const [userNameError, setUserNameError] = useState('The field cannot be empty');
+  const [formValid, setFormValid] = useState(false);
 
   const history = useHistory();
 
@@ -24,11 +26,23 @@ const RegistrationForm = (props: any) => {
     if (connected) {
       socket.emit('handle-connection', newUser);
       history.push('/lobby');
+    } if ( userNameError)
+  {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
     }
-  }, [connected]);
+
+  }, [connected, userNameError]);
 
   const changeUserFirstName = (event: ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.currentTarget.value);
+    const re = /^[a-zA-Z ]+$/;
+    if (!re.test(String(event.currentTarget.value).toLowerCase())) {
+      setUserNameError('Invalid name');
+    } else {
+      setUserNameError('');
+    }
   };
   const changeUserLastName = (event: ChangeEvent<HTMLInputElement>) => {
     setLastName(event.currentTarget.value);
@@ -73,7 +87,10 @@ const RegistrationForm = (props: any) => {
     <div>
       <form className="content-form">
         <label>Your first name:</label>
-        <Input className="input-modal" onChange={changeUserFirstName} value={firstName} required />
+        <div className="input-name">
+        <Input className="input-modal" onChange={changeUserFirstName} value={firstName} required={true} />
+        {  userNameError && (<div style={{ color: 'red' }}>{userNameError}</div>)}
+        </div>
         <label>Your last name:</label>
         <Input className="input-modal" onChange={changeUserLastName} value={lastName} required />
         <label>Your job position:</label>
@@ -92,7 +109,7 @@ const RegistrationForm = (props: any) => {
           <Avatar img={img} fallbackText={newUser.fallbackText} className="avatarReal" />
         </div>
         <div className="wrapper-footer">
-          <Button label="Confirm" TypeBtn="filled" onClick={handleSubmit} />
+          <Button label="Confirm" TypeBtn="filled" onClick={handleSubmit} disabled={!formValid}/>
           <Button label="Cancel" TypeBtn="unfilled" onClick={closeModal} />
         </div>
       </form>
