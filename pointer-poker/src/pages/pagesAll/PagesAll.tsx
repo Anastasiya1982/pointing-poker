@@ -7,12 +7,8 @@ const PagesAll = () => {
   return (
     <div className="pages">
       <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        <Route path="/lobby">
-          <LobbyPage />
-        </Route>
+        <Route exact path="/" component={Main} />
+        <Route path="/lobby" component={LobbyPage} />
       </Switch>
     </div>
   );
