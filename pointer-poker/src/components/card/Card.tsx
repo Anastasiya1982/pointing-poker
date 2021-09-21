@@ -5,31 +5,27 @@ import './card.scss';
 import Cup from '../../assets/coffee.png';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { setSelectedCardNumber } from '../../redux/game/gameReducer';
+import { setSelectedCard } from '../../redux/game/gameReducer';
 
 interface CardProps {
-  number: number | string;
+  number: number;
   id: string;
+  // onClick: () => void;
+  className: string;
 }
 
-const Card: FC<CardProps> = ({ number, id }) => {
+const Card: FC<CardProps> = ({ number, id, className }) => {
   const dispatch = useAppDispatch();
   const scoreType = useAppSelector((state) => state.game.scoreType);
-  const isSelectedCard = useAppSelector((state) => state.game.selectedCardNumber);
   const value = scoreType === 'story point' ? 'SP' : '%';
-  const [active, setActive] = useState(false);
+  const classes = classNames('card-container ', className);
 
-  const handleActiveClass = useCallback(
-    (event: MouseEvent<HTMLDivElement>) => {
-      setActive(!active);
-      dispatch(setSelectedCardNumber(number));
-    },
-    [active, dispatch],
-  );
-  console.log(isSelectedCard);
+  const handleChangeActiveCard = useCallback(() => {
+    dispatch(setSelectedCard({ id, number }));
+  }, [dispatch, id, number]);
 
   return (
-    <div onClick={handleActiveClass} className={active ? 'active-card' : 'card-container'} id={id}>
+    <div className={classes} onClick={handleChangeActiveCard} id={id}>
       {number === 0 ? (
         <div className="card-coffee">
           <div className="card-unknown">unknown</div>
