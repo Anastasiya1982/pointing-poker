@@ -69,11 +69,16 @@ io.on('connection', (socket) => {
       }
     );
 
-  socket.on("create-new-issue",(issue)=>{
+    socket.on("create-new-issue",(issue)=>{
          if(issueUtils.issueJoin(issue)){
            io.to("MyRoom").emit("get created issues",issueUtils.getIssues());
          }
   });
+    socket.on("delete user",(user)=>{
+     userUtils.userLeave(user.id);
+     console.log(userUtils.getUsers())
+     io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
+    })
 
   socket.on('delete issue',(currentIssue)=>{
     issueUtils.deleteIssue(currentIssue.title);

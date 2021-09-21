@@ -20,6 +20,7 @@ const Button: FC<Props> = ({ label, onClick, className, TypeBtn, disabled }) => 
       onClick={onClick}
       disabled={disabled}
     >
+
       {label}
     </button>
   );
