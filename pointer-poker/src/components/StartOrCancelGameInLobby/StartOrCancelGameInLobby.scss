@@ -1,0 +1,39 @@
+.lobby-page-entry {
+  margin-left: 18%;
+  margin-bottom: 30px;
+}
+.lobby-page-entry-title {
+  display: flex;
+  align-items: center;
+  height: 47px;
+}
+
+.lobby-page-input {
+  width: 276px;
+  height: 47px;
+}
+
+.lobby-page-button-copy {
+  width: 189px;
+  border-radius: 0px;
+  margin: 0px;
+}
+
+.lobby-page-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 18%;
+  margin-right: 18%;
+}
+
+.lobby-page-button-star-game {
+  margin: 0px;
+  width: 189px;
+  height: 47px;
+}
+
+.lobby-page-button-cancel-game {
+  margin: 0px;
+  width: 189px;
+  height: 47px;
+}
