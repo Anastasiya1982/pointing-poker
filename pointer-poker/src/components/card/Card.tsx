@@ -10,7 +10,6 @@ import { setSelectedCard } from '../../redux/game/gameReducer';
 interface CardProps {
   number: number;
   id: string;
-  // onClick: () => void;
   className: string;
 }
 

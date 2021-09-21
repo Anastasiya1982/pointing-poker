@@ -10,12 +10,8 @@ export interface GameState {
   startGame: boolean;
   timeOfRound: number;
   issue: string | number;
-  cards: [
-    { id: string; value: number },
-    { id: string; value: number },
-    { id: string; value: number },
-    { id: string; value: number },
-  ];
+  cards: Array<{ id: string; value: number }>;
+
   selectedCard: { id: string; value: number } | null;
 }
 
@@ -69,8 +65,9 @@ export const gameSlice = createSlice({
       state.issue = action.payload.value;
     },
     setCards: (state, action) => {
-      state.cards = action.payload;
+      state.cards = [...state.cards, action.payload];
     },
+
     setSelectedCard: (state, action) => {
       state.selectedCard = action.payload;
     },
