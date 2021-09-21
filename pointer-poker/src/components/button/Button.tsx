@@ -17,7 +17,7 @@ const Button: FC<Props> = ({ label, onClick, className, TypeBtn }) => {
       type="button"
       className={classNames(TypeBtn === 'filled' ? 'filledBtn' : 'unfilledBtn', className)}
       onClick={onClick}
-    >
+      >
       {label}
     </button>
   );

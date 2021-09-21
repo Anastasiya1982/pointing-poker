@@ -76,9 +76,7 @@ export const gameSlice = createSlice({
     setIssues: (state, action) => {
       state.issues = action.payload.data;
     },
-    // deleteIssue:(state,action)=>{
-    //   state.issues=state.issues.filter(issue=>issue!==action.payload);
-    // },
+
     setCards: (state, action) => {
       state.cards = action.payload;
     },
@@ -87,10 +85,7 @@ export const gameSlice = createSlice({
     builder.addCase(setUser, (state: any, action: any) => {
       state.users = [action.payload, ...state.users];
     });
-    // // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    // builder.addCase(setIssue, (state: any, action: any) => {
-    //   state.issues = [action.payload, ...state.issues];
-    // });
+
   },
 });
 

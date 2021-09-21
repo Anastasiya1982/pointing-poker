@@ -1,11 +1,7 @@
 import React, { ChangeEvent, FC, useCallback, useEffect, useState } from 'react';
 import Avatar from '../../components/avatar/Avatar';
-import Button from '../../components/button/Button';
-import Input from '../../components/input/Input';
 import Plate from '../../components/plate/Plate';
 import './contentLobbyPage.scss';
-import ModalView from '../modalView/ModalView';
-import SelectModal from '../../components/selectModal/SelectModal';
 import Chat from '../../components/Chat/Chat';
 import MembersInLobby from '../../components/MembersInLobby/MembersInLobby';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -15,7 +11,6 @@ import socket from '../../socket';
 import { setScrumMusterData } from '../../redux/game/gameReducer';
 import StartOrCancelGameInLobby from '../../components/StartOrCancelGameInLobby/StartOrCancelGameInLobby';
 
-
 interface Props {
   date: string;
 }
@@ -24,8 +19,6 @@ const ContentLobbyPage: FC<Props> = () => {
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const master = useAppSelector((state) => state.game.scrumMaster);
-
-
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
 
   useEffect(() => {
@@ -49,7 +42,7 @@ const ContentLobbyPage: FC<Props> = () => {
         <MembersInLobby />
         {isScrumMuster ? (
           <>
-            <IssueComponent  />
+            <IssueComponent />
             <GameSettings />
           </>
         ) : (
