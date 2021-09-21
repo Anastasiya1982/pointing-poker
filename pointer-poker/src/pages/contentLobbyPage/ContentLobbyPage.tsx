@@ -10,6 +10,7 @@ import IssueComponent from '../../components/Issue/IssueComponent';
 import socket from '../../socket';
 import { setScrumMusterData } from '../../redux/game/gameReducer';
 import StartOrCancelGameInLobby from '../../components/StartOrCancelGameInLobby/StartOrCancelGameInLobby';
+import CardsLobby from '../../components/cardsLobby/CardsLobby';
 
 interface Props {
   date: string;
@@ -44,11 +45,13 @@ const ContentLobbyPage: FC<Props> = () => {
           <>
             <IssueComponent />
             <GameSettings />
+            <CardsLobby />
           </>
         ) : (
           ''
         )}
       </div>
+
       <Chat />
     </div>
   );
