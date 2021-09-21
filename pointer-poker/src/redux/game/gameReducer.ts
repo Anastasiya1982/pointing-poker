@@ -88,7 +88,6 @@ export const gameSlice = createSlice({
     setCards: (state, action) => {
       state.cards = [...state.cards, action.payload];
     },
-
     setSelectedCard: (state, action) => {
       state.selectedCard = action.payload;
     },
