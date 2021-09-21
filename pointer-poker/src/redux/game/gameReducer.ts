@@ -16,7 +16,7 @@ export interface GameState {
     { id: string; value: number },
     { id: string; value: number },
   ];
-  selectedCardNumber: string;
+  selectedCard: { id: string; value: number } | null;
 }
 
 const initialState: GameState = {
@@ -34,7 +34,7 @@ const initialState: GameState = {
     { id: '3', value: 1 },
     { id: '4', value: 13 },
   ],
-  selectedCardNumber: '',
+  selectedCard: null,
 };
 
 export const gameSlice = createSlice({
@@ -71,8 +71,8 @@ export const gameSlice = createSlice({
     setCards: (state, action) => {
       state.cards = action.payload;
     },
-    setSelectedCardNumber: (state, action) => {
-      state.selectedCardNumber = action.payload;
+    setSelectedCard: (state, action) => {
+      state.selectedCard = action.payload;
     },
   },
   extraReducers: (builder: any) => {
@@ -92,7 +92,7 @@ export const {
   setTimer,
   setIssue,
   setCards,
-  setSelectedCardNumber,
+  setSelectedCard,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
