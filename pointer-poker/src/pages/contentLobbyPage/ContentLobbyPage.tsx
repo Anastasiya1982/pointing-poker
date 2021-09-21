@@ -14,6 +14,10 @@ import Chat from '../../components/Chat/Chat';
 import MembersInLobby from '../../components/MembersInLobby/MembersInLobby';
 import { useAppSelector } from '../../redux/hooks';
 import GameSettings from '../../components/gameSettings/GameSettings';
+import IssueComponent from '../../components/Issue/IssueComponent';
+import socket from '../../socket';
+import { setScrumMusterData } from '../../redux/game/gameReducer';
+import StartOrCancelGameInLobby from '../../components/StartOrCancelGameInLobby/StartOrCancelGameInLobby'
 import CardsLobby from '../../components/cardsLobby/CardsLobby';
 
 interface Props {
@@ -30,6 +34,11 @@ const ContentLobbyPage: FC<Props> = () => {
   }, []);
 
   //   const master = players.find((player) => player.isScrumMaster === true);
+  useEffect(() => {
+    socket.on('show-ScrumMuster-Data', (user) => {
+      dispatch(setScrumMusterData({ data: user }));
+    });
+  }, [dispatch]);
 
   return (
     <div className="lobby-page-content">
@@ -119,6 +128,20 @@ const ContentLobbyPage: FC<Props> = () => {
             <Button label={'No'} TypeBtn={'unfilled'} onClick={() => setModalActive(false)} />
           </div>
         </ModalView>
+        <Avatar img={master?.img} fallbackText={master?.fallbackText} />
+            <span>name:{master?.firstName}</span>
+          </Plate>
+        </div>
+        {isScrumMuster ? <StartOrCancelGameInLobby /> : ''}
+        <MembersInLobby />
+        {isScrumMuster ? (
+          <>
+            <IssueComponent  />
+            <GameSettings />
+          </>
+        ) : (
+          ''
+        )}
       </div>
       <Chat />
     </div>
