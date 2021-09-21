@@ -1,0 +1,86 @@
+
+.lobby-page-issues-title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 118px;
+}
+.lobby-page-issues-plate {
+  margin: 0 auto;
+  width: 30%;
+}
+.lobby-page-issues-plate-title {
+  margin-left: 5%;
+}
+
+.lobby-page-icon {
+  margin-right: 5%;
+  cursor: pointer;
+   &:hover{
+     margin-right: 4%;
+     transform: scale(1.1);
+   }
+}
+.btn-add-issues {
+  border: none;
+  background-color: white;
+  padding: 0 20px 0 0;
+  margin-left: 15px;
+}
+.flex-container-for-issues{
+  display: flex;
+  margin: 20px auto;
+  width: 85%;
+}
+.newIssues{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  & .plate{
+    margin-bottom: 15px;
+    cursor: pointer;
+  }
+}
+.newIssues-title{
+  width: 40%;
+  display: block;
+  margin: 0 auto;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+.issue-btn{
+  margin-right: 15px;
+  background: none;
+  border: none;
+  width: 20px;
+  height: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+    &:hover{
+      width: 23px;
+      height: 33px;
+    }
+}
+.issue-delete-icon{
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+}
+.newIssues-content{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+.selectedIssue{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #60DABF;
+  border-radius: 3px;
+  align-items: center;
+  justify-content: center;
+}
+
