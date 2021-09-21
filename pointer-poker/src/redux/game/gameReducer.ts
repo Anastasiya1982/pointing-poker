@@ -16,7 +16,8 @@ export interface GameState {
   timeOfRound: number;
   issue: IssueType | null;
   issues: Array<IssueType>;
-  cards: [];
+  cards: Array<{ id: string; value: number }>;
+  selectedCard: { id: string; value: number } | null;
   scrumMaster: null | UserState;
 }
 
@@ -33,7 +34,13 @@ const initialState: GameState = {
     priority: '',
   },
   issues: [],
-  cards: [],
+  cards: [
+    { id: '1', value: 0 },
+    { id: '2', value: 12 },
+    { id: '3', value: 1 },
+    { id: '4', value: 13 },
+  ],
+  selectedCard: null,
   scrumMaster: null,
 };
 
@@ -78,14 +85,16 @@ export const gameSlice = createSlice({
     },
 
     setCards: (state, action) => {
-      state.cards = action.payload;
+      state.cards = [...state.cards, action.payload];
+    },
+    setSelectedCard: (state, action) => {
+      state.selectedCard = action.payload;
     },
   },
   extraReducers: (builder: any) => {
     builder.addCase(setUser, (state: any, action: any) => {
       state.users = [action.payload, ...state.users];
     });
-
   },
 });
 
@@ -101,6 +110,7 @@ export const {
   setIssue,
   setIssues,
   setCards,
+  setSelectedCard,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
