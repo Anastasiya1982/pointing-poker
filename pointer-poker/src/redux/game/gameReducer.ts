@@ -30,6 +30,7 @@ const initialState: GameState = {
   timeOfRound: 1,
   issue: {
     title: '',
+    priority: '',
   },
   issues: [],
   cards: [],
@@ -69,11 +70,15 @@ export const gameSlice = createSlice({
     },
 
     setIssue: (state, action) => {
-      state.issue.title = action.payload.data;
+      // @ts-ignore
+      state.issue.title = action.payload.title;
     },
     setIssues: (state, action) => {
       state.issues = action.payload.data;
     },
+    // deleteIssue:(state,action)=>{
+    //   state.issues=state.issues.filter(issue=>issue!==action.payload);
+    // },
     setCards: (state, action) => {
       state.cards = action.payload;
     },

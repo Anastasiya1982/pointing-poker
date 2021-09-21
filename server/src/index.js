@@ -1,4 +1,5 @@
 const express = require('express');
+
 const app=express();
 const server = require('http').createServer(app);
 const bodyParser=require('body-parser');
@@ -52,32 +53,36 @@ io.on('connection', (socket) => {
     console.log("Успешное соединение  : ", socket.id);
     socket.on("ROOM:JOIN",(data)=> {
         console.log(`connection to room  ; ${data}`);
-        socket.join("MyRoom")
+        socket.join("MyRoom");
     });
 
     socket.on('handle-connection', (newUser) => {
          if (userUtils.userJoin( newUser)) {
              // socket.emit("user-submit-successfully");
              io.to("MyRoom").emit("get connected users", userUtils.getUsers());
-             io.to("MyRoom").emit("show-ScrumMuster-Data",userUtils.getMaster())
+             io.to("MyRoom").emit("show-ScrumMuster-Data",userUtils.getMaster());
          }
     });
 
     socket.on("sendMessage",(messageData)=>{
-           io.to("MyRoom").emit("receive-message",messageData)
+           io.to("MyRoom").emit("receive-message",messageData);
       }
-    )
+    );
 
   socket.on("create-new-issue",(issue)=>{
-    console.log(issue);
          if(issueUtils.issueJoin(issue)){
            io.to("MyRoom").emit("get created issues",issueUtils.getIssues());
          }
-  })
+  });
+
+  socket.on('delete issue',(currentIssue)=>{
+    issueUtils.deleteIssue(currentIssue.title);
+      io.to("MyRoom").emit("get Issues after deleting",issueUtils.getIssues());
+  });
 
   socket.on("disconnect",()=>{
       userUtils.userLeave(socket.id);
-  })
+  });
 });
 
 
