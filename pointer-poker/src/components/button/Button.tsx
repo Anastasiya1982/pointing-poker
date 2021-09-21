@@ -7,17 +7,20 @@ interface Props {
   onClick?: (e: any) => void;
   className?: string;
   TypeBtn: 'filled' | 'unfilled';
+  disabled?: boolean;
 }
 
 type TypeBtn = 'filled' | 'unfilled';
 
-const Button: FC<Props> = ({ label, onClick, className, TypeBtn }) => {
+const Button: FC<Props> = ({ label, onClick, className, TypeBtn, disabled }) => {
   return (
     <button
       type="button"
       className={classNames(TypeBtn === 'filled' ? 'filledBtn' : 'unfilledBtn', className)}
       onClick={onClick}
-      >
+      disabled={disabled}
+    >
+
       {label}
     </button>
   );
