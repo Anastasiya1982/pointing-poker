@@ -8,7 +8,7 @@ export const getFallbackText = (firstName: string, lastName: string) => {
     last = lastName[0];
   }
 
-  let res = first.toUpperCase() + last.toUpperCase();
+  const res = first.toUpperCase() + last.toUpperCase();
   return res;
 };
 export const generateRandomId = () => {
