@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
+import React from 'react';
 import Main from '../Main/Main';
 import LobbyPage from '../LobbyPage/LobbyPage';
-import React from 'react';
 
 const PagesAll = () => {
   return (
