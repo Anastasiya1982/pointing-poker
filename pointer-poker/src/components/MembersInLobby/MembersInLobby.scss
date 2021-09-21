@@ -1,13 +1,13 @@
-.wrapper-modal{
+.wrapper-modal {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
 
-  & h1{
-    margin:20px auto;
+  & h1 {
+    margin: 20px auto;
   }
-  & p{
+  & p {
     margin-bottom: 50px;
   }
 }

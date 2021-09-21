@@ -8,12 +8,11 @@ import ModalView from '../../pages/modalView/ModalView';
 import Button from '../button/Button';
 import './MembersInLobby.scss';
 
-
 const MembersInLobby = () => {
   const [modalActive, setModalActive] = useState(false);
   const newUser = useAppSelector((state) => state.user);
   const players = useAppSelector((state) => state.game.users);
-  const[currentUserId,setCurrentUserId]=useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   const dispatch = useAppDispatch();
 
@@ -21,27 +20,21 @@ const MembersInLobby = () => {
     socket.on('get connected users', (users) => {
       dispatch(setUsers({ data: users }));
     });
-    socket.on("get users after deleting", (users) => {
-      console.log('User deleted from room',users);
-      dispatch(setUsers({data:users}))
+    socket.on('get users after deleting', (users) => {
+      console.log('User deleted from room', users);
+      dispatch(setUsers({ data: users }));
     });
   }, [newUser.id, dispatch]);
 
   const deleteUser = (id: any) => {
-    let user=players.find(pl=>pl.id===id)
+    let user = players.find((pl) => pl.id === id);
     socket.emit('delete user', user);
     setModalActive(false);
   };
-  const openModalToDeleteUser=(id:any)=>{
-     setModalActive(true);
-     setCurrentUserId(id);
-   };
-  // useEffect(()=>{
-  //   socket.on("get users after deleting", (users) => {
-  //     console.log('User deleted from room',users);
-  //     dispatch(setUsers({data:users}))
-  //   });
-  // },[dispatch])
+  const openModalToDeleteUser = (id: any) => {
+    setModalActive(true);
+    setCurrentUserId(id);
+  };
 
   return (
     <div className="lobby-page-button-members">
@@ -55,7 +48,7 @@ const MembersInLobby = () => {
               <div>
                 <span>status: {player.type}</span>
               </div>
-              <button onClick={()=>openModalToDeleteUser(player.id)}>Х</button>
+              <button onClick={() => openModalToDeleteUser(player.id)}>Х</button>
             </Plate>
           );
         })}
@@ -65,8 +58,8 @@ const MembersInLobby = () => {
           <h1 className="name-modal">Kick player? </h1>
           <p>Are you really want to remove playe {currentUserId} from game session?</p>
           <div className="wrapper-answer">
-            <Button TypeBtn="filled" onClick={() => deleteUser(currentUserId)} label="Yes"/>
-            <Button TypeBtn="unfilled" onClick={() => setModalActive(false)} label="No"/>
+            <Button TypeBtn="filled" onClick={() => deleteUser(currentUserId)} label="Yes" />
+            <Button TypeBtn="unfilled" onClick={() => setModalActive(false)} label="No" />
           </div>
         </div>
       </ModalView>
