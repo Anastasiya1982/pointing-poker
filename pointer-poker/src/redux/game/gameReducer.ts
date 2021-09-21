@@ -17,8 +17,8 @@ export interface GameState {
   issue: IssueType | null;
   issues: Array<IssueType>;
   cards: Array<{ id: string; value: number }>;
-  scrumMaster: null | UserState;
   selectedCard: { id: string; value: number } | null;
+  scrumMaster: null | UserState;
 }
 
 const initialState: GameState = {
@@ -40,8 +40,8 @@ const initialState: GameState = {
     { id: '3', value: 1 },
     { id: '4', value: 13 },
   ],
-  scrumMaster: null,
   selectedCard: null,
+  scrumMaster: null,
 };
 
 export const gameSlice = createSlice({
