@@ -1,9 +1,37 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Input from '../input/Input';
 import Button from '../button/Button';
 import './StartOrCancelGameInLobby.scss';
+import { useHistory } from 'react-router';
+import { useAppSelector } from '../../redux/hooks';
+import socket from '../../socket';
+import { useDispatch } from 'react-redux';
+import { setStartGame } from '../../redux/game/gameReducer';
 
 const StartOrCancelGameInLobby: FC<any> = () => {
+  const cards = useAppSelector((state) => state.game.cards);
+  const [gameStart, setGameStart] = useState(false);
+  const isGameStart = useAppSelector((state) => state.game.startGame);
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  socket.on('game start', (gameStart) => {
+    console.log(gameStart);
+    dispatch(setStartGame(gameStart));
+  });
+
+  useEffect(() => {
+    if (isGameStart) {
+      history.push('/game');
+    }
+  }, [isGameStart]);
+
+  const startGame = () => {
+    socket.emit('set all cards to game', cards);
+    socket.emit('ready to start game', true);
+  };
+
   return (
     <>
       <div className="lobby-page-entry">
@@ -18,7 +46,7 @@ const StartOrCancelGameInLobby: FC<any> = () => {
         <Button
           label="Copy"
           TypeBtn="filled"
-          onClick={() => console.log('click')}
+          onClick={() => console.log('Copy link')}
           className="lobby-page-button-copy"
         />
       </div>
@@ -26,7 +54,7 @@ const StartOrCancelGameInLobby: FC<any> = () => {
         <Button
           label="Start Game"
           TypeBtn="filled"
-          onClick={() => console.log('click')}
+          onClick={startGame}
           className="lobby-page-button-star-game"
         />
         <Button

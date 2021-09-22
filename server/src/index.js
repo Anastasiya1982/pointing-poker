@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 
 const app=express();
@@ -23,6 +25,7 @@ const io = require('socket.io')(server,
 const dotenv = require('dotenv');
 const userUtils =require('./utils/user');
 const issueUtils = require('./utils/issues');
+const  gameUtils = require('./utils/gameSettings')
 
 dotenv.config();
 const host='127.0.0.1';
@@ -64,26 +67,54 @@ io.on('connection', (socket) => {
          }
     });
 
+// chat-message
     socket.on("sendMessage",(messageData)=>{
            io.to("MyRoom").emit("receive-message",messageData);
       }
     );
 
+
+// Issue
     socket.on("create-new-issue",(issue)=>{
          if(issueUtils.issueJoin(issue)){
            io.to("MyRoom").emit("get created issues",issueUtils.getIssues());
          }
   });
-    socket.on("delete user",(user)=>{
-     userUtils.userLeave(user.id);
-     console.log(userUtils.getUsers())
-     io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
+    socket.on("set active issue",(activeIssue)=>{
+      issueUtils.findActiveIssue(activeIssue);
+      io.to("MyRoom").emit("show active issue to all players", (activeIssue))
     })
+
+
 
   socket.on('delete issue',(currentIssue)=>{
     issueUtils.deleteIssue(currentIssue.title);
       io.to("MyRoom").emit("get Issues after deleting",issueUtils.getIssues());
   });
+
+    // settings
+
+  socket.on("set all cards to game",(cards)=>{
+         gameUtils.setCards(cards);
+         io.to("MyRoom").emit("show all cards to players",gameUtils.getAllCards())
+  });
+  socket.on("ready to start game",(isGameStart)=>{
+    console.log(isGameStart);
+           io.to("MyRoom").emit("game start",(isGameStart))
+  })
+
+
+
+
+
+
+
+
+  socket.on("delete user",(user)=>{
+    userUtils.userLeave(user.id);
+    console.log(userUtils.getUsers())
+    io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
+  })
 
   socket.on("disconnect",()=>{
       userUtils.userLeave(socket.id);

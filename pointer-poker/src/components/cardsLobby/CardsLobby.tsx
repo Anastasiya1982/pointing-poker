@@ -7,6 +7,7 @@ import './cardsLobby.scss';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { generateRandomId, generateRandomNumber } from '../../utils/utils';
 
+
 const CardsLobby = () => {
   const dispatch = useAppDispatch();
   const cards = useAppSelector((state) => state.game.cards);
@@ -17,8 +18,6 @@ const CardsLobby = () => {
     let value = generateRandomNumber();
     dispatch(setCards({ id, value }));
   };
-
-  console.log(cards);
 
   return (
     <div className="cards-lobby-container">

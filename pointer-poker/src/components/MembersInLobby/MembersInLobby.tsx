@@ -21,7 +21,6 @@ const MembersInLobby = () => {
       dispatch(setUsers({ data: users }));
     });
     socket.on('get users after deleting', (users) => {
-      console.log('User deleted from room', users);
       dispatch(setUsers({ data: users }));
     });
   }, [newUser.id, dispatch]);

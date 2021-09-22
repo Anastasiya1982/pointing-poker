@@ -14,8 +14,6 @@ export interface GameState {
   scoreType: string;
   startGame: boolean;
   timeOfRound: number;
-  issue: IssueType | null;
-  issues: Array<IssueType>;
   cards: Array<{ id: string; value: number }>;
   selectedCard: { id: string; value: number } | null;
   scrumMaster: null | UserState;
@@ -29,11 +27,6 @@ const initialState: GameState = {
   scoreType: 'story point',
   startGame: false,
   timeOfRound: 1,
-  issue: {
-    title: '',
-    priority: '',
-  },
-  issues: [],
   cards: [
     { id: '1', value: 0 },
     { id: '2', value: 12 },
@@ -75,16 +68,7 @@ export const gameSlice = createSlice({
     setTimer: (state, action) => {
       state.timeOfRound = action.payload.value;
     },
-
-    setIssue: (state, action) => {
-      // @ts-ignore
-      state.issue.title = action.payload.title;
-    },
-    setIssues: (state, action) => {
-      state.issues = action.payload.data;
-    },
-
-    setCards: (state, action) => {
+     setCards: (state, action) => {
       state.cards = [...state.cards, action.payload];
     },
     setSelectedCard: (state, action) => {
@@ -107,8 +91,6 @@ export const {
   setScrumMusterData,
   setStartGame,
   setTimer,
-  setIssue,
-  setIssues,
   setCards,
   setSelectedCard,
 } = gameSlice.actions;

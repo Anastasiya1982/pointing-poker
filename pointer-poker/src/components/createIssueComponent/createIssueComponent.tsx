@@ -1,9 +1,9 @@
-import React, { ChangeEvent, FC, useCallback, useState } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import Input from '../input/Input';
 import Button from '../button/Button';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setIssue, setScoreType } from '../../redux/game/gameReducer';
 import socket from '../../socket';
+import { setIssue } from '../../redux/issue/issueReducer';
 
 interface PropsIssueType {
   setModalActive: (modalActive: boolean) => void;
@@ -13,8 +13,8 @@ const CreteIssueComponent: FC<PropsIssueType> = ({ setModalActive }) => {
   const [priority, setPriority] = useState('');
   const [value,setValue]=useState('')
   const dispatch = useAppDispatch();
-  const issues = useAppSelector((state) => state.game.issues);
-  const issue = useAppSelector((state) => state.game.issue);
+  const issues = useAppSelector((state) => state.issie.issues);
+  const issue = useAppSelector((state) => state.issie.issue);
 
   const onHandleIssueTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setIssue({ title:event.target.value}));
