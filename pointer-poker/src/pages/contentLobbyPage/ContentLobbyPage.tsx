@@ -17,7 +17,6 @@ interface Props {
 }
 
 const ContentLobbyPage: FC<Props> = () => {
-  const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const master = useAppSelector((state) => state.game.scrumMaster);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);

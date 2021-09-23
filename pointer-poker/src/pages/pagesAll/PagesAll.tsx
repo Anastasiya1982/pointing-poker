@@ -4,7 +4,6 @@ import Main from '../Main/Main';
 import LobbyPage from '../LobbyPage/LobbyPage';
 import GamePageMaster from '../gamePageMaster/GamePageMaster';
 
-
 const PagesAll = () => {
   return (
     <div className="pages">

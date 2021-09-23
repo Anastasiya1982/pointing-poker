@@ -10,26 +10,12 @@ import { setStartGame } from '../../redux/game/gameReducer';
 
 const StartOrCancelGameInLobby: FC<any> = () => {
   const cards = useAppSelector((state) => state.game.cards);
-  const [gameStart, setGameStart] = useState(false);
-  const isGameStart = useAppSelector((state) => state.game.startGame);
   const history = useHistory();
-
-  const dispatch = useDispatch();
-
-  socket.on('game start', (gameStart) => {
-    console.log(gameStart);
-    dispatch(setStartGame(gameStart));
-  });
-
-  useEffect(() => {
-    if (isGameStart) {
-      history.push('/game');
-    }
-  }, [isGameStart]);
 
   const startGame = () => {
     socket.emit('set all cards to game', cards);
     socket.emit('ready to start game', true);
+    history.push('/game');
   };
 
   return (

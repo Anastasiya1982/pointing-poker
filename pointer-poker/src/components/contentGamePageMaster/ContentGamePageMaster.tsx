@@ -14,7 +14,7 @@ const ContentGamePageMaster=() => {
   const issues=useAppSelector((state) => state.issie.issues);
   const activeIssue=useAppSelector((state) => state.issie.activeIssue);
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     socket.on('show all cards to players', (cards) => {
