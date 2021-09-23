@@ -2,7 +2,6 @@ let  cardsToPlay = [];
 let activeCardsValue;
 
 const setCards = (cards) => {
-
   cardsToPlay=cards;
   return cards;
 };

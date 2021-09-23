@@ -84,9 +84,6 @@ io.on('connection', (socket) => {
       issueUtils.findActiveIssue(activeIssue);
       io.to("MyRoom").emit("show active issue to all players", (activeIssue))
     })
-
-
-
   socket.on('delete issue',(currentIssue)=>{
     issueUtils.deleteIssue(currentIssue.title);
       io.to("MyRoom").emit("get Issues after deleting",issueUtils.getIssues());
@@ -98,10 +95,12 @@ io.on('connection', (socket) => {
          gameUtils.setCards(cards);
          io.to("MyRoom").emit("show all cards to players",gameUtils.getAllCards())
   });
-  socket.on("ready to start game",(isGameStart)=>{
-    console.log(isGameStart);
-           io.to("MyRoom").emit("game start",(isGameStart))
-  })
+  socket.on("ready to start game",(settings)=>{
+         console.log(settings);
+         gameUtils.setCards(settings.cards);
+
+           io.to("MyRoom").emit("game start",(settings))
+  });
 
 
 // game

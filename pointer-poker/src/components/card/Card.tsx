@@ -1,16 +1,17 @@
-import { faDivide, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
-import React, { MouseEvent, FC, useCallback, useState, useEffect } from 'react';
+// eslint-disable-next-line no-use-before-define
+import React, { FC, useCallback } from 'react';
 import './card.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Cup from '../../assets/coffee.png';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { setSelectedCard } from '../../redux/game/gameReducer';
 
 interface CardProps {
   number: number;
-  id: string;
-  className: string;
+  id: number;
+  className?: string;
 }
 
 const Card: FC<CardProps> = ({ number, id, className }) => {
@@ -20,8 +21,9 @@ const Card: FC<CardProps> = ({ number, id, className }) => {
   const classes = classNames('card-container ', className);
 
   const handleChangeActiveCard = useCallback(() => {
-    dispatch(setSelectedCard({ id, number }));
-  }, [dispatch, id, number]);
+    dispatch(setSelectedCard({ id, value }));
+  }, [dispatch, id, value]);
+
 
   return (
     <div className={classes} onClick={handleChangeActiveCard} id={id}>

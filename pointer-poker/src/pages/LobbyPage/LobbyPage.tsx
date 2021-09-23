@@ -5,10 +5,11 @@ import Header from '../../components/header/Header';
 import ContentLobbyPage from '../contentLobbyPage/ContentLobbyPage';
 import './lobbyPage.scss';
 import socket from '../../socket';
-import { setStartGame } from '../../redux/game/gameReducer';
+import { setCards, setIsTimerNeeded, setStartGame } from '../../redux/game/gameReducer';
 import { useAppSelector } from '../../redux/hooks';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
+import { setIssues } from '../../redux/issue/issueReducer';
 
 const LobbyPage = () => {
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
@@ -18,8 +19,11 @@ const LobbyPage = () => {
 
   useEffect(() => {
     if (!isScrumMuster) {
-      socket.on('game start', (gameStart) => {
-        dispatch(setStartGame(gameStart));
+      socket.on('game start', (settings) => {
+        dispatch(setCards(settings.cards));
+        dispatch(setIsTimerNeeded(settings.isTimerNeeded));
+        dispatch(setIssues({data:settings.issues}))
+        dispatch(setStartGame(true));
         history.push('/game');
       });
     }

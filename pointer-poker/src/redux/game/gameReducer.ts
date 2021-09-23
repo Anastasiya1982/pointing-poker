@@ -1,11 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { setUser, UserState } from '../user/userReducer';
 
-export interface IssueType {
-  title: string;
-  priority?: string;
-}
-
 export interface GameState {
   users: Array<UserState>;
   isScrumMasterAPlayer: boolean;
@@ -14,7 +9,7 @@ export interface GameState {
   scoreType: string;
   startGame: boolean;
   timeOfRound: number;
-  cards: Array<{ id: string; value: number }>;
+  cards: Array<{ id:number; value: number }>;
   selectedCard: { id: string; value: number } | null;
   scrumMaster: null | UserState;
 }
@@ -28,10 +23,10 @@ const initialState: GameState = {
   startGame: false,
   timeOfRound: 1,
   cards: [
-    { id: '1', value: 0 },
-    { id: '2', value: 12 },
-    { id: '3', value: 1 },
-    { id: '4', value: 13 },
+    { id: 1, value: 0 },
+    { id: 2, value: 12 },
+    { id: 3, value: 1 },
+    { id: 4, value: 13 },
   ],
   selectedCard: null,
   scrumMaster: null,
@@ -69,7 +64,7 @@ export const gameSlice = createSlice({
       state.timeOfRound = action.payload.value;
     },
      setCards: (state, action) => {
-      state.cards = [...state.cards, action.payload];
+      state.cards = action.payload;
     },
     setSelectedCard: (state, action) => {
       state.selectedCard = action.payload;

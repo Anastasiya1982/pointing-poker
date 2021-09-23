@@ -16,9 +16,10 @@ const CardsLobby = () => {
   const handleAddCard = () => {
     let id = generateRandomId();
     let value = generateRandomNumber();
-    dispatch(setCards({ id, value }));
+   let newCards=[...cards]
+    dispatch(setCards([...newCards,{id,value}]));
   };
-
+  console.log(selectedCard);
   return (
     <div className="cards-lobby-container">
       <div>Add card values:</div>
@@ -28,7 +29,7 @@ const CardsLobby = () => {
             key={index}
             id={card.id}
             number={card.value}
-            className={card.id === selectedCard?.id ? 'active-card' : 'card-container'}
+            className='card-container'
           />
         );
       })}
