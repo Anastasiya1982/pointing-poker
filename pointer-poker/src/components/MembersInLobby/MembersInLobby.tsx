@@ -12,12 +12,12 @@ const MembersInLobby = () => {
   const [modalActive, setModalActive] = useState(false);
   const newUser = useAppSelector((state) => state.user);
   const players = useAppSelector((state) => state.game.users);
-  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
-  let playerToKick;
+  const [currentUserId, setCurrentUserId] = useState<number|null>(null);
+ let  playerToKick;
 
   useEffect(() => {
     if (currentUserId) {
-      playerToKick = players[currentUserId];
+      playerToKick=players[currentUserId];
     }
   }, [currentUserId]);
 
@@ -33,7 +33,7 @@ const MembersInLobby = () => {
   }, [newUser.id, dispatch, players]);
 
   const deleteUser = (id: any) => {
-    const user = players.find((pl) => pl.id === id);
+    let user = players.find((pl) => pl.id === id);
     socket.emit('delete user', user);
     setModalActive(false);
   };
@@ -62,9 +62,7 @@ const MembersInLobby = () => {
       <ModalView active={modalActive} setActive={setModalActive}>
         <div className="wrapper-modal">
           <h1 className="name-modal">Kick player? </h1>
-          <p>
-            Are you really want to remove playe <strong>{playerToKick}</strong> from game session?
-          </p>
+          <p>Are you really want to remove playe <strong>{playerToKick}</strong> from game session?</p>
           <div className="wrapper-answer">
             <Button TypeBtn="filled" onClick={() => deleteUser(currentUserId)} label="Yes" />
             <Button TypeBtn="unfilled" onClick={() => setModalActive(false)} label="No" />

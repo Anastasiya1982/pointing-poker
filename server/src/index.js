@@ -47,15 +47,17 @@ app.use( (req, res, next) => {
     next();
 });
 
-const rooms=new Map();
+
 app.get('/',(req,res)=> {
     res.send(rooms);
 });
 
+const connection=[]
 io.on('connection', (socket) => {
     console.log("Успешное соединение  : ", socket.id);
     socket.on("ROOM:JOIN",(data)=> {
         console.log(`connection to room  ; ${data}`);
+        connection.push(socket.id)
         socket.join("MyRoom");
     });
 
@@ -106,17 +108,10 @@ io.on('connection', (socket) => {
 // game
 
 
-
-
-
   socket.on("delete user",(user)=>{
-    userUtils.userLeave(user.id);
-    console.log(userUtils.getUsers())
-    io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
-  })
+       userUtils.userLeave(user.id);
+       io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
 
-  socket.on("disconnect",()=>{
-      userUtils.userLeave(socket.id);
   });
 });
 
