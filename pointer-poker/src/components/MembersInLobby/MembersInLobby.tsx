@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Plate from '../plate/Plate';
 import Avatar from '../avatar/Avatar';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -12,7 +12,8 @@ const MembersInLobby = () => {
   const [modalActive, setModalActive] = useState(false);
   const newUser = useAppSelector((state) => state.user);
   const players = useAppSelector((state) => state.game.users);
-  const [currentUserId, setCurrentUserId] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+  const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
 
   const dispatch = useAppDispatch();
 
@@ -21,20 +22,19 @@ const MembersInLobby = () => {
       dispatch(setUsers({ data: users }));
     });
     socket.on('get users after deleting', (users) => {
-      console.log('User deleted from room', users);
       dispatch(setUsers({ data: users }));
     });
-  }, [newUser.id, dispatch]);
+  }, [newUser.id, dispatch, players]);
 
   const deleteUser = (id: any) => {
-    let user = players.find((pl) => pl.id === id);
+    const user = players.find((pl) => pl.id === id);
     socket.emit('delete user', user);
     setModalActive(false);
   };
-  const openModalToDeleteUser = (id: any) => {
+  const openModalToDeleteUser = useCallback((id: any) => {
     setModalActive(true);
     setCurrentUserId(id);
-  };
+  }, []);
 
   return (
     <div className="lobby-page-button-members">
@@ -54,14 +54,21 @@ const MembersInLobby = () => {
         })}
       </div>
       <ModalView active={modalActive} setActive={setModalActive}>
-        <div className="wrapper-modal">
-          <h1 className="name-modal">Kick player? </h1>
-          <p>Are you really want to remove playe {currentUserId} from game session?</p>
-          <div className="wrapper-answer">
-            <Button TypeBtn="filled" onClick={() => deleteUser(currentUserId)} label="Yes" />
-            <Button TypeBtn="unfilled" onClick={() => setModalActive(false)} label="No" />
+        {isScrumMuster ? (
+          <div className="wrapper-modal">
+            <h1 className="name-modal">Kick player? </h1>
+            <p>
+              Are you really want to remove player <strong>{currentUserId? players[currentUserId]:''}</strong> from game
+              session?
+            </p>
+            <div className="wrapper-answer">
+              <Button TypeBtn="filled" onClick={() => deleteUser(currentUserId)} label="Yes" />
+              <Button TypeBtn="unfilled" onClick={() => setModalActive(false)} label="No" />
+            </div>
           </div>
-        </div>
+        ) : (
+          <div>Only ScrumMaster can delete the players! </div>
+        )}
       </ModalView>
     </div>
   );

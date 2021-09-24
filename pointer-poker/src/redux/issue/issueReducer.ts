@@ -8,7 +8,7 @@ export interface IssueType {
 export interface IssueState {
   issue: IssueType | null;
   issues: Array<IssueType>;
-  activeIssue:IssueType|null;
+  activeIssue: IssueType | null;
 }
 
 const initialState: IssueState = {
@@ -31,12 +31,12 @@ export const issueSlice = createSlice({
     setIssues: (state, action) => {
       state.issues = action.payload.data;
     },
-    setActiveIssue:(state,action)=>{
-      state.activeIssue=action.payload.data
-    }
+    setActiveIssue: (state, action) => {
+      state.activeIssue = action.payload.data;
+    },
   },
 });
 
-export const { setIssue, setIssues,setActiveIssue } = issueSlice.actions;
+export const { setIssue, setIssues, setActiveIssue } = issueSlice.actions;
 
 export default issueSlice.reducer;

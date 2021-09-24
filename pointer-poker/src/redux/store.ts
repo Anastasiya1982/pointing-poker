@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   user: userSlice.reducer,
   game: gameSlice.reducer,
   chat: chatSlice.reducer,
-  issie:issueSlice.reducer,
+  issie: issueSlice.reducer,
 });
 
 const store = configureStore({

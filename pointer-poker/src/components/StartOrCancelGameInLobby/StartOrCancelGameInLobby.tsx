@@ -1,9 +1,37 @@
-import { FC } from 'react';
+import { FC,  useState } from 'react';
 import Input from '../input/Input';
 import Button from '../button/Button';
 import './StartOrCancelGameInLobby.scss';
+import { useHistory } from 'react-router';
+import { useAppSelector } from '../../redux/hooks';
+import socket from '../../socket';
+
 
 const StartOrCancelGameInLobby: FC<any> = () => {
+  const [text, setText]=useState("http://localhost:5000/lobby/MyRoom")
+  const cards = useAppSelector((state) => state.game.cards);
+  const history = useHistory();
+  const isScrumMasterAPlayer=useAppSelector((state) => state.game.isScrumMasterAPlayer);
+  const scoreType=useAppSelector((state) => state.game.scoreType);
+  const issues=useAppSelector((state) => state.issie.issues);
+   const isTimerNeeded=useAppSelector((state) => state.game.isTimerNeeded);
+  const activeIssue =useAppSelector((state) => state.issie.activeIssue);
+
+
+
+
+   const startGame = () => {
+
+    socket.emit('ready to start game', ({
+      cards,isScrumMasterAPlayer, activeIssue, issues,scoreType,startGame:true,isTimerNeeded
+    }));
+    history.push('/game');
+  };
+
+  const copy = async () => {
+    await navigator.clipboard.writeText(text);
+    alert('Text copied');
+  }
   return (
     <>
       <div className="lobby-page-entry">
@@ -11,14 +39,13 @@ const StartOrCancelGameInLobby: FC<any> = () => {
         <Input
           className="lobby-page-input"
           onChange={() => {
-            console.log('enter the inventation link');
-          }}
-          value="http://localhost:5000/lobby/MyRoom"
+            console.log('enter the inventation link');} }
+          value={text}
         />
         <Button
           label="Copy"
           TypeBtn="filled"
-          onClick={() => console.log('click')}
+          onClick={copy}
           className="lobby-page-button-copy"
         />
       </div>
@@ -26,7 +53,7 @@ const StartOrCancelGameInLobby: FC<any> = () => {
         <Button
           label="Start Game"
           TypeBtn="filled"
-          onClick={() => console.log('click')}
+          onClick={startGame}
           className="lobby-page-button-star-game"
         />
         <Button

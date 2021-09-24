@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import GameSettings from '../../components/gameSettings/GameSettings';
 import IssueComponent from '../../components/Issue/IssueComponent';
 import socket from '../../socket';
-import { setScrumMusterData } from '../../redux/game/gameReducer';
+import { setScrumMusterData, setUsers } from '../../redux/game/gameReducer';
 import StartOrCancelGameInLobby from '../../components/StartOrCancelGameInLobby/StartOrCancelGameInLobby';
 import CardsLobby from '../../components/cardsLobby/CardsLobby';
 
@@ -17,16 +17,27 @@ interface Props {
 }
 
 const ContentLobbyPage: FC<Props> = () => {
-  const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const master = useAppSelector((state) => state.game.scrumMaster);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
+  const newUser = useAppSelector((state) => state.user);
+
 
   useEffect(() => {
     socket.on('show-ScrumMuster-Data', (user) => {
       dispatch(setScrumMusterData({ data: user }));
     });
   }, [dispatch]);
+
+  useEffect(() => {
+    socket.on('get connected users', (users) => {
+      dispatch(setUsers({ data: users }));
+    });
+    socket.on('get users after deleting', (users) => {
+
+      dispatch(setUsers({ data: users }));
+    });
+  }, []);
 
   return (
     <div className="lobby-page-content">

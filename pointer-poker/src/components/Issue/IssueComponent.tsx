@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Plate from '../plate/Plate';
@@ -30,9 +30,9 @@ const IssueComponent = () => {
   }, []);
 
   const handleIssueClick = (index: number) => {
-    console.log(index);
     const currentIssue = issues[index];
     dispatch(setActiveIssue({ data: currentIssue }));
+    socket.emit("set active issue",currentIssue );
   };
 
   const deleteIssue = (index: any) => {
@@ -56,8 +56,11 @@ const IssueComponent = () => {
             {issues.map((issue, index) => {
               return (
                 <Plate key={index}>
-                  <div onClick={() => handleIssueClick(index)}
-                    className={issue.title === activeIssue?.title ? 'selectedIssue' : 'newIssues-content'}
+                  <div
+                    onClick={() => handleIssueClick(index)}
+                    className={
+                      issue.title === activeIssue?.title ? 'selectedIssue' : 'newIssues-content'
+                    }
                   >
                     <div className="newIssues-title">{issue.title}</div>
                     <button
