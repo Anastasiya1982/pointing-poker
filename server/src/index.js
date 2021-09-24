@@ -25,7 +25,8 @@ const io = require('socket.io')(server,
 const dotenv = require('dotenv');
 const userUtils =require('./utils/user');
 const issueUtils = require('./utils/issues');
-const  gameUtils = require('./utils/gameSettings')
+const  gameUtils = require('./utils/gameSettings');
+
 
 dotenv.config();
 const host='127.0.0.1';
@@ -98,21 +99,31 @@ io.on('connection', (socket) => {
          io.to("MyRoom").emit("show all cards to players",gameUtils.getAllCards())
   });
   socket.on("ready to start game",(settings)=>{
-         console.log(settings);
          gameUtils.setCards(settings.cards);
-
            io.to("MyRoom").emit("game start",(settings))
   });
 
 
 // game
 
+  socket.on("player selected one card",(data)=>{
+    console.log(data);
+    userUtils.setUserVoite(data);
+    io.to("MyRoom").emit("Show results for all players",{users:userUtils.getUsers(),activeIssue:data.activeIssue})
+  })
+
 
   socket.on("delete user",(user)=>{
-       userUtils.userLeave(user.id);
-       io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
+    userUtils.userLeave(user.id);
+    io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
 
   });
+
+  socket.on("disconnect", (socket) => {
+    console.log("Client disconnected: ", socket);
+    connection.splice(connection.indexOf(socket), 1);
+  })
+
 });
 
 
@@ -160,9 +171,6 @@ server.listen(port, () => {
     //
     // });
     //
-    // socket.on("disconnect", (socket) => {
-    //     console.log("Client disconnected: ", socket);
-    //     connection.splice(connection.indexOf(socket),1);
     //
     //
 

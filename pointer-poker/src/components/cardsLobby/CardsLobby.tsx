@@ -19,7 +19,7 @@ const CardsLobby = () => {
    let newCards=[...cards]
     dispatch(setCards([...newCards,{id,value}]));
   };
-  console.log(selectedCard);
+
   return (
     <div className="cards-lobby-container">
       <div>Add card values:</div>

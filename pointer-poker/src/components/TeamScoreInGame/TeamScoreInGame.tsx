@@ -5,6 +5,7 @@ import Avatar from '../avatar/Avatar';
 import ModalView from '../../pages/modalView/ModalView';
 import Button from '../button/Button';
 import socket from '../../socket';
+import img from '../../assets/image.png';
 
 import './TeamScoreInGame.scss';
 
@@ -12,6 +13,7 @@ const TeamScoreInGame = () => {
   const [modalActive, setModalActive] = useState(false);
   const [currentUserId, setCurrentUserId] = useState(null);
   const players = useAppSelector((state) => state.game.users);
+
 
   const deleteUser = (id: any) => {
     let user = players.find((pl) => pl.id === id);
@@ -26,11 +28,12 @@ const TeamScoreInGame = () => {
     <div className="wrapper-score">
       <div className="score-header "><span>Score</span><span>Players</span></div>
       {players.map((player=>{
+        const voite = player.voite === 0 ? <img src={img} alt='unknown'/> : <span>{player.voite}</span>;
         return(
           <div className="score-container">
             <div className="players">
               <Plate>
-                <span>IN PROGRESS</span>
+                {player.voite ? voite : <span>IN PROGRESS</span>}
               </Plate>
               <Plate key={player.id}>
                 <Avatar img={player.img} fallbackText={player.fallbackText} />

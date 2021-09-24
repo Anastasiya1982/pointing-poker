@@ -14,11 +14,16 @@ const StartOrCancelGameInLobby: FC<any> = () => {
   const isScrumMasterAPlayer=useAppSelector((state) => state.game.isScrumMasterAPlayer);
   const scoreType=useAppSelector((state) => state.game.scoreType);
   const issues=useAppSelector((state) => state.issie.issues);
+   const isTimerNeeded=useAppSelector((state) => state.game.isTimerNeeded);
+  const activeIssue =useAppSelector((state) => state.issie.activeIssue);
 
-  const startGame = () => {
-    // socket.emit('set all cards to game',
+
+
+
+   const startGame = () => {
+
     socket.emit('ready to start game', ({
-      cards,isScrumMasterAPlayer,issues, scoreType,startGame:true
+      cards,isScrumMasterAPlayer, activeIssue, issues,scoreType,startGame:true,isTimerNeeded
     }));
     history.push('/game');
   };

@@ -10,6 +10,7 @@ export interface UserState {
   // type: 'player' | 'observer';
   type: string;
   fallbackText: string;
+  voite:number|null
 }
 
 const initialState: UserState = {
@@ -21,6 +22,7 @@ const initialState: UserState = {
   isScrumMaster: false,
   type: 'player',
   fallbackText: '',
+  voite:null
 };
 
 export const userSlice = createSlice({
@@ -51,6 +53,9 @@ export const userSlice = createSlice({
     setFallbackText: (state, action) => {
       state.fallbackText = action.payload.value;
     },
+    setVoite:(state,action)=>{
+      state.voite=action.payload.value;
+},
     setUser: (state, action) => {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
@@ -73,6 +78,7 @@ export const {
   setId,
   setIsScrumMaster,
   setUser,
+  setVoite
 } = userSlice.actions;
 
 export default userSlice.reducer;

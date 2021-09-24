@@ -9,7 +9,7 @@ import { setCards, setIsTimerNeeded, setStartGame } from '../../redux/game/gameR
 import { useAppSelector } from '../../redux/hooks';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { setIssues } from '../../redux/issue/issueReducer';
+import { setActiveIssue, setIssues } from '../../redux/issue/issueReducer';
 
 const LobbyPage = () => {
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
@@ -19,15 +19,19 @@ const LobbyPage = () => {
 
   useEffect(() => {
     if (!isScrumMuster) {
+      socket.on("show active issue to all players",(activeIssue)=>{
+        dispatch(setActiveIssue({data:activeIssue}))
+      });
       socket.on('game start', (settings) => {
         dispatch(setCards(settings.cards));
         dispatch(setIsTimerNeeded(settings.isTimerNeeded));
-        dispatch(setIssues({data:settings.issues}))
+        dispatch(setIssues({data:settings.issues}));
+        // dispatch(setActiveIssue({data:settings.activeIssue}));
         dispatch(setStartGame(true));
         history.push('/game');
       });
     }
-  })
+  },[])
   return (
     <div className="wrapper-lobby-page">
       <Header />

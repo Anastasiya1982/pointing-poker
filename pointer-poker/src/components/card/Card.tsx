@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Cup from '../../assets/coffee.png';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setSelectedCard } from '../../redux/game/gameReducer';
+import socket from '../../socket';
 
 interface CardProps {
   number: number;
@@ -19,9 +20,12 @@ const Card: FC<CardProps> = ({ number, id, className }) => {
   const scoreType = useAppSelector((state) => state.game.scoreType);
   const value = scoreType === 'story point' ? 'SP' : '%';
   const classes = classNames('card-container ', className);
+  const activeIssue= useAppSelector((state) => state.issie.activeIssue);
+  const user= useAppSelector((state) => state.user)
 
   const handleChangeActiveCard = useCallback(() => {
-    dispatch(setSelectedCard({ id, value }));
+    dispatch(setSelectedCard({ id, number }));
+    socket.emit('player selected one card', { value: number,userId:user.id,activeIssue});
   }, [dispatch, id, value]);
 
 
