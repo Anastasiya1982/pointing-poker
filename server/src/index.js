@@ -119,6 +119,7 @@ io.on('connection', (socket) => {
 
   });
 
+  // eslint-disable-next-line no-shadow
   socket.on("disconnect", (socket) => {
     console.log("Client disconnected: ", socket);
     connection.splice(connection.indexOf(socket), 1);

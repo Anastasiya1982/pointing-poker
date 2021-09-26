@@ -1,3 +1,6 @@
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+
 export const getFallbackText = (firstName: string, lastName: string) => {
   const first = firstName[0];
   let last;
@@ -22,19 +25,33 @@ export const generateRandomNumber = () => {
 };
 
 export const funcPercent = function toPercentages(arrTest: []) {
-  var result = arrTest.reduce(function (acc, el) {  
+ let result = arrTest.reduce(function (acc, el) {
     acc[el] = (acc[el] || 0) + 1;
     return acc;
   }, {});
-  const arrValueFromObj = Object.values(result); 
-  const sumValues = result => Object.values(result).reduce((a, b) => a + b); 
+  const arrValueFromObj = Object.values(result);
+  const sumValues = (result) => Object.values(result).reduce((a, b) => a + b);
   let numberPercent = 0;
   let arrValueFromObjNEW = [];
   for (let i = 0; i < arrValueFromObj.length; i++) {
     numberPercent = arrValueFromObj[i] * (100 / sumValues(result))
-    arrValueFromObjNEW.push(numberPercent) 
+    arrValueFromObjNEW.push(numberPercent)
   }
   return arrValueFromObjNEW.map(function (x: number) {
     return parseFloat((x).toFixed(2));
   });
-}
+};
+
+
+
+export const fileType =
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+export  const fileExtension = '.xlsx';
+
+export const exportToCSV = (csvData: any, fileName: string) => {
+  const ws = XLSX.utils.json_to_sheet(csvData);
+  const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+  const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  const data = new Blob([excelBuffer], { type: fileType });
+  FileSaver.saveAs(data, fileName + fileExtension);
+};

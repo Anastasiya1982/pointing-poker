@@ -17,7 +17,7 @@ const GamePageMaster = () => {
   const dispatch=useDispatch();
 
   useEffect(()=>{
-      socket.on("Show results for all players",(data)=>{
+      socket.on("Show results for all players",(data:any)=>{
         console.log(data.users)
         dispatch(setUsers({data:data.users}))
       })

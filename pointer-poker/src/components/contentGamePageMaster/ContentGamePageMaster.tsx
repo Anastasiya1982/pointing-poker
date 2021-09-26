@@ -9,15 +9,12 @@ import TeamScoreInGame from '../TeamScoreInGame/TeamScoreInGame';
 import CardsInGame from './CardsInGame/CardsInGame';
 import { useDispatch } from 'react-redux';
 
+
 const ContentGamePageMaster = () => {
   const issues = useAppSelector((state) => state.issie.issues);
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
   const dispatch = useDispatch();
-
-
-
-
 
   const deleteIssue = (index: any) => {
     const currentIssue = issues[index];
@@ -30,7 +27,7 @@ const ContentGamePageMaster = () => {
         <GameHeader />
         <div className="wrapper-issues-container">
           <div className="issue-box">
-            {issues.map((issue, index) => {
+            {issues.map((issue:any, index:number) => {
               return (
                 <Plate key={index}>
                   <div

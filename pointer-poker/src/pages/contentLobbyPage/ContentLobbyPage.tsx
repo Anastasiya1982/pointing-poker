@@ -24,16 +24,16 @@ const ContentLobbyPage: FC<Props> = () => {
 
 
   useEffect(() => {
-    socket.on('show-ScrumMuster-Data', (user) => {
+    socket.on('show-ScrumMuster-Data', (user:any) => {
       dispatch(setScrumMusterData({ data: user }));
     });
   }, [dispatch]);
 
   useEffect(() => {
-    socket.on('get connected users', (users) => {
+    socket.on('get connected users', (users:any) => {
       dispatch(setUsers({ data: users }));
     });
-    socket.on('get users after deleting', (users) => {
+    socket.on('get users after deleting', (users:any) => {
 
       dispatch(setUsers({ data: users }));
     });
