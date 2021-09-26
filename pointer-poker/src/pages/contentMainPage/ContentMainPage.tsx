@@ -38,7 +38,7 @@ const ContentMainPage = () => {
       <div className="wrapper-start_game">
         <h2 className="h2-main_page">Start your planning:</h2>
         <span>Create session:</span>
-        <Button label="Start new game" TypeBtn="filled" onClick={startGameAsScrumMuster} />
+        <Button label="Start new game" TypeBtn="filled" onClick={startGameAsScrumMuster}  />
       </div>
       <div className="wrapper-connect">
         <h2 className="h2-main_page">OR:</h2>
