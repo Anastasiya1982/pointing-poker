@@ -41,7 +41,7 @@ const GameSettings = () => {
     <div className="lobby-page-game-settings">
       <div className="lobby-page-game-settings-title">Game settings</div>
       <div className="lobby-page-game-settings-container">
-        <div>Scram master as player:</div>
+        <div className="wrapper-label">Scram master as player:</div>
         <BtnSwitch
           id="isMasterAPlayer"
           checked={isScrumMasterAPlayer}

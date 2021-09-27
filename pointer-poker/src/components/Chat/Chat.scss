@@ -1,6 +1,5 @@
 .chat-container{
   max-width: 350px;
-  margin: 20px;
   align-items: center;
   width: 100%;
   display: flex;
@@ -39,7 +38,21 @@
   text-align: center;
 }
 
-
+@media (max-width: 696px) {
+  .form-forSend-message {
+    flex-wrap: wrap;
+  }
+  .messageBtn {
+    width: 90%;
+  }
+  .lobby-page-button-star-game,
+  .lobby-page-button-cancel-game {
+    font-size: 10px;
+    margin: 5px;
+    padding: 10px;
+    text-align: center;
+  }
+}
 
 
 
