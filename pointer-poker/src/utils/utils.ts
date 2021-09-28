@@ -24,13 +24,13 @@ export const generateRandomNumber = () => {
   return n;
 };
 
-export const funcPercent = function toPercentages(arrTest: []) {
+export const funcPercent = function toPercentages(arrTest:Array<any>) {
  let result = arrTest.reduce(function (acc, el) {
     acc[el] = (acc[el] || 0) + 1;
     return acc;
   }, {});
   const arrValueFromObj = Object.values(result);
-  const sumValues = (result) => Object.values(result).reduce((a, b) => a + b);
+  const sumValues = (result:any) => Object.values(result).reduce((a, b) => a + b);
   let numberPercent = 0;
   let arrValueFromObjNEW = [];
   for (let i = 0; i < arrValueFromObj.length; i++) {

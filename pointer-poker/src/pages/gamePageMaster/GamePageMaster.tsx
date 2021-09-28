@@ -7,11 +7,15 @@ import socket from '../../socket';
 import { useAppSelector } from '../../redux/hooks';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { setVoite } from '../../redux/user/userReducer';
 import { setUsers } from '../../redux/game/gameReducer';
 
 const GamePageMaster = () => {
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
+  const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
+
+ if(!isScrumMuster){
+   console.log("страница игрока ");
+ }
 
   const history=useHistory();
   const dispatch=useDispatch();

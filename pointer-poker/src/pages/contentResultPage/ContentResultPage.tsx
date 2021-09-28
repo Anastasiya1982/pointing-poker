@@ -16,7 +16,6 @@ const ContentResultPage = () => {
       <div className="heder-result">
         <div className="btn-download">
           <Button onClick={onDowloadFile} TypeBtn="filled" label="Download" />
-          {/*<ExportCSV csvData={players} filename="results" />*/}
           <TableResults />
         </div>
       </div>

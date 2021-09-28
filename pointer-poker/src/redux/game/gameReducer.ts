@@ -9,9 +9,10 @@ export interface GameState {
   scoreType: string;
   startGame: boolean;
   timeOfRound: number;
-  cards: Array<{ id:number; value: number }>;
-  selectedCard: { id: string; value: number } | null;
+  cards: Array<{ id:number; value: number}>;
+  selectedCard: { id: number; value: number } | null;
   scrumMaster: null | UserState;
+  results:Array<any>
 }
 
 const initialState: GameState = {
@@ -28,8 +29,10 @@ const initialState: GameState = {
     { id: 3, value: 1 },
     { id: 4, value: 13 },
   ],
-  selectedCard: null,
+  selectedCard: null ,
   scrumMaster: null,
+  results:[  5,28,1,50,5,5]
+
 };
 
 export const gameSlice = createSlice({

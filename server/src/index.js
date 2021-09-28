@@ -93,7 +93,6 @@ io.on('connection', (socket) => {
   });
 
     // settings
-
   socket.on("set all cards to game",(cards)=>{
          gameUtils.setCards(cards);
          io.to("MyRoom").emit("show all cards to players",gameUtils.getAllCards())
@@ -103,9 +102,7 @@ io.on('connection', (socket) => {
            io.to("MyRoom").emit("game start",(settings))
   });
 
-
 // game
-
   socket.on("player selected one card",(data)=>{
     console.log(data);
     userUtils.setUserVoite(data);

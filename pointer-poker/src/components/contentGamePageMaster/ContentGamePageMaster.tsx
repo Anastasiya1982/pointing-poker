@@ -8,6 +8,7 @@ import socket from '../../socket';
 import TeamScoreInGame from '../TeamScoreInGame/TeamScoreInGame';
 import CardsInGame from './CardsInGame/CardsInGame';
 import { useDispatch } from 'react-redux';
+import Statistic from '../StatisticOnMasterPage/Statistic';
 
 
 const ContentGamePageMaster = () => {
@@ -51,7 +52,7 @@ const ContentGamePageMaster = () => {
           </div>
           <Timer roundTime={0} />
         </div>
-        {isScrumMuster ? <div>Statistics</div> : <CardsInGame />}
+        {isScrumMuster ? <Statistic/> : <CardsInGame />}
       </div>
       <TeamScoreInGame />
     </div>

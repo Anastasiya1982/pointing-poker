@@ -11,6 +11,7 @@
   const userLeave = (id) => users = users.filter(user => user.id !== id);
 
   const setUserVoite=(data)=>{
+    // eslint-disable-next-line no-shadow
     const user=users.find(user=>user.id===data.userId);
     user.voite=data.value;
     return users
