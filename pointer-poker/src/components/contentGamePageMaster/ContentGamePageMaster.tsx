@@ -9,6 +9,7 @@ import TeamScoreInGame from '../TeamScoreInGame/TeamScoreInGame';
 import CardsInGame from './CardsInGame/CardsInGame';
 import { useDispatch } from 'react-redux';
 import Statistic from '../StatisticOnMasterPage/Statistic';
+import Button from '../button/Button';
 
 
 const ContentGamePageMaster = () => {

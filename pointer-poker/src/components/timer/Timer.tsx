@@ -41,9 +41,10 @@ const Countdown = ({ roundTime }: { roundTime: number }) => {
             </div>
           </div>
         </div>
-      ) : (
-        <Button TypeBtn="filled" onClick={() => setSeconds(60)} label="Once again" />
-      )}
+      ) :(
+        <Button TypeBtn="filled" onClick={() => setSeconds(120)} label="Once again" />
+      )
+      }
     </div>
   );
 };

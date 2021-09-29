@@ -16,8 +16,6 @@ const TeamScoreInGame = () => {
   const players = useAppSelector((state) => state.game.users);
   const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
 
-
-
   const deleteUser = (id: any) => {
     let user = players.find((pl) => pl.id === id);
     socket.emit('delete user', user);
@@ -35,11 +33,17 @@ const TeamScoreInGame = () => {
       </div>
       {players.map((player) => {
         const voite =
-          player.voite==  0 ? <img src={img} alt="unknown" /> : <span>{player.voite}</span>;
+          player.voite === 0 ? (
+            <img src={img} alt="unknown" className='unknownImg' />
+          ) : !player.voite ? (
+            <span>IN PROGRESS</span>
+          ) : (
+            <span>{player.voite}</span>
+          );
         return (
           <div className="score-container">
             <div className="players">
-              <Plate>{player.voite ? voite : <span>IN PROGRESS</span>}</Plate>
+              <Plate>{voite}</Plate>
               <Plate key={player.id}>
                 <Avatar img={player.img} fallbackText={player.fallbackText} />
                 <span>name: {player.firstName}</span>
