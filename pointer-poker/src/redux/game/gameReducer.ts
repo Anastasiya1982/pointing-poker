@@ -12,7 +12,6 @@ export interface GameState {
   cards: Array<{ id:number; value: number}>;
   selectedCard: { id: number; value: number } | null;
   scrumMaster: null | UserState;
-  results:Array<any>
 }
 
 const initialState: GameState = {
@@ -30,8 +29,7 @@ const initialState: GameState = {
     { id: 4, value: 13 },
   ],
   selectedCard: null ,
-  scrumMaster: null,
-  results:[  5,28,1,50,5,5]
+  scrumMaster: null
 
 };
 

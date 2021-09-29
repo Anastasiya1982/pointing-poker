@@ -8,6 +8,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setUsers } from '../../redux/game/gameReducer';
+import { setIssues } from '../../redux/issue/issueReducer';
 
 const GamePageMaster = () => {
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
@@ -23,7 +24,8 @@ const GamePageMaster = () => {
   useEffect(()=>{
       socket.on("Show results for all players",(data:any)=>{
         console.log(data.users)
-        dispatch(setUsers({data:data.users}))
+        dispatch(setUsers({data:data.users}));
+        dispatch(setIssues({data:data.issues}))
       })
   },[])
 

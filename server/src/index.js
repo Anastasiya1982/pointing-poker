@@ -104,9 +104,10 @@ io.on('connection', (socket) => {
 
 // game
   socket.on("player selected one card",(data)=>{
-    console.log(data);
     userUtils.setUserVoite(data);
-    io.to("MyRoom").emit("Show results for all players",{users:userUtils.getUsers(),activeIssue:data.activeIssue})
+    issueUtils.setResultsToIssue(userUtils.getUsersVoiteArray());
+    console.log(issueUtils.getIssues());
+    io.to("MyRoom").emit("Show results for all players",{users:userUtils.getUsers(),activeIssue:data.activeIssue,issues:issueUtils.getIssues()})
   })
 
 
