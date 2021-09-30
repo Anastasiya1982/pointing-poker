@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export interface IssueType {
   title: string;
   priority?: string;
+  results?: Array<number> | null;
 }
 
 export interface IssueState {
@@ -15,9 +16,11 @@ const initialState: IssueState = {
   issue: {
     title: '',
     priority: '',
+    results: null,
   },
   issues: [],
   activeIssue: null,
+
 };
 
 export const issueSlice = createSlice({

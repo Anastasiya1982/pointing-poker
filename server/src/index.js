@@ -93,7 +93,6 @@ io.on('connection', (socket) => {
   });
 
     // settings
-
   socket.on("set all cards to game",(cards)=>{
          gameUtils.setCards(cards);
          io.to("MyRoom").emit("show all cards to players",gameUtils.getAllCards())
@@ -103,13 +102,12 @@ io.on('connection', (socket) => {
            io.to("MyRoom").emit("game start",(settings))
   });
 
-
 // game
-
   socket.on("player selected one card",(data)=>{
-    console.log(data);
     userUtils.setUserVoite(data);
-    io.to("MyRoom").emit("Show results for all players",{users:userUtils.getUsers(),activeIssue:data.activeIssue})
+    issueUtils.setResultsToIssue(userUtils.getUsersVoiteArray());
+    console.log(issueUtils.getIssues());
+    io.to("MyRoom").emit("Show results for all players",{users:userUtils.getUsers(),activeIssue:data.activeIssue,issues:issueUtils.getIssues()})
   })
 
 
@@ -119,6 +117,7 @@ io.on('connection', (socket) => {
 
   });
 
+  // eslint-disable-next-line no-shadow
   socket.on("disconnect", (socket) => {
     console.log("Client disconnected: ", socket);
     connection.splice(connection.indexOf(socket), 1);

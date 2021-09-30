@@ -4,8 +4,14 @@ import Button from '../../button/Button';
 import '../contentGamePageMaster.scss';
 import Avatar from '../../avatar/Avatar';
 import { useAppSelector } from '../../../redux/hooks';
+import { useHistory } from 'react-router';
 
 const GameHeader = () => {
+  const history=useHistory();
+
+  const onHandlerStopGameAndGotoResults=()=>{
+    history.push('/results')
+  }
   const master = useAppSelector((state) => state.game.scrumMaster);
   return (
     <div className="header-content">
@@ -18,7 +24,7 @@ const GameHeader = () => {
             <span>name:{master?.firstName}</span>
           </Plate>
         </div>
-        <Button TypeBtn="unfilled" label="Stop Game" />
+        <Button TypeBtn="unfilled" label="Stop Game" onClick={onHandlerStopGameAndGotoResults}/>
       </div>
     </div>
   );

@@ -20,14 +20,13 @@ const Card: FC<CardProps> = ({ number, id, className }) => {
   const scoreType = useAppSelector((state) => state.game.scoreType);
   const value = scoreType === 'story point' ? 'SP' : '%';
   const classes = classNames('card-container ', className);
-  const activeIssue= useAppSelector((state) => state.issie.activeIssue);
-  const user= useAppSelector((state) => state.user)
+  const activeIssue = useAppSelector((state) => state.issie.activeIssue);
+  const user = useAppSelector((state) => state.user);
 
   const handleChangeActiveCard = useCallback(() => {
     dispatch(setSelectedCard({ id, number }));
-    socket.emit('player selected one card', { value: number,userId:user.id,activeIssue});
+    socket.emit('player selected one card', { value: number, userId: user.id, activeIssue });
   }, [dispatch, id, value]);
-
 
   return (
     <div className={classes} onClick={handleChangeActiveCard} id={id}>

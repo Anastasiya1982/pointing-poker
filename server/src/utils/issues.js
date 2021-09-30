@@ -1,7 +1,6 @@
 let  issues = [];
 let activeIssue;
 const issueJoin = (issue) => {
-
   issues.push(issue);
   return issues;
 };
@@ -13,6 +12,12 @@ const deleteIssue=(title)=>{
 const findActiveIssue=(issue)=>{
   activeIssue=issue;
   return activeIssue
+};
+
+const setResultsToIssue=(arr)=>{
+  const currentIssue=issues.find(iss=>iss.title===activeIssue.title);
+  currentIssue.results=arr;
+  return issues;
 }
 const getActiveIssue=()=>activeIssue;
 
@@ -21,5 +26,6 @@ module.exports={
   getIssues,
   deleteIssue,
   findActiveIssue,
-  getActiveIssue
+  getActiveIssue,
+  setResultsToIssue
 };

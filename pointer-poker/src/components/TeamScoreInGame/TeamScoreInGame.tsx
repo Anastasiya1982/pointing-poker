@@ -8,12 +8,13 @@ import socket from '../../socket';
 import img from '../../assets/image.png';
 
 import './TeamScoreInGame.scss';
+import { log } from 'util';
 
 const TeamScoreInGame = () => {
   const [modalActive, setModalActive] = useState(false);
   const [currentUserId, setCurrentUserId] = useState(null);
   const players = useAppSelector((state) => state.game.users);
-
+  const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
 
   const deleteUser = (id: any) => {
     let user = players.find((pl) => pl.id === id);
@@ -26,15 +27,23 @@ const TeamScoreInGame = () => {
   };
   return (
     <div className="wrapper-score">
-      <div className="score-header "><span>Score</span><span>Players</span></div>
-      {players.map((player=>{
-        const voite = player.voite === 0 ? <img src={img} alt='unknown'/> : <span>{player.voite}</span>;
-        return(
+      <div className="score-header ">
+        <span>Score</span>
+        <span>Players</span>
+      </div>
+      {players.map((player) => {
+        const voite =
+          player.voite === 0 ? (
+            <img src={img} alt="unknown" className='unknownImg' />
+          ) : !player.voite ? (
+            <span>IN PROGRESS</span>
+          ) : (
+            <span>{player.voite}</span>
+          );
+        return (
           <div className="score-container">
             <div className="players">
-              <Plate>
-                {player.voite ? voite : <span>IN PROGRESS</span>}
-              </Plate>
+              <Plate>{voite}</Plate>
               <Plate key={player.id}>
                 <Avatar img={player.img} fallbackText={player.fallbackText} />
                 <span>name: {player.firstName}</span>
@@ -42,8 +51,8 @@ const TeamScoreInGame = () => {
               </Plate>
             </div>
           </div>
-        )
-      }))}
+        );
+      })}
       <ModalView active={modalActive} setActive={setModalActive}>
         <div className="wrapper-modal">
           <h1 className="name-modal">Kick player? </h1>

@@ -7,19 +7,25 @@ import socket from '../../socket';
 import { useAppSelector } from '../../redux/hooks';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { setVoite } from '../../redux/user/userReducer';
 import { setUsers } from '../../redux/game/gameReducer';
+import { setIssues } from '../../redux/issue/issueReducer';
 
 const GamePageMaster = () => {
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
+  const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
+
+ if(!isScrumMuster){
+   console.log("страница игрока ");
+ }
 
   const history=useHistory();
   const dispatch=useDispatch();
 
   useEffect(()=>{
-      socket.on("Show results for all players",(data)=>{
+      socket.on("Show results for all players",(data:any)=>{
         console.log(data.users)
-        dispatch(setUsers({data:data.users}))
+        dispatch(setUsers({data:data.users}));
+        dispatch(setIssues({data:data.issues}))
       })
   },[])
 

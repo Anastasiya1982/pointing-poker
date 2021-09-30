@@ -21,7 +21,6 @@ const StartOrCancelGameInLobby: FC<any> = () => {
 
 
    const startGame = () => {
-
     socket.emit('ready to start game', ({
       cards,isScrumMasterAPlayer, activeIssue, issues,scoreType,startGame:true,isTimerNeeded
     }));

@@ -20,10 +20,7 @@ const findActiveCardValue=(cardValue)=>{
 const getActiveCard=()=>activeCardsValue;
 
 
-const voitingOnIssues=(data)=>{
-  results.push(data);
-  return results;
-}
+
 const getResults=()=>results;
 
 module.exports={
