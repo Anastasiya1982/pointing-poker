@@ -5,6 +5,7 @@ import '../contentGamePageMaster.scss';
 import Avatar from '../../avatar/Avatar';
 import { useAppSelector } from '../../../redux/hooks';
 import { useHistory } from 'react-router';
+import HeaderPlaningIssue from '../../HeaderPlaningIssue/HeaderPlaningIssue';
 
 const GameHeader = () => {
   const history=useHistory();
@@ -15,7 +16,7 @@ const GameHeader = () => {
   const master = useAppSelector((state) => state.game.scrumMaster);
   return (
     <div className="header-content">
-      <div className="date">Spring 23 planning (issues 13, 533, 5623, 3252, 6623, ...)</div>
+      <HeaderPlaningIssue/>
       <div className="wrapper-panel">
         <div className="scram-master">
           <div>Scram master:</div>

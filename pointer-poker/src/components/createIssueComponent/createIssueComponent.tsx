@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import Input from '../input/Input';
 import Button from '../button/Button';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -13,11 +13,9 @@ const CreteIssueComponent: FC<PropsIssueType> = ({ setModalActive }) => {
   const [priority, setPriority] = useState('');
   const [value,setValue]=useState('')
   const dispatch = useAppDispatch();
-  const issues = useAppSelector((state) => state.issie.issues);
-  const issue = useAppSelector((state) => state.issie.issue);
 
   const onHandleIssueTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setIssue({ title:event.target.value}));
+      setValue(event.target.value);
   };
 
   const onHandlePriorityChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -25,7 +23,11 @@ const CreteIssueComponent: FC<PropsIssueType> = ({ setModalActive }) => {
   };
 
   const onHandleIssueSubmit = () => {
-    socket.emit('create-new-issue', issue);
+    dispatch(setIssue(value));
+   let newIssue={title:value, priority:priority, results: null}
+    socket.emit('create-new-issue',newIssue );
+    setValue('')
+
     setModalActive(false);
   };
 
@@ -35,7 +37,7 @@ const CreteIssueComponent: FC<PropsIssueType> = ({ setModalActive }) => {
       <div className="content-modal-lobby-addIssues">
         <div className="wrapper-content-modal-lobby-addIssues">
           <span>Title:</span>
-          <Input onChange={onHandleIssueTitleChange} placeholder="title" maxlength={9}/>
+          <Input onChange={onHandleIssueTitleChange} placeholder="title" value={value} />
         </div>
         <div className="wrapper-content-modal-lobby-addIssues">
           <span>Priority:</span>

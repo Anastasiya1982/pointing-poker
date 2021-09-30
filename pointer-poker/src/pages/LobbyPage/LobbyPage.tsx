@@ -26,7 +26,6 @@ const LobbyPage = () => {
         dispatch(setCards(settings.cards));
         dispatch(setIsTimerNeeded(settings.isTimerNeeded));
         dispatch(setIssues({data:settings.issues}));
-        // dispatch(setActiveIssue({data:settings.activeIssue}));
         dispatch(setStartGame(true));
         history.push('/game');
       });

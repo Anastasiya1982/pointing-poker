@@ -6,36 +6,43 @@ import { useHistory } from 'react-router';
 import { useAppSelector } from '../../redux/hooks';
 import socket from '../../socket';
 
-
 const StartOrCancelGameInLobby: FC<any> = () => {
-  const [text, setText]=useState("http://localhost:5000/lobby/MyRoom")
+  const [text, setText] = useState('http://localhost:5000/lobby/MyRoom');
   const cards = useAppSelector((state) => state.game.cards);
   const history = useHistory();
-  const isScrumMasterAPlayer=useAppSelector((state) => state.game.isScrumMasterAPlayer);
-  const scoreType=useAppSelector((state) => state.game.scoreType);
-  const issues=useAppSelector((state) => state.issie.issues);
-   const isTimerNeeded=useAppSelector((state) => state.game.isTimerNeeded);
-  const activeIssue =useAppSelector((state) => state.issie.activeIssue);
- const[isDisabled,setIsDisabled]=useState(true);
+  const isScrumMasterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
+  const scoreType = useAppSelector((state) => state.game.scoreType);
+  const issues = useAppSelector((state) => state.issie.issues);
+  const isTimerNeeded = useAppSelector((state) => state.game.isTimerNeeded);
+  const activeIssue = useAppSelector((state) => state.issie.activeIssue);
+  const [isDisabled, setIsDisabled] = useState(true);
 
- useEffect(()=>{
-   if(issues.length>0){
-     setIsDisabled(false)
-   }
- },[issues])
+useEffect(()=>{
+  if (issues.length>0 && activeIssue) {
+    console.log(isDisabled);
+    setIsDisabled(false);
+  }
+},[activeIssue])
 
 
-   const startGame = () => {
-    socket.emit('ready to start game', ({
-      cards,isScrumMasterAPlayer, activeIssue, issues,scoreType,startGame:true,isTimerNeeded
-    }));
+
+  const startGame = () => {
+    socket.emit('ready to start game', {
+      cards,
+      isScrumMasterAPlayer,
+      activeIssue,
+      issues,
+      scoreType,
+      startGame: true,
+      isTimerNeeded,
+    });
     history.push('/game');
   };
 
   const copy = async () => {
     await navigator.clipboard.writeText(text);
     alert('Text copied');
-  }
+  };
   return (
     <>
       <div className="lobby-page-entry">
@@ -43,15 +50,11 @@ const StartOrCancelGameInLobby: FC<any> = () => {
         <Input
           className="lobby-page-input"
           onChange={() => {
-            console.log('enter the inventation link');} }
+            console.log('enter the inventation link');
+          }}
           value={text}
         />
-        <Button
-          label="Copy"
-          TypeBtn="filled"
-          onClick={copy}
-          className="lobby-page-button-copy"
-        />
+        <Button label="Copy" TypeBtn="filled" onClick={copy} className="lobby-page-button-copy" />
       </div>
       <div className="lobby-page-button-container">
         <Button
