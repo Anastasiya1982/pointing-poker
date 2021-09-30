@@ -1,5 +1,6 @@
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import exp from 'constants';
 
 export const getFallbackText = (firstName: string, lastName: string) => {
   const first = firstName[0];
@@ -72,3 +73,14 @@ export const exportToCSV = (csvData: any, fileName: string) => {
   const data = new Blob([excelBuffer], { type: fileType });
   FileSaver.saveAs(data, fileName + fileExtension);
 };
+
+const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+export  const getCurrentData=()=>{
+  const date = new Date();
+ let month = date.getMonth();
+ let currentData=(date.getFullYear() + '-' + months[date.getMonth()] + '-' + date.getDate());
+ return currentData
+
+}
+

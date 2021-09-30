@@ -11,6 +11,9 @@ import socket from '../../socket';
 import { setScrumMusterData, setUsers } from '../../redux/game/gameReducer';
 import StartOrCancelGameInLobby from '../../components/StartOrCancelGameInLobby/StartOrCancelGameInLobby';
 import CardsLobby from '../../components/cardsLobby/CardsLobby';
+import { log } from 'util';
+import { getCurrentData } from '../../utils/utils';
+import HeaderPlaningIssue from '../../components/HeaderPlaningIssue/HeaderPlaningIssue';
 
 interface Props {
   date: string;
@@ -21,6 +24,7 @@ const ContentLobbyPage: FC<Props> = () => {
   const master = useAppSelector((state) => state.game.scrumMaster);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
   const newUser = useAppSelector((state) => state.user);
+  const issues = useAppSelector((state) => state.issie.issues);
 
 
   useEffect(() => {
@@ -39,10 +43,14 @@ const ContentLobbyPage: FC<Props> = () => {
     });
   }, []);
 
+  let  planingIssues=issues.map(iss=>iss.title)
+
+  const currentData=getCurrentData();
+
   return (
     <div className="lobby-page-content">
       <div className="lobby-page-wrapper">
-        <div className="date">Spring 23 planning (issues 13, 533, 5623, 3252, 6623, ...)</div>
+       <HeaderPlaningIssue/>
         <div className="lobby-page-scrum-master">
           <h3 className="lobby-page-scrum-master-title"> Scrum Master:</h3>
           <Plate>
