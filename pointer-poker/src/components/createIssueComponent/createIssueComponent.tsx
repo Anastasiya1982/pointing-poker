@@ -35,7 +35,7 @@ const CreteIssueComponent: FC<PropsIssueType> = ({ setModalActive }) => {
       <div className="content-modal-lobby-addIssues">
         <div className="wrapper-content-modal-lobby-addIssues">
           <span>Title:</span>
-          <Input onChange={onHandleIssueTitleChange} placeholder="title"/>
+          <Input onChange={onHandleIssueTitleChange} placeholder="title" maxlength={9}/>
         </div>
         <div className="wrapper-content-modal-lobby-addIssues">
           <span>Priority:</span>
