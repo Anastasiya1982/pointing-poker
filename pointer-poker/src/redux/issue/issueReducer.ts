@@ -29,7 +29,7 @@ export const issueSlice = createSlice({
   reducers: {
     setIssue: (state, action) => {
       // @ts-ignore
-      state.issue.title = action.payload.title;
+      state.issue.title = action.payload;
     },
     setIssues: (state, action) => {
       state.issues = action.payload.data;

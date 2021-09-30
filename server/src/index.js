@@ -79,6 +79,7 @@ io.on('connection', (socket) => {
 
 // Issue
     socket.on("create-new-issue",(issue)=>{
+      console.log(issue);
          if(issueUtils.issueJoin(issue)){
            io.to("MyRoom").emit("get created issues",issueUtils.getIssues());
          }

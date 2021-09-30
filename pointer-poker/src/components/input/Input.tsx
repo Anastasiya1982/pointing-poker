@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from 'react';
+import React, { ChangeEvent, FC, useEffect } from 'react';
 import classNames from 'classnames';
 import './input.scss';
 
@@ -7,12 +7,21 @@ interface PropsInput {
   value?: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
-  placeholder?:string
+  placeholder?: string;
 }
 
-const Input: FC<PropsInput> = ({ className, value, onChange, required,placeholder }) => {
+const Input: FC<PropsInput> = ({ className, value, onChange, required, placeholder }) => {
+
   const classes = classNames('input-modal-main-page', className);
-  return <input type="text" onChange={onChange} value={value} className={classes} placeholder={placeholder} defaultValue='' />;
+  return (
+    <input
+      type="text"
+      onChange={onChange}
+      className={classes}
+      placeholder={placeholder}
+      value={value}
+    />
+  );
 };
 
 export default Input;
