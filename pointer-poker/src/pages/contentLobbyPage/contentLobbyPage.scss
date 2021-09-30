@@ -70,3 +70,9 @@
 .content-modal-lobby-addIssues {
   margin: 0 0 113px 0;
 }
+
+@media (max-width: 900px) {
+.lobby-page-wrapper {
+  width: 69%;
+ }
+}

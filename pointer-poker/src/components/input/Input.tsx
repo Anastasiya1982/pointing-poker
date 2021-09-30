@@ -7,12 +7,13 @@ interface PropsInput {
   value?: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
-  placeholder?:string
+  placeholder?:string;
+  maxlength?: number;
 }
 
-const Input: FC<PropsInput> = ({ className, value, onChange, required,placeholder }) => {
+const Input: FC<PropsInput> = ({ className, value, onChange, required, placeholder, maxlength }) => {
   const classes = classNames('input-modal-main-page', className);
-  return <input type="text" onChange={onChange} value={value} className={classes} placeholder={placeholder} defaultValue='' />;
+  return <input type="text" onChange={onChange} value={value} className={classes} placeholder={placeholder} maxLength={maxlength} defaultValue='' />;
 };
 
 export default Input;
