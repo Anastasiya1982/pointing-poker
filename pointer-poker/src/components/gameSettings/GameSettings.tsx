@@ -6,7 +6,7 @@ import {
 } from '../../redux/game/gameReducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import BtnSwitch from '../btnSwitch/BtnSwitch';
-import Countdown from '../timer/Timer';
+import Timer from '../timer/Timer';
 import './gameSettings.scss';
 
 const GameSettings = () => {
@@ -73,7 +73,7 @@ const GameSettings = () => {
       </div>
       {isTimerNeeded && (
         <div className="lobby-page-game-settings-round-time-container">
-          <div>Round Time:</div> <Countdown roundTime={90} />
+          <div>Round Time:</div> <Timer roundTime={90} />
         </div>
       )}
     </div>
