@@ -11,7 +11,11 @@ const Statistic = () => {
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
   const issues = useAppSelector((state) => state.issie.issues);
 
+
   const currentIssueResult = issues.filter((iss) => iss.title === activeIssue?.title);
+  if(!currentIssueResult){
+    return null
+  }
   const values = currentIssueResult[0].results;
   const procentsResult = countResults(values);
   console.log(procentsResult);

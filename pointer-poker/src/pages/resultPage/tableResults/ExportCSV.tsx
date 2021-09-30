@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import Button from 'react-bootstrap/Button';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import Button from '../../../components/button/Button';
 
 interface ExportScvType {
   csvData: any;
@@ -9,10 +9,13 @@ interface ExportScvType {
 }
 
 export const ExportCSV: FC<ExportScvType> = ({ csvData, filename}) => {
+ ;
+  console.log(csvData);
   const fileType =
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const fileExtension = '.xlsx';
-  const exportToCSV = (csvData: any, fileName: string) => {
+
+  const exportToCSV = (csvData:any, fileName: string) => {
     const ws = XLSX.utils.json_to_sheet(csvData);
     const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
@@ -20,9 +23,7 @@ export const ExportCSV: FC<ExportScvType> = ({ csvData, filename}) => {
     FileSaver.saveAs(data, fileName + fileExtension);
   };
   return (
-    <Button variant="warning"
-            onClick={(e) => exportToCSV(csvData, filename)}>
-      Export
-    </Button>
+    <Button  onClick={(e) => exportToCSV(csvData, filename)} label='Export' TypeBtn='filled'/>
+
   );
 };

@@ -3,7 +3,7 @@ import React from 'react';
 import Main from '../Main/Main';
 import LobbyPage from '../LobbyPage/LobbyPage';
 import GamePageMaster from '../gamePageMaster/GamePageMaster';
-import ResultPage from '../resultPage/ResultPage';
+import ResultPage from '../resultPage/ResultsPage';
 
 const PagesAll = () => {
   return (

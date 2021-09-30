@@ -1,4 +1,4 @@
-import { FC,  useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Input from '../input/Input';
 import Button from '../button/Button';
 import './StartOrCancelGameInLobby.scss';
@@ -16,8 +16,13 @@ const StartOrCancelGameInLobby: FC<any> = () => {
   const issues=useAppSelector((state) => state.issie.issues);
    const isTimerNeeded=useAppSelector((state) => state.game.isTimerNeeded);
   const activeIssue =useAppSelector((state) => state.issie.activeIssue);
+ const[isDisabled,setIsDisabled]=useState(true);
 
-
+ useEffect(()=>{
+   if(issues.length>0){
+     setIsDisabled(false)
+   }
+ },[issues])
 
 
    const startGame = () => {
@@ -54,6 +59,7 @@ const StartOrCancelGameInLobby: FC<any> = () => {
           TypeBtn="filled"
           onClick={startGame}
           className="lobby-page-button-star-game"
+          disabled={isDisabled}
         />
         <Button
           label="Cancel Game"
