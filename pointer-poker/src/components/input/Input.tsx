@@ -22,6 +22,5 @@ const Input: FC<PropsInput> = ({ className, value, onChange, required, placehold
       value={value}
     />
   );
-};
 
 export default Input;

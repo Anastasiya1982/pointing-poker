@@ -17,8 +17,8 @@ const Message: FC<MessagePropType> = ({ message, user }) => {
   return (
     <div className="message">
       <div className="messageTop">
-        <Plate>
-          <Avatar img={user.img} fallbackText={user.fallbackText} />
+        <Plate className="plate-chat">
+          <Avatar img={user.img} fallbackText={user.fallbackText} className="avatar-chat" />
           <div className="userName">
             {' '}
             Name : <span>{user.firstName}</span>

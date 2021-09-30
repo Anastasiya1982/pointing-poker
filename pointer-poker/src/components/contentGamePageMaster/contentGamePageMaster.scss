@@ -1,6 +1,10 @@
 .wrapper-content-PM {
+  width: 100%;
   display: flex;
-  padding: 0 30px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0;
 }
 .content-PM {
   width: 60vw;

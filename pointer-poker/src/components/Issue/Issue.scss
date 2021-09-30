@@ -57,8 +57,7 @@
   cursor: pointer;
   transition: 0.3s;
     &:hover{
-      width: 23px;
-      height: 33px;
+      transform: scale(1.2);
     }
 }
 .issue-delete-icon{
@@ -84,3 +83,8 @@
   justify-content: center;
 }
 
+@media (max-width: 900px) {
+  .newIssues-title {
+    font-size: 16px;
+   }
+  }
