@@ -11,7 +11,15 @@
   margin-bottom: 20px;
 }
 @media (max-width: 900px) {
-  .plate{
+  .plate-chat{
     max-width: 245px;
   }
+  .messageTop {
+    flex-direction: column;
+}
+.avatar-chat{
+  width: 30px;
+  height: 30px;
+  font-size: 13px;
+}
 }

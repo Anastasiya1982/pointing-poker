@@ -35,3 +35,9 @@
 .userName{
   width: 60%;
 }
+
+@media (max-width: 900px) {
+ .userName {
+  font-size: 10px;
+ }
+} 
