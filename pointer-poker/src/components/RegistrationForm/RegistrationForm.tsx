@@ -88,8 +88,8 @@ const RegistrationForm = (props: any) => {
       <form className="content-form">
         <label>Your first name:</label>
         <div className="input-name">
-        <Input className="input-modal" onChange={changeUserFirstName} value={firstName} required={true} />
         {  userNameError && (<div style={{ color: 'red' }}>{userNameError}</div>)}
+        <Input className="input-modal" onChange={changeUserFirstName} value={firstName} required={true} />
         </div>
         <label>Your last name:</label>
         <Input className="input-modal" onChange={changeUserLastName} value={lastName} required />
