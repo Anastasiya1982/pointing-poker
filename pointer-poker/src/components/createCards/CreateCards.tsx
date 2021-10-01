@@ -37,7 +37,7 @@ const CreateCards: FC<PropsCardType> = ({ setModalActive }) => {
       <div className="content-modal-lobby-addCards">
         <div className="wrapper-content-modal-lobby-addCards">
           <span>Number:</span>
-          <Input onChange={onHandleCardNumberChange} placeholder="number" />
+          <Input onChange={onHandleCardNumberChange} placeholder="number" value={cardNumber} />
         </div>
       </div>
       <div className="footer-modal-lobby-addCards">

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
+import { useAppSelector } from '../../redux/hooks';
 import Button from '../button/Button';
 import './timer.scss';
 
@@ -7,7 +8,8 @@ const Timer = ({ roundTime }: { roundTime: number }) => {
   const [timerActive, setTimerActive] = useState(false);
   const minutes = Math.floor(seconds / 60);
   const correctSeconds = seconds % 60;
-  // const value = timerActive ? 'stop' : 'start';
+  const value = timerActive ? 'stop' : 'start';
+  const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
 
   useEffect(() => {
     let timer: number | undefined;
@@ -25,7 +27,10 @@ const Timer = ({ roundTime }: { roundTime: number }) => {
     <div>
       {/* {seconds ? ( */}
       <div className="timer-container">
-        {/* <Button label={value} TypeBtn="filled" onClick={() => setTimerActive(!timerActive)} /> */}
+        {isScrumMuster ? (
+          <Button label={value} TypeBtn="filled" onClick={() => setTimerActive(!timerActive)} />
+        ) : null}
+
         <div id="clockdiv">
           <div>
             <div className="smalltext">Minutes</div>
