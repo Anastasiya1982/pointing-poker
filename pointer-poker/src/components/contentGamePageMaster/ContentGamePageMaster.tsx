@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import Plate from '../plate/Plate';
 import Timer from '../timer/Timer';
 import './contentGamePageMaster.scss';
@@ -10,7 +10,6 @@ import CardsInGame from './CardsInGame/CardsInGame';
 import { useDispatch } from 'react-redux';
 import Statistic from '../StatisticOnMasterPage/Statistic';
 import Button from '../button/Button';
-
 
 const ContentGamePageMaster = () => {
   const issues = useAppSelector((state) => state.issie.issues);
@@ -29,7 +28,7 @@ const ContentGamePageMaster = () => {
         <GameHeader />
         <div className="wrapper-issues-container">
           <div className="issue-box">
-            {issues.map((issue:any, index:number) => {
+            {issues.map((issue: any, index: number) => {
               return (
                 <Plate key={index}>
                   <div
@@ -51,9 +50,9 @@ const ContentGamePageMaster = () => {
               );
             })}
           </div>
-          <Timer roundTime={0} />
+          <Timer roundTime={120} />
         </div>
-        {isScrumMuster ? <Statistic/> : <CardsInGame />}
+        {isScrumMuster ? <Statistic /> : <CardsInGame />}
       </div>
       <TeamScoreInGame />
     </div>
