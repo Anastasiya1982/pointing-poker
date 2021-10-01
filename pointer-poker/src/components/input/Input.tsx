@@ -12,7 +12,7 @@ interface PropsInput {
 
 const Input: FC<PropsInput> = ({ className, value, onChange, required, placeholder }) => {
 
-  const classes = classNames('input-modal-main-page', className);
+  const classes=classNames('input-modal-main-page', className);
   return (
     <input
       type="text"
@@ -22,5 +22,6 @@ const Input: FC<PropsInput> = ({ className, value, onChange, required, placehold
       value={value}
     />
   );
+}
 
 export default Input;
