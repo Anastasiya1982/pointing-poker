@@ -8,15 +8,14 @@ import { useAppSelector } from '../../redux/hooks';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setUsers } from '../../redux/game/gameReducer';
-import { setIssues } from '../../redux/issue/issueReducer';
+import { setActiveIssue, setIssues } from '../../redux/issue/issueReducer';
+
 
 const GamePageMaster = () => {
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
   const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
+ const activeIssue=useAppSelector((state )=>state.issie.activeIssue)
 
- if(!isScrumMuster){
-   console.log("страница игрока ");
- }
 
   const history=useHistory();
   const dispatch=useDispatch();
@@ -27,10 +26,11 @@ const GamePageMaster = () => {
         dispatch(setUsers({data:data.users}));
         dispatch(setIssues({data:data.issues}))
       })
-  },[])
+  },[]);
 
 
-  return (
+
+      return (
     <div className="wrapper-game-page-master">
       <Header />
       <ContentGamePageMaster />

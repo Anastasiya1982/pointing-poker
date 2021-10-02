@@ -22,6 +22,7 @@ const LobbyPage = () => {
       socket.on("show active issue to all players",(activeIssue)=>{
         dispatch(setActiveIssue({data:activeIssue}))
       });
+
       socket.on('game start', (settings) => {
         dispatch(setCards(settings.cards));
         dispatch(setIsTimerNeeded(settings.isTimerNeeded));
@@ -30,7 +31,10 @@ const LobbyPage = () => {
         history.push('/game');
       });
     }
-  },[])
+  },[]);
+
+
+
   return (
     <div className="wrapper-lobby-page">
       <Header />

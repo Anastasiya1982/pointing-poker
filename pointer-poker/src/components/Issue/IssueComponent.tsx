@@ -16,6 +16,7 @@ const IssueComponent = () => {
   const issues = useAppSelector((state) => state.issie.issues);
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
 
+
   useEffect(() => {
     socket.on('get created issues', (issues) => {
       dispatch(setIssues({ data: issues }));

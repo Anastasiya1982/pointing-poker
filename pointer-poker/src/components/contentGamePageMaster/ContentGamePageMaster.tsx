@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Plate from '../plate/Plate';
 import Timer from '../timer/Timer';
 import './contentGamePageMaster.scss';
@@ -10,9 +10,10 @@ import CardsInGame from './CardsInGame/CardsInGame';
 import { useDispatch } from 'react-redux';
 import Statistic from '../StatisticOnMasterPage/Statistic';
 import Button from '../button/Button';
-
+import { setActiveIssue } from '../../redux/issue/issueReducer';
 
 const ContentGamePageMaster = () => {
+  const [isDisabled,setIsDisabled]=useState(false)
   const issues = useAppSelector((state) => state.issie.issues);
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
@@ -23,13 +24,25 @@ const ContentGamePageMaster = () => {
     socket.emit('delete issue', currentIssue);
   };
 
+  const setNextIssueAsActive = () => {
+    let searchName = activeIssue?.title;
+    let index = issues.findIndex((el) => el.title === searchName);
+    const nextIssue = issues[index + 1];
+    // if(!nextIssue){
+    //   setIsDisabled(true)
+    // }
+    socket.emit("set active issue",nextIssue);
+    dispatch(setActiveIssue({ data: nextIssue }));
+
+  };
+
   return (
     <div className="wrapper-content-PM">
       <div className="content-PM">
         <GameHeader />
         <div className="wrapper-issues-container">
           <div className="issue-box">
-            {issues.map((issue:any, index:number) => {
+            {issues.map((issue: any, index: number) => {
               return (
                 <Plate key={index}>
                   <div
@@ -51,9 +64,10 @@ const ContentGamePageMaster = () => {
               );
             })}
           </div>
+          <Button TypeBtn="filled" label="nextIssue" onClick={setNextIssueAsActive} disabled={isDisabled} />
           <Timer roundTime={0} />
         </div>
-        {isScrumMuster ? <Statistic/> : <CardsInGame />}
+        {isScrumMuster ? <Statistic /> : <CardsInGame />}
       </div>
       <TeamScoreInGame />
     </div>
