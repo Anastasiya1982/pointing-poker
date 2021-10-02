@@ -37,5 +37,9 @@
   cursor: pointer;
 }
 
-
+.filledBtn[type="button"]:disabled { 
+  box-shadow: 0 0 10px 0 #9ea5bd inset, 0 0 10px 4px #9ea5bd;
+  color: #9ea5bd;
+  cursor: none;
+}
 
