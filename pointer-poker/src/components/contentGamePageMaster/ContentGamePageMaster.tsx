@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import Plate from '../plate/Plate';
 import Timer from '../timer/Timer';
 import './contentGamePageMaster.scss';
@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import Statistic from '../StatisticOnMasterPage/Statistic';
 import Button from '../button/Button';
 import { setActiveIssue } from '../../redux/issue/issueReducer';
+
 
 const ContentGamePageMaster = () => {
   const [isDisabled,setIsDisabled]=useState(false)
@@ -64,8 +65,10 @@ const ContentGamePageMaster = () => {
               );
             })}
           </div>
+
           <Button TypeBtn="filled" label="nextIssue" onClick={setNextIssueAsActive} disabled={isDisabled} />
-          <Timer roundTime={0} />
+          <Timer roundTime={120} />
+        
         </div>
         {isScrumMuster ? <Statistic /> : <CardsInGame />}
       </div>
