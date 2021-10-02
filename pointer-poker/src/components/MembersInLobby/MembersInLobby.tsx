@@ -28,7 +28,9 @@ const MembersInLobby = () => {
 
   const deleteUser = (id: any) => {
     const user = players.find((pl) => pl.id === id);
-    socket.emit('delete user', user);
+    socket.emit('delete user', (user:any)=>{
+      socket.disconnect()
+    });
     setModalActive(false);
   };
   const openModalToDeleteUser = useCallback((id: any) => {

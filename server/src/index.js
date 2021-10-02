@@ -85,6 +85,7 @@ io.on('connection', (socket) => {
          }
   });
     socket.on("set active issue",(activeIssue)=>{
+      console.log(activeIssue)
       issueUtils.findActiveIssue(activeIssue);
       io.to("MyRoom").emit("show active issue to all players", (activeIssue))
     })
@@ -107,7 +108,6 @@ io.on('connection', (socket) => {
   socket.on("player selected one card",(data)=>{
     userUtils.setUserVoite(data);
     issueUtils.setResultsToIssue(userUtils.getUsersVoiteArray());
-    console.log(issueUtils.getIssues());
     io.to("MyRoom").emit("Show results for all players",{users:userUtils.getUsers(),activeIssue:data.activeIssue,issues:issueUtils.getIssues()})
   })
 

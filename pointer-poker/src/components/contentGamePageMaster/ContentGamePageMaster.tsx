@@ -10,8 +10,11 @@ import CardsInGame from './CardsInGame/CardsInGame';
 import { useDispatch } from 'react-redux';
 import Statistic from '../StatisticOnMasterPage/Statistic';
 import Button from '../button/Button';
+import { setActiveIssue } from '../../redux/issue/issueReducer';
+
 
 const ContentGamePageMaster = () => {
+  const [isDisabled,setIsDisabled]=useState(false)
   const issues = useAppSelector((state) => state.issie.issues);
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
@@ -20,6 +23,18 @@ const ContentGamePageMaster = () => {
   const deleteIssue = (index: any) => {
     const currentIssue = issues[index];
     socket.emit('delete issue', currentIssue);
+  };
+
+  const setNextIssueAsActive = () => {
+    let searchName = activeIssue?.title;
+    let index = issues.findIndex((el) => el.title === searchName);
+    const nextIssue = issues[index + 1];
+    // if(!nextIssue){
+    //   setIsDisabled(true)
+    // }
+    socket.emit("set active issue",nextIssue);
+    dispatch(setActiveIssue({ data: nextIssue }));
+
   };
 
   return (
@@ -50,7 +65,10 @@ const ContentGamePageMaster = () => {
               );
             })}
           </div>
+
+          <Button TypeBtn="filled" label="nextIssue" onClick={setNextIssueAsActive} disabled={isDisabled} />
           <Timer roundTime={120} />
+        
         </div>
         {isScrumMuster ? <Statistic /> : <CardsInGame />}
       </div>
