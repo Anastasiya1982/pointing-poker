@@ -14,6 +14,7 @@ interface Props {
 type TypeBtn = 'filled' | 'unfilled';
 
 const Button: FC<Props> = ({ label, onClick, className, TypeBtn, disabled }) => {
+
   return (
     <button
       type="button"

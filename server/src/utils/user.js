@@ -16,6 +16,11 @@ const setUserVoite = (data) => {
   user.voite = data.value;
   return users;
 };
+
+const resetUsersVoite=(data)=> {
+  users.forEach(user => user.voite =data);
+  return users
+}
 const getUsers = () => users;
 
 const getMaster = () => master;
@@ -32,5 +37,6 @@ module.exports= {
   getUsers,
   getMaster,
   setUserVoite,
-  getUsersVoiteArray
+  getUsersVoiteArray,
+  resetUsersVoite
 }

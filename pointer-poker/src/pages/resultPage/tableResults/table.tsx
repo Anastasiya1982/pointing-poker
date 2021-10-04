@@ -5,15 +5,42 @@ import { countResults } from '../../../utils/utils';
 import Plate from '../../../components/plate/Plate';
 import Cup from '../../../assets/littleCup.png';
 import './table.scss';
+import { CSVLink } from 'react-csv';
 
 export const TableResults = () => {
   const issues = useAppSelector((state) => state.issie.issues);
-  const users= useAppSelector((state) => state.game.users);
+  const users = useAppSelector((state) => state.game.users);
   console.log(users);
+
+
+  const filterColumns=(issues:any)=>{
+    let headers = issues.map((issue: any) => issue.title);
+    console.log(headers);
+    return headers;
+
+  }
+
+
+
+// const getTableData=()=>{
+//     let results=[];
+//     // @ts-ignore
+//   for(let i=0;i<issues[0].results.length;i++){
+//     let res=countResults(issues[0].results)
+//       results.push({voite:``})
+//   }
+//
+//     // let columns=data.map((issue: { results: any; })=>issue.results);
+//     // let columnsData=countResults(columns);
+//     // return columnsData;
+// }
 
   return (
     <>
-      <ExportCSV csvData={JSON.stringify(issues)} filename="results" />
+      {/*<CSVLink data={getTableData(issues)} headers={filterColumns(issues)} filename={"results.csv"}>*/}
+      {/*  Download as CSV*/}
+      {/*</CSVLink>*/}
+      <ExportCSV csvData={issues} filename="results" headers={filterColumns(issues)} />
       <table>
         {issues.map((issue) => {
           const procentsResult = countResults(issue.results);
@@ -41,6 +68,33 @@ export const TableResults = () => {
           );
         })}
       </table>
+
+      {/*<table>*/}
+      {/*  <thead>*/}
+      {/*    <tr>*/}
+      {/*      <th style={{ textAlign: 'center' }}>Issue</th>*/}
+      {/*      <th style={{ textAlign: 'center' }}>Priority</th>*/}
+      {/*      <th style={{ textAlign: 'center' }}>Results</th>*/}
+      {/*    </tr>*/}
+      {/*  </thead>*/}
+      {/*  <tbody>*/}
+      {/*    {issues.map((issue, i) => (*/}
+      {/*      <tr key={i}>*/}
+      {/*        <React.Fragment>*/}
+      {/*          <td>{issue.title}</td>*/}
+      {/*          <td>{issue.priority}</td>*/}
+      {/*          <table>*/}
+      {/*            {issue.results?.map((res) => (*/}
+      {/*              <tr>*/}
+      {/*                <td>{res}</td>*/}
+      {/*              </tr>*/}
+      {/*            ))}*/}
+      {/*          </table>*/}
+      {/*        </React.Fragment>*/}
+      {/*      </tr>*/}
+      {/*    ))}*/}
+      {/*  </tbody>*/}
+      {/*</table>*/}
     </>
   );
 };

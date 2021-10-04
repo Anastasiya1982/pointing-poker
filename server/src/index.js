@@ -12,9 +12,9 @@ const io = require('socket.io')(server,
   {
     cors: {
         origin: "http://localhost:8080",
-        // methods: ["GET", "POST"],
-        // transports: ['websocket', 'polling'],
-        // credentials: true
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
+        credentials: true
     },
     allowEIO3: true
 }
@@ -30,7 +30,7 @@ const  gameUtils = require('./utils/gameSettings');
 
 dotenv.config();
 const host='127.0.0.1';
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -50,7 +50,7 @@ app.use( (req, res, next) => {
 
 
 app.get('/',(req,res)=> {
-    res.send(rooms);
+    res.send("rooms");
 });
 
 const connection=[]
@@ -88,11 +88,24 @@ io.on('connection', (socket) => {
       console.log(activeIssue)
       issueUtils.findActiveIssue(activeIssue);
       io.to("MyRoom").emit("show active issue to all players", (activeIssue))
-    })
+    });
+
   socket.on('delete issue',(currentIssue)=>{
     issueUtils.deleteIssue(currentIssue.title);
       io.to("MyRoom").emit("get Issues after deleting",issueUtils.getIssues());
   });
+
+
+    socket.on("StartIssueRound",(data)=>{
+      console.log("New round started", data);
+      io.to("MyRoom").emit("started new issue round",data)
+    });
+
+    socket.on("StopIssueRound",(data)=>{
+      console.log("stop Round");
+      userUtils.resetUsersVoite(data.voite)
+      io.to("MyRoom").emit("stop round",{isRoundStop:data.isRoundStop, users:userUtils.getUsers()});
+    })
 
     // settings
   socket.on("set all cards to game",(cards)=>{
@@ -111,6 +124,10 @@ io.on('connection', (socket) => {
     io.to("MyRoom").emit("Show results for all players",{users:userUtils.getUsers(),activeIssue:data.activeIssue,issues:issueUtils.getIssues()})
   })
 
+  socket.on("reset users voite",(data)=>{
+    userUtils.setUserVoite(data);
+    io.to("MyRoom").emit("reset voite for all users",{users: userUtils.getUsers()})
+  })
 
   socket.on("delete user",(user)=>{
     userUtils.userLeave(user.id);
@@ -118,10 +135,18 @@ io.on('connection', (socket) => {
 
   });
 
+  socket.on("stop game and show results table",(data)=>{
+    console.log(data);
+    io.to("MyRoom").emit("show results Page to player ", data);
+  })
+
   // eslint-disable-next-line no-shadow
   socket.on("disconnect", (socket) => {
     console.log("Client disconnected: ", socket);
+    userUtils.userLeave(socket.id);
     connection.splice(connection.indexOf(socket), 1);
+    io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
+
   })
 
 });

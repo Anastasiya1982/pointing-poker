@@ -39,7 +39,7 @@ const Statistic = () => {
               })
             : ''}
         </div>
-        {isScrumMusterAPlayer ? <CardsInGame /> : ''}
+        {/*{isScrumMusterAPlayer ? <CardsInGame /> : ''}*/}
       </div>
     </div>
   );

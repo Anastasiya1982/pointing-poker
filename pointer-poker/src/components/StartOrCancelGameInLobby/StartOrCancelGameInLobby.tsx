@@ -19,11 +19,9 @@ const StartOrCancelGameInLobby: FC<any> = () => {
 
 useEffect(()=>{
   if (issues.length>0 && activeIssue) {
-    console.log(isDisabled);
     setIsDisabled(false);
   }
-},[activeIssue])
-
+},[activeIssue]);
 
 
   const startGame = () => {

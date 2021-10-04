@@ -8,13 +8,30 @@ import socket from '../../socket';
 import img from '../../assets/image.png';
 
 import './TeamScoreInGame.scss';
-import { log } from 'util';
+
 
 const TeamScoreInGame = () => {
   const [modalActive, setModalActive] = useState(false);
   const [currentUserId, setCurrentUserId] = useState(null);
-  const players = useAppSelector((state) => state.game.users);
+  const allPlayers = useAppSelector((state) => state.game.users);
   const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
+  const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
+
+  let players;
+
+  if(!isScrumMusterAPlayer){
+    players=allPlayers.filter(player=>!player.isScrumMaster)
+  }
+  else players=allPlayers;
+
+  // if(!isScrumMuster){
+  //   if(!isScrumMusterAPlayer){
+  //     players=allPlayers.filter(player=>!player.isScrumMaster)
+  //   }
+  //   else players=allPlayers;
+  // }
+  //
+  // console.log(players);
 
   const deleteUser = (id: any) => {
     let user = players.find((pl) => pl.id === id);
