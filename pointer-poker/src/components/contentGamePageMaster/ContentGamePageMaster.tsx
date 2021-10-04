@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Plate from '../plate/Plate';
 import Timer from '../timer/Timer';
 import './contentGamePageMaster.scss';
@@ -10,75 +10,64 @@ import CardsInGame from './CardsInGame/CardsInGame';
 import { useDispatch } from 'react-redux';
 import Statistic from '../StatisticOnMasterPage/Statistic';
 import Button from '../button/Button';
-import { setActiveIssue, setIssues } from '../../redux/issue/issueReducer';
+import { setActiveIssue } from '../../redux/issue/issueReducer';
 import {
   setIsTimerStart,
   setSelectedCard,
   setStartIssueRound,
   setTimeOfRound,
   setUsers,
+  setStopIssueRound,
 } from '../../redux/game/gameReducer';
-import {setStopIssueRound} from '../../redux/game/gameReducer';
+
 import { useHistory } from 'react-router';
 
-
 const ContentGamePageMaster = () => {
-  const [isDisabled,setIsDisabled]=useState(false)
+  const [isDisabled, setIsDisabled] = useState(false);
   const issues = useAppSelector((state) => state.issie.issues);
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
   const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
-  const isRoundStop=useAppSelector(state => state.game.stopIssueRound);
-  const isRoundStart=useAppSelector(state => state.game.startIssueRound);
-  const timeOfRound = useAppSelector(state => state.game.timeOfRound)
+  const isRoundStop = useAppSelector((state) => state.game.stopIssueRound);
+  const isRoundStart = useAppSelector((state) => state.game.startIssueRound);
+  const timeOfRound = useAppSelector((state) => state.game.timeOfRound);
   const dispatch = useDispatch();
- const history=useHistory();
+  const history = useHistory();
 
   const deleteIssue = (index: any) => {
     const currentIssue = issues[index];
     socket.emit('delete issue', currentIssue);
   };
 
-
-
-  useEffect(()=>{
-      socket.on("started new issue round", (data) => {
-        dispatch(setStartIssueRound(data))
-      });
-      dispatch(setIsTimerStart({ value: true }));
-      dispatch(setTimeOfRound(20));
-
-    },[isRoundStart]);
-
-
-
-
-  useEffect(()=>{
-    socket.on("stop round",(data)=>{
-      console.log(data);
-      dispatch(setIsTimerStart({value:false}))
-      dispatch(setStartIssueRound(false));
-      dispatch( setStopIssueRound(data.isRoundStop));
-      dispatch(setSelectedCard(null));
-      dispatch(setUsers({data:data.users}));
-
+  useEffect(() => {
+    socket.on('started new issue round', (data) => {
+      dispatch(setStartIssueRound(data));
     });
-  },[isRoundStop]);
+    dispatch(setIsTimerStart({ value: true }));
+    dispatch(setTimeOfRound(20));
+  }, [isRoundStart]);
+
+  useEffect(() => {
+    socket.on('stop round', (data) => {
+      console.log(data);
+      dispatch(setIsTimerStart({ value: false }));
+      dispatch(setStartIssueRound(false));
+      dispatch(setStopIssueRound(data.isRoundStop));
+      dispatch(setSelectedCard(null));
+      dispatch(setUsers({ data: data.users }));
+    });
+  }, [isRoundStop]);
 
   const setNextIssueAsActive = () => {
-    let searchName = activeIssue?.title;
-    let index = issues.findIndex((el) => el.title === searchName);
+    const searchName = activeIssue?.title;
+    const index = issues.findIndex((el) => el.title === searchName);
     const nextIssue = issues[index + 1];
     dispatch(setStartIssueRound(false));
     dispatch(setStopIssueRound(false));
-    socket.emit("set active issue",nextIssue);
+    socket.emit('set active issue', nextIssue);
     dispatch(setActiveIssue({ data: nextIssue }));
     dispatch(setSelectedCard(null));
-    dispatch(setTimeOfRound(timeOfRound))
-
   };
-
-
 
   return (
     <div className="wrapper-content-PM">
@@ -109,11 +98,21 @@ const ContentGamePageMaster = () => {
             })}
           </div>
 
-          {isScrumMuster ?  <Button TypeBtn="filled" label="nextIssue" onClick={setNextIssueAsActive} disabled={isDisabled} /> :null}
-          <Timer roundTime={timeOfRound} />
-
+          {isScrumMuster ? (
+            <Button
+              TypeBtn="filled"
+              label="nextIssue"
+              onClick={setNextIssueAsActive}
+              disabled={isDisabled}
+            />
+          ) : null}
+          <Timer  />
         </div>
-        {!isScrumMuster ? <CardsInGame /> :<div>{isScrumMusterAPlayer ? <CardsInGame/>: ""}</div> }
+        {!isScrumMuster ? (
+          <CardsInGame />
+        ) : (
+          <div>{isScrumMusterAPlayer ? <CardsInGame /> : ''}</div>
+        )}
         {isRoundStop ? <Statistic /> : null}
       </div>
       <TeamScoreInGame />

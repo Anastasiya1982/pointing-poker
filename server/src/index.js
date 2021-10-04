@@ -1,11 +1,10 @@
-
-
 const express = require('express');
-
 const app=express();
 const server = require('http').createServer(app);
 const bodyParser=require('body-parser');
 const cors = require('cors');
+//
+// app.use(express.static(`${__dirname}/../build`))
 
 // eslint-disable-next-line import/no-dynamic-require
 const io = require('socket.io')(server,
