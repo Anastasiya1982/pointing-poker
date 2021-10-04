@@ -38,7 +38,6 @@ const ContentLobbyPage: FC<Props> = () => {
       dispatch(setUsers({ data: users }));
     });
     socket.on('get users after deleting', (users:any) => {
-
       dispatch(setUsers({ data: users }));
     });
   }, []);
@@ -70,7 +69,6 @@ const ContentLobbyPage: FC<Props> = () => {
           ''
         )}
       </div>
-
       <Chat />
     </div>
   );

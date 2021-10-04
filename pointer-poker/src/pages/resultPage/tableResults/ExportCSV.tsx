@@ -6,9 +6,10 @@ import Button from '../../../components/button/Button';
 interface ExportScvType {
   csvData: any;
   filename: string;
+  headers:any
 }
 
-export const ExportCSV: FC<ExportScvType> = ({ csvData, filename}) => {
+export const ExportCSV: FC<ExportScvType> = ({ csvData, filename,headers}) => {
  ;
   console.log(csvData);
   const fileType =
@@ -17,10 +18,16 @@ export const ExportCSV: FC<ExportScvType> = ({ csvData, filename}) => {
 
   const exportToCSV = (csvData:any, fileName: string) => {
     const ws = XLSX.utils.json_to_sheet(csvData);
-    const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+   const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const data = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(data, fileName + fileExtension);
+    // let wb = XLSX.utils.book_new();
+    // XLSX.utils.book_append_sheet(wb, ws, "sheet");
+    // let buf = XLSX.write(wb, {bookType:'xlsx', type:'buffer'}); // generate a nodejs buffer
+    // let str = XLSX.write(wb, {bookType:'xlsx', type:'binary'}); // generate a binary string in web browser
+    // XLSX.saveAs(wb, `${fileName}.xlsx`);
   };
   return (
     <Button  onClick={(e) => exportToCSV(csvData, filename)} label='Export' TypeBtn='filled'/>

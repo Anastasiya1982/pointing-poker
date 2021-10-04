@@ -30,6 +30,7 @@ const LobbyPage = () => {
         dispatch(setStartGame(true));
         history.push('/game');
       });
+
     }
   },[]);
 

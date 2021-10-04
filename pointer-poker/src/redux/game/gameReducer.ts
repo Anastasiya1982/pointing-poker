@@ -12,6 +12,9 @@ export interface GameState {
   cards: Array<{ id:number; value: number}>;
   selectedCard: { id: number; value: number } | null;
   scrumMaster: null | UserState;
+  startIssueRound:boolean,
+  stopIssueRound:boolean,
+  isTimerStart:boolean
 }
 
 const initialState: GameState = {
@@ -21,7 +24,8 @@ const initialState: GameState = {
   isTimerNeeded: false,
   scoreType: 'story point',
   startGame: false,
-  timeOfRound: 1,
+  timeOfRound: 20,
+  isTimerStart:false,
   cards: [
     { id: 1, value: 0 },
     { id: 2, value: 12 },
@@ -29,7 +33,9 @@ const initialState: GameState = {
     { id: 4, value: 13 },
   ],
   selectedCard: null ,
-  scrumMaster: null
+  scrumMaster: null,
+  startIssueRound: false,
+  stopIssueRound: false,
 
 };
 
@@ -61,14 +67,26 @@ export const gameSlice = createSlice({
     setStartGame: (state, action) => {
       state.startGame = action.payload;
     },
+    setStartIssueRound: (state, action) => {
+      state.startIssueRound = action.payload;
+    },
+    setStopIssueRound: (state, action) => {
+      state.stopIssueRound = action.payload;
+    },
     setTimer: (state, action) => {
       state.timeOfRound = action.payload.value;
+    },
+    setIsTimerStart: (state, action) => {
+      state.isTimerStart = action.payload.value;
     },
      setCards: (state, action) => {
       state.cards = action.payload;
     },
     setSelectedCard: (state, action) => {
       state.selectedCard = action.payload;
+    },
+    setTimeOfRound: (state, action) => {
+      state.timeOfRound = action.payload;
     },
   },
   extraReducers: (builder: any) => {
@@ -89,6 +107,10 @@ export const {
   setTimer,
   setCards,
   setSelectedCard,
+  setStartIssueRound,
+  setStopIssueRound,
+  setIsTimerStart,
+  setTimeOfRound
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
