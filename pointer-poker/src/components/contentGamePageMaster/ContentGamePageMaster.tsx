@@ -20,7 +20,7 @@ import {
 } from '../../redux/game/gameReducer';
 import {setStopIssueRound} from '../../redux/game/gameReducer';
 import { useHistory } from 'react-router';
-import {setVoite} from '../../redux/user/userReducer'
+
 
 const ContentGamePageMaster = () => {
   const [isDisabled,setIsDisabled]=useState(false)
