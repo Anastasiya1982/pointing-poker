@@ -5,7 +5,7 @@ import Header from '../../components/header/Header';
 import ContentLobbyPage from '../contentLobbyPage/ContentLobbyPage';
 import './lobbyPage.scss';
 import socket from '../../socket';
-import { setCards, setIsTimerNeeded, setStartGame } from '../../redux/game/gameReducer';
+import { setCards, setIsTimerNeeded, setStartGame, setTimeOfRound } from '../../redux/game/gameReducer';
 import { useAppSelector } from '../../redux/hooks';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
@@ -14,13 +14,13 @@ import { setActiveIssue, setIssues } from '../../redux/issue/issueReducer';
 const LobbyPage = () => {
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
   const history=useHistory();
-  const dispatch=useDispatch()
+  const dispatch=useDispatch();
 
 
   useEffect(() => {
     if (!isScrumMuster) {
       socket.on("show active issue to all players",(activeIssue)=>{
-        dispatch(setActiveIssue({data:activeIssue}))
+        dispatch(setActiveIssue({data:activeIssue}));
       });
 
       socket.on('game start', (settings) => {

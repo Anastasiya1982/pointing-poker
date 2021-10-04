@@ -7,10 +7,11 @@ import { useDispatch } from 'react-redux';
 import { setStartIssueRound, setStopIssueRound } from '../../redux/game/gameReducer';
 import {setIsTimerStart} from '../../redux/game/gameReducer';
 
-const Timer = ({ roundTime }: { roundTime: number }) => {
-  const [seconds, setSeconds] = useState(roundTime);
-  const [timerStart, setTimerStart] = useState(false);
+const Timer = () => {
 
+  const [timerStart, setTimerStart] = useState(false);
+ const roundTime=useAppSelector(state => state.game.timeOfRound);
+  const [seconds, setSeconds] = useState(roundTime);
   const minutes = Math.floor(seconds / 60);
   const correctSeconds = seconds % 60;
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);

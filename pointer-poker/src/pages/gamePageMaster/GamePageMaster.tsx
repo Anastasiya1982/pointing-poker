@@ -24,7 +24,7 @@ import { setVoite } from '../../redux/user/userReducer';
 
 const GamePageMaster = () => {
   const isRoundStart=useAppSelector(state => state.game.startIssueRound);
-  const timeOfRound = useAppSelector(state => state.game.timeOfRound)
+  const timeOfRound = useAppSelector(state => state.game.timeOfRound);
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
   const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
  const activeIssue=useAppSelector((state )=>state.issie.activeIssue)
@@ -51,7 +51,6 @@ const GamePageMaster = () => {
         socket.on("started new issue round",(data)=> {
           console.log("PLAYERS PAGE START NEW ROUND", data);
           dispatch(setStartIssueRound(true));
-          dispatch(setTimeOfRound(20));
           dispatch(setIsTimerStart({ value: true }));
           dispatch(setSelectedCard(null));
         });

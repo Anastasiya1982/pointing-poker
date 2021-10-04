@@ -8,16 +8,17 @@ import socket from '../../socket';
 import img from '../../assets/image.png';
 
 import './TeamScoreInGame.scss';
+import { UserState } from '../../redux/user/userReducer';
 
 
-const TeamScoreInGame = () => {
-  const [modalActive, setModalActive] = useState(false);
-  const [currentUserId, setCurrentUserId] = useState(null);
-  const allPlayers = useAppSelector((state) => state.game.users);
-  const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
-  const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
+const TeamScoreInGame=() => {
+  const [modalActive, setModalActive]=useState(false);
+  const [currentUserId, setCurrentUserId]=useState(null);
+  const allPlayers=useAppSelector((state) => state.game.users);
+  const isScrumMusterAPlayer=useAppSelector((state) => state.game.isScrumMasterAPlayer);
+  const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
 
-  let players;
+  let players: UserState[];
 
   if(!isScrumMusterAPlayer){
     players=allPlayers.filter(player=>!player.isScrumMaster)
