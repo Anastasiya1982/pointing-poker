@@ -12,15 +12,13 @@ import {
 } from '../../redux/game/gameReducer';
 import { setIsTimerStart } from '../../redux/game/gameReducer';
 
-
 const Timer = () => {
-)
   const dispatch = useAppDispatch();
   const [timerStart, setTimerStart] = useState(false);
   const roundTime = useAppSelector((state) => state.game.timeOfRound);
-  // const [seconds, setSeconds] = useState(roundTime);
-  const minutes = Math.floor(roundTime / 60);
-  const correctSeconds = roundTime % 60;
+  const [seconds, setSeconds] = useState(roundTime);
+  const minutes = Math.floor(seconds / 60);
+  const correctSeconds = seconds % 60;
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
   const isTimerNeeded = useAppSelector((state) => state.game.isTimerNeeded);
   const isRoundStart = useAppSelector((state) => state.game.startIssueRound);
@@ -37,17 +35,14 @@ const Timer = () => {
   console.log(roundTime);
   useEffect(() => {
     let timer: number | undefined;
-    if (roundTime > 0 && isTimerStart && isRoundStart) {
-      timer = setTimeout(
-        () => dispatch(setTimeOfRound((prevSeconds: number) => prevSeconds - 1)),
-        1000,
-      );
+    if (seconds > 0 && isTimerStart && isRoundStart) {
+      timer = setTimeout(() => setSeconds((prevSeconds: number) => prevSeconds - 1), 1000);
     } else {
       dispatch(setIsTimerStart({ value: false }));
       clearTimeout(timer);
     }
     return () => clearTimeout(timer);
-  }, [roundTime, isTimerStart, isRoundStart]);
+  }, [seconds, isTimerStart, isRoundStart]);
 
   console.log('isTimerStart', isTimerStart);
 
