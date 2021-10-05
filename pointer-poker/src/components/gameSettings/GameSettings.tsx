@@ -8,8 +8,12 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import BtnSwitch from '../btnSwitch/BtnSwitch';
 import Timer from '../timer/Timer';
 import './gameSettings.scss';
+import CreateTimeLobby from '../createTimeLobby/CreateTimeLobby';
+import ModalView from '../../pages/modalView/ModalView';
+import Button from '../button/Button';
 
 const GameSettings = () => {
+  const [modalActive, setModalActive] = useState(false);
   const dispatch = useAppDispatch();
   const isTimerNeeded = useAppSelector((state) => state.game.isTimerNeeded);
   const isScrumMasterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
@@ -36,6 +40,10 @@ const GameSettings = () => {
     },
     [dispatch],
   );
+
+  const openModalAddTime = useCallback(() => {
+    setModalActive(true);
+  }, []);
 
   return (
     <div className="lobby-page-game-settings">
@@ -71,11 +79,15 @@ const GameSettings = () => {
         <div>Score type (Short):</div>
         <p className="lobby-page-game-settings-short">{value}</p>
       </div>
-      {/*{isTimerNeeded && (*/}
-      {/*  <div className="lobby-page-game-settings-round-time-container">*/}
-      {/*    <div>Round Time:</div> <Timer roundTime={90} />*/}
-      {/*  </div>*/}
-      {/*)}*/}
+      {isTimerNeeded && (
+        <div className="lobby-page-game-settings-round-time-container">
+          <div>Round Time:</div> <Timer />
+          <Button onClick={openModalAddTime} label="Create time" TypeBtn="filled" />
+        </div>
+      )}
+      <ModalView active={modalActive} setActive={setModalActive}>
+        <CreateTimeLobby setModalActive={setModalActive} />
+      </ModalView>
     </div>
   );
 };
