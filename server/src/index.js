@@ -111,9 +111,14 @@ io.on('connection', (socket) => {
          gameUtils.setCards(cards);
          io.to("MyRoom").emit("show all cards to players",gameUtils.getAllCards())
   });
+    // socket.on("send Timer Value to all users",(value)=>{
+    //   console.log(value)
+    //   io.to("MyRoom").emit("set  timer value",value)
+    // });
+
   socket.on("ready to start game",(settings)=>{
          gameUtils.setCards(settings.cards);
-           io.to("MyRoom").emit("game start",(settings))
+           io.to("MyRoom").emit("game start",(settings));
   });
 
 // game
@@ -139,14 +144,13 @@ io.on('connection', (socket) => {
     io.to("MyRoom").emit("show results Page to player ", data);
   })
 
-  // eslint-disable-next-line no-shadow
-  socket.on("disconnect", (socket) => {
-    console.log("Client disconnected: ", socket);
-    userUtils.userLeave(socket.id);
-    connection.splice(connection.indexOf(socket), 1);
-    io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
 
-  })
+  // socket.on("disconnect", (user) => {
+  //   console.log("Client disconnected: ", user);
+  //   userUtils.userLeave(user.id);
+  //   io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
+  //
+  // });
 
 });
 
@@ -154,6 +158,7 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
     console.log(`Listening to ${port}`);
 });
+
 
 
     // socket.on("delete user",(id)=>{

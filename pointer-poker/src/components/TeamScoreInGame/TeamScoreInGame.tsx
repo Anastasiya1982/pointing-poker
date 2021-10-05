@@ -12,8 +12,6 @@ import { UserState } from '../../redux/user/userReducer';
 
 
 const TeamScoreInGame=() => {
-  const [modalActive, setModalActive]=useState(false);
-  const [currentUserId, setCurrentUserId]=useState(null);
   const allPlayers=useAppSelector((state) => state.game.users);
   const isScrumMusterAPlayer=useAppSelector((state) => state.game.isScrumMasterAPlayer);
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
@@ -34,15 +32,6 @@ const TeamScoreInGame=() => {
   //
   // console.log(players);
 
-  const deleteUser = (id: any) => {
-    let user = players.find((pl) => pl.id === id);
-    socket.emit('delete user', user);
-    setModalActive(false);
-  };
-  const openModalToDeleteUser = (id: any) => {
-    setModalActive(true);
-    setCurrentUserId(id);
-  };
   return (
     <div className="wrapper-score">
       <div className="score-header ">
@@ -65,22 +54,12 @@ const TeamScoreInGame=() => {
               <Plate key={player.id}>
                 <Avatar img={player.img} fallbackText={player.fallbackText} />
                 <span>name: {player.firstName}</span>
-                <button onClick={() => openModalToDeleteUser(player.id)}>Х</button>
-              </Plate>
+               </Plate>
             </div>
           </div>
         );
       })}
-      <ModalView active={modalActive} setActive={setModalActive}>
-        <div className="wrapper-modal">
-          <h1 className="name-modal">Kick player? </h1>
-          <p>Are you really want to remove playe {currentUserId} from game session?</p>
-          <div className="wrapper-answer">
-            <Button TypeBtn="filled" onClick={() => deleteUser(currentUserId)} label="Yes" />
-            <Button TypeBtn="unfilled" onClick={() => setModalActive(false)} label="No" />
-          </div>
-        </div>
-      </ModalView>
+
     </div>
   );
 };

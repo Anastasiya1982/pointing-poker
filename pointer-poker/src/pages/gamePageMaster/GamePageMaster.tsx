@@ -48,6 +48,7 @@ const GamePageMaster = () => {
           dispatch(setUsers({data:data.users}));
           dispatch(setIssues({data:data.issues}));
         });
+
         socket.on("started new issue round",(data)=> {
           console.log("PLAYERS PAGE START NEW ROUND", data);
           dispatch(setStartIssueRound(true));

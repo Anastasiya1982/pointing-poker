@@ -39,12 +39,13 @@ const ContentGamePageMaster = () => {
     socket.emit('delete issue', currentIssue);
   };
 
+
   useEffect(() => {
     socket.on('started new issue round', (data) => {
       dispatch(setStartIssueRound(data));
+      dispatch(setTimeOfRound(timeOfRound));
     });
     dispatch(setIsTimerStart({ value: true }));
-    dispatch(setTimeOfRound(20));
   }, [isRoundStart]);
 
   useEffect(() => {

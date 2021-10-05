@@ -21,16 +21,21 @@ const MembersInLobby = () => {
     socket.on('get connected users', (users) => {
       dispatch(setUsers({ data: users }));
     });
+
+
+  }, [newUser.id, dispatch, players]);
+
+  useEffect(()=>{
     socket.on('get users after deleting', (users) => {
+      console.log(users);
       dispatch(setUsers({ data: users }));
     });
-  }, [newUser.id, dispatch, players]);
+  },[]);
+
 
   const deleteUser = (id: any) => {
     const user = players.find((pl) => pl.id === id);
-    socket.emit('delete user', (user:any)=>{
-      socket.disconnect()
-    });
+    socket.emit('delete user', user);
     setModalActive(false);
   };
   const openModalToDeleteUser = useCallback((id: any) => {
@@ -60,8 +65,8 @@ const MembersInLobby = () => {
           <div className="wrapper-modal">
             <h1 className="name-modal">Kick player? </h1>
             <p>
-              Are you really want to remove player <strong>{currentUserId? players[currentUserId]:''}</strong> from game
-              session?
+              Are you really want to remove player{' '}
+              <strong>{currentUserId ? players[currentUserId] : ''}</strong> from game session?
             </p>
             <div className="wrapper-answer">
               <Button TypeBtn="filled" onClick={() => deleteUser(currentUserId)} label="Yes" />

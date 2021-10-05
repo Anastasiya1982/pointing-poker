@@ -16,6 +16,7 @@ const StartOrCancelGameInLobby: FC<any> = () => {
   const isTimerNeeded = useAppSelector((state) => state.game.isTimerNeeded);
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
   const [isDisabled, setIsDisabled] = useState(true);
+  const timeOfRound = useAppSelector((state) => state.game.timeOfRound);
 
 useEffect(()=>{
   if (issues.length>0 && activeIssue) {
@@ -33,6 +34,7 @@ useEffect(()=>{
       scoreType,
       startGame: true,
       isTimerNeeded,
+      timeOfRound
     });
     history.push('/game');
   };
