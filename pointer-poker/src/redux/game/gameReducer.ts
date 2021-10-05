@@ -24,7 +24,7 @@ const initialState: GameState = {
   isTimerNeeded: false,
   scoreType: 'story point',
   startGame: false,
-  timeOfRound: 20,
+  timeOfRound: 50,
   isTimerStart:false,
   cards: [
     { id: 1, value: 0 },
