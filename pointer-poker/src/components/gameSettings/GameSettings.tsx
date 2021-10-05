@@ -11,6 +11,7 @@ import './gameSettings.scss';
 import CreateTimeLobby from '../createTimeLobby/CreateTimeLobby';
 import ModalView from '../../pages/modalView/ModalView';
 import Button from '../button/Button';
+import TimerInLobby from '../timerInLobby/TimerInLobby';
 
 const GameSettings = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -81,7 +82,10 @@ const GameSettings = () => {
       </div>
       {isTimerNeeded && (
         <div className="lobby-page-game-settings-round-time-container">
-          <div>Round Time:</div> <Timer />
+          <div>Round Time:</div>
+
+          <TimerInLobby />
+
           <Button onClick={openModalAddTime} label="Create time" TypeBtn="filled" />
         </div>
       )}
