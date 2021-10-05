@@ -18,12 +18,12 @@ const TeamScoreInGame=() => {
   const isScrumMusterAPlayer=useAppSelector((state) => state.game.isScrumMasterAPlayer);
   const isScrumMuster=useAppSelector((state) => state.user.isScrumMaster);
 
-  let players: UserState[];
-
-  if(!isScrumMusterAPlayer){
-    players=allPlayers.filter(player=>!player.isScrumMaster)
-  }
-  else players=allPlayers;
+  // let players: UserState[];
+  //
+  // if(!isScrumMusterAPlayer){
+  //   players=allPlayers.filter(player=>!player.isScrumMaster)
+  // }
+  // else players=allPlayers;
 
   // if(!isScrumMuster){
   //   if(!isScrumMusterAPlayer){
@@ -35,7 +35,7 @@ const TeamScoreInGame=() => {
   // console.log(players);
 
   const deleteUser = (id: any) => {
-    let user = players.find((pl) => pl.id === id);
+    let user = allPlayers.find((pl) => pl.id === id);
     socket.emit('delete user', user);
     setModalActive(false);
   };
@@ -49,7 +49,7 @@ const TeamScoreInGame=() => {
         <span>Score</span>
         <span>Players</span>
       </div>
-      {players.map((player) => {
+      {allPlayers.map((player) => {
         const voite =
           player.voite === 0 ? (
             <img src={img} alt="unknown" className='unknownImg' />

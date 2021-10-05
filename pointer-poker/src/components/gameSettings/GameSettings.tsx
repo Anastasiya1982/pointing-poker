@@ -71,11 +71,11 @@ const GameSettings = () => {
         <div>Score type (Short):</div>
         <p className="lobby-page-game-settings-short">{value}</p>
       </div>
-      {/*{isTimerNeeded && (*/}
-      {/*  <div className="lobby-page-game-settings-round-time-container">*/}
-      {/*    <div>Round Time:</div> <Timer roundTime={90} />*/}
-      {/*  </div>*/}
-      {/*)}*/}
+      {isTimerNeeded && (
+        <div className="lobby-page-game-settings-round-time-container">
+          <div>Round Time:</div> <Timer  />
+        </div>
+      )}
     </div>
   );
 };
