@@ -27,12 +27,10 @@ const Timer = () => {
 
   const users = useAppSelector((state) => state.game.users);
 
-  console.log(minutes);
-
   if (!isScrumMuster) {
     console.log('Round for players:', isRoundStart);
   }
-  console.log(roundTime);
+
   useEffect(() => {
     let timer: number | undefined;
     if (seconds > 0 && isTimerStart && isRoundStart) {
