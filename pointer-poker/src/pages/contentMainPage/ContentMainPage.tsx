@@ -11,7 +11,7 @@ const ContentMainPage = () => {
   const [modalActive, setModalActive] = useState(false);
   const [linkToConnect, setLinkToConnect] = useState('');
   const [type, setType] = useState('');
-  const link = 'http://localhost:5000/lobby/MyRoom';
+  const link = 'http://stormy-citadel-30541.herokuapp.com/MyRoom';
 
   const startGameAsScrumMuster = useCallback(() => {
     if (socket) {

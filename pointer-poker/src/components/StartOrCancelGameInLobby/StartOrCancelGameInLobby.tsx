@@ -7,6 +7,7 @@ import { useAppSelector } from '../../redux/hooks';
 import socket from '../../socket';
 
 const StartOrCancelGameInLobby: FC<any> = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [text, setText] = useState('http://localhost:5000/lobby/MyRoom');
   const cards = useAppSelector((state) => state.game.cards);
   const history = useHistory();

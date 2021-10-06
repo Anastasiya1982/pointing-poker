@@ -10,7 +10,7 @@ const Main = () => {
       <Header />
       <h3>
         {' '}
-        connection link <span> http://localhost:5000/lobby/MyRoom </span>
+        connection link <span>http://stormy-citadel-30541.herokuapp.com/MyRoom</span>
       </h3>
       <ContentMainPage />
       <Footer />

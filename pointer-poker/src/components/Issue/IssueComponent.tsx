@@ -19,10 +19,12 @@ const IssueComponent = () => {
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
 
   useEffect(() => {
-    socket.on('get created issues', (issues) => {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    socket.on('get created issues', (issues: any) => {
       dispatch(setIssues({ data: issues }));
     });
-    socket.on('get Issues after deleting', (issues) => {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    socket.on('get Issues after deleting', (issues: any) => {
       dispatch(setIssues({ data: issues }));
     });
   }, [issues, dispatch]);

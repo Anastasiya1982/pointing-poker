@@ -7,7 +7,6 @@ export const App = () => {
   return (
     <Router>
       <div>
-
         <PagesAll />
       </div>
     </Router>

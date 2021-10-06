@@ -9,12 +9,10 @@ import './table.scss';
 
 export const TableResults = () => {
   const issues = useAppSelector((state) => state.issie.issues);
-  // const users = useAppSelector((state) => state.game.users);
-
-  const filterColumns = (issues: any) => {
-    const headers = issues.map((issue: any) => issue.title);
-    return headers;
-  };
+  // const filterColumns = (issues: any) => {
+  //   const headers = issues.map((issue: any) => issue.title);
+  //   return headers;
+  // };
 
   // const getTableData=()=>{
   //     let results=[];
@@ -31,10 +29,7 @@ export const TableResults = () => {
 
   return (
     <>
-      {/* <CSVLink data={getTableData(issues)} headers={filterColumns(issues)} filename={"results.csv"}> */}
-      {/*  Download as CSV */}
-      {/* </CSVLink> */}
-      <ExportCSV csvData={issues} filename="results" headers={filterColumns(issues)} />
+      <ExportCSV csvData={issues} filename="results" />
       <table>
         {issues.map((issue) => {
           const procentsResult = countResults(issue.results);
