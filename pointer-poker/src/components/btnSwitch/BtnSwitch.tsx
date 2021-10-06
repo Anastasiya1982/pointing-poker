@@ -1,8 +1,7 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import './btnSwitch.scss';
 
 interface Props {
-  callback?: () => void;
   checked: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   id: string;

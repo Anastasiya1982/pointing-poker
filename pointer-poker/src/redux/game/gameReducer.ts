@@ -9,12 +9,12 @@ export interface GameState {
   scoreType: string;
   startGame: boolean;
   timeOfRound: number;
-  cards: Array<{ id:number; value: number}>;
+  cards: Array<{ id: number; value: number }>;
   selectedCard: { id: number; value: number } | null;
   scrumMaster: null | UserState;
-  startIssueRound:boolean,
-  stopIssueRound:boolean,
-  isTimerStart:boolean
+  startIssueRound: boolean;
+  stopIssueRound: boolean;
+  isTimerStart: boolean;
 }
 
 const initialState: GameState = {
@@ -25,18 +25,17 @@ const initialState: GameState = {
   scoreType: 'story point',
   startGame: false,
   timeOfRound: 20,
-  isTimerStart:false,
+  isTimerStart: false,
   cards: [
     { id: 1, value: 0 },
     { id: 2, value: 12 },
     { id: 3, value: 1 },
     { id: 4, value: 13 },
   ],
-  selectedCard: null ,
+  selectedCard: null,
   scrumMaster: null,
   startIssueRound: false,
   stopIssueRound: false,
-
 };
 
 export const gameSlice = createSlice({
@@ -79,7 +78,7 @@ export const gameSlice = createSlice({
     setIsTimerStart: (state, action) => {
       state.isTimerStart = action.payload.value;
     },
-     setCards: (state, action) => {
+    setCards: (state, action) => {
       state.cards = action.payload;
     },
     setSelectedCard: (state, action) => {
@@ -110,7 +109,7 @@ export const {
   setStartIssueRound,
   setStopIssueRound,
   setIsTimerStart,
-  setTimeOfRound
+  setTimeOfRound,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

@@ -1,5 +1,6 @@
 import React from 'react';
 import './HeaderplaningIssue.scss';
+import * as uuid from 'uuid';
 
 import { getCurrentData } from '../../utils/utils';
 import { useAppSelector } from '../../redux/hooks';
@@ -10,12 +11,17 @@ const HeaderPlaningIssue = () => {
   const currentData = getCurrentData();
   return (
     <div className="date">
-      <span className='currentData'>{currentData}</span> planning issues:{' '}
+      <span className="currentData">{currentData}</span> planning issues:{' '}
       {issues
         ? issues.map((iss) => {
-            return <span className='planingIssue'>{iss.title},</span>;
+            return (
+              <span className="planingIssue" key={uuid.v4()}>
+                {iss.title},
+              </span>
+            );
           })
-        : ''}....
+        : ''}
+      ....
     </div>
   );
 };

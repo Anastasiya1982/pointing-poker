@@ -1,28 +1,34 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/header/Header';
 import ContentGamePageMaster from '../../components/contentGamePageMaster/ContentGamePageMaster';
 import './gamePageMaster.scss';
 import socket from '../../socket';
 import { useAppSelector } from '../../redux/hooks';
-import { useHistory } from 'react-router';
-import { useDispatch } from 'react-redux';
+
 import {
-  setCards,
-  setIsTimerNeeded,
+  // setCards,
+  // setIsTimerNeeded,
   setIsTimerStart,
   setSelectedCard,
-  setStartGame,
+  // setStartGame,
   setStartIssueRound,
   setStopIssueRound,
-  setTimeOfRound,
+  // setTimeOfRound,
   setUsers,
 } from '../../redux/game/gameReducer';
 import { setActiveIssue, setIssues } from '../../redux/issue/issueReducer';
 import { setVoite } from '../../redux/user/userReducer';
 
 const GamePageMaster = () => {
+  // const isRoundStart = useAppSelector((state) => state.game.startIssueRound);
+  // const timeOfRound = useAppSelector((state) => state.game.timeOfRound);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
+  // const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
+  // const activeIssue = useAppSelector((state) => state.issie.activeIssue);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -56,7 +62,8 @@ const GamePageMaster = () => {
 
       socket.on('reset voite for all users', (data) => {});
     }
-  }, []);
+  }, [dispatch]);
+
 
   return (
     <div className="wrapper-game-page-master">

@@ -1,20 +1,20 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Button from '../button/Button';
 import './timer.scss';
 import socket from '../../socket';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import {
   setStartIssueRound,
   setStopIssueRound,
-  setTimeOfRound,
-  setTimer,
+  // setTimeOfRound,
+  // setTimer,
+  setIsTimerStart,
 } from '../../redux/game/gameReducer';
-import { setIsTimerStart } from '../../redux/game/gameReducer';
 
 const Timer = () => {
   const dispatch = useAppDispatch();
-  const [timerStart, setTimerStart] = useState(false);
+  // const [timerStart, setTimerStart] = useState(false);
   const roundTime = useAppSelector((state) => state.game.timeOfRound);
   const [seconds, setSeconds] = useState(roundTime);
   const minutes = Math.floor(seconds / 60);
@@ -22,12 +22,12 @@ const Timer = () => {
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
   const isRoundStart = useAppSelector((state) => state.game.startIssueRound);
   const isTimerStart = useAppSelector((state) => state.game.isTimerStart);
-  const value = isTimerStart ? 'stop' : 'start';
+  // const value = isTimerStart ? 'stop' : 'start';
 
-  const users = useAppSelector((state) => state.game.users);
+  // const users = useAppSelector((state) => state.game.users);
 
   if (!isScrumMuster) {
-    console.log('Round for players:', isRoundStart);
+    // console.log('Round for players:', isRoundStart);
   }
 
   useEffect(() => {
@@ -45,9 +45,7 @@ const Timer = () => {
       clearTimeout(timer);
     }
     return () => clearTimeout(timer);
-  }, [seconds, isTimerStart, isRoundStart]);
-
-  console.log('isTimerStart', isTimerStart);
+  }, [seconds, isTimerStart, isRoundStart, dispatch]);
 
   const handleStartRound = () => {
     socket.emit('StartIssueRound', true);
@@ -56,7 +54,6 @@ const Timer = () => {
   };
   const handleStopRound = () => {
     socket.emit('StopIssueRound', { isRoundStop: true, voite: null, timerStart: false });
-    console.log('stopTimer');
     dispatch(setIsTimerStart({ value: false }));
     dispatch(setStopIssueRound(true));
     setStartIssueRound(false);

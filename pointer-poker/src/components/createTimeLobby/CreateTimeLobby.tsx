@@ -6,7 +6,6 @@ import Input from '../input/Input';
 import socket from '../../socket';
 import './createTimeLobby.scss';
 
-
 interface Props {
   setModalActive: (modalActive: boolean) => void;
 }
@@ -19,14 +18,14 @@ const CreateTimeLobby: FC<Props> = ({ setModalActive }) => {
     setTimerSeconds(event.target.value);
   };
 
-  const handleAddTime = (event: ChangeEvent<HTMLButtonElement>) => {
+  const handleAddTime = () => {
     const value = timerSeconds;
 
     if (!/^[0-9]+$/.test(value)) {
       return;
     }
     dispatch(setTimeOfRound(value));
-    socket.emit("send Timer Value to all users",value)
+    socket.emit('send Timer Value to all users', value);
     setTimerSeconds('');
     setModalActive(false);
   };

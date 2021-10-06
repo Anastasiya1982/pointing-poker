@@ -21,17 +21,14 @@ const MembersInLobby = () => {
     socket.on('get connected users', (users) => {
       dispatch(setUsers({ data: users }));
     });
-
-
   }, [newUser.id, dispatch, players]);
 
-  useEffect(()=>{
+  useEffect(() => {
     socket.on('get users after deleting', (users) => {
-      console.log(users);
+      // console.log(users);
       dispatch(setUsers({ data: users }));
     });
-  },[]);
-
+  }, [dispatch]);
 
   const deleteUser = (id: any) => {
     const user = players.find((pl) => pl.id === id);
@@ -55,7 +52,9 @@ const MembersInLobby = () => {
               <div>
                 <span>status: {player.type}</span>
               </div>
-              <button onClick={() => openModalToDeleteUser(player.id)}>Х</button>
+              <button onClick={() => openModalToDeleteUser(player.id)} type="button">
+                Х
+              </button>
             </Plate>
           );
         })}

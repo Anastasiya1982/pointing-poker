@@ -4,7 +4,6 @@ import './styles.scss';
 import PagesAll from './pages/pagesAll/PagesAll';
 
 export const App = () => {
-
   return (
     <Router>
       <div>

@@ -1,6 +1,5 @@
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
-import exp from 'constants';
 
 export const getFallbackText = (firstName: string, lastName: string) => {
   const first = firstName[0];
@@ -43,13 +42,12 @@ export const generateRandomNumber = () => {
 //   });
 // };
 
+export function countResults(arr: any) {
+  if (arr === null) return;
+  const { length } = arr;
+  const onePersonPercent = (1 / length) * 100;
 
-export function countResults(arr:any) {
-  if(arr===null) return ;
-  const length = arr.length;
-  const onePersonPercent = (1 / length * 100);
-
-  const withoutRound = arr.reduce((acc: { [x: string]: number; }, item: string | number) => {
+  const withoutRound = arr.reduce((acc: { [x: string]: number }, item: string | number) => {
     if (acc[item]) {
       return { ...acc, [item]: acc[item] + onePersonPercent };
     }
@@ -57,14 +55,12 @@ export function countResults(arr:any) {
     return { ...acc, [item]: onePersonPercent };
   }, {});
 
-  return Object.entries(withoutRound).map(([key, value]) => ([key, Math.round(<number>value)]));
+  return Object.entries(withoutRound).map(([key, value]) => [key, Math.round(<number>value)]);
 }
-
-
 
 export const fileType =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-export  const fileExtension = '.xlsx';
+export const fileExtension = '.xlsx';
 
 export const exportToCSV = (csvData: any, fileName: string) => {
   const ws = XLSX.utils.json_to_sheet(csvData);
@@ -74,13 +70,11 @@ export const exportToCSV = (csvData: any, fileName: string) => {
   FileSaver.saveAs(data, fileName + fileExtension);
 };
 
-const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-export  const getCurrentData=()=>{
+export const getCurrentData = () => {
   const date = new Date();
- let month = date.getMonth();
- let currentData=(date.getFullYear() + '-' + months[date.getMonth()] + '-' + date.getDate());
- return currentData
-
-}
-
+  // const month = date.getMonth();
+  const currentData = `${date.getFullYear()}-${months[date.getMonth()]}-${date.getDate()}`;
+  return currentData;
+};

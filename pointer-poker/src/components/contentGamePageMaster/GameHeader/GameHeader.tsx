@@ -1,10 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import Plate from '../../plate/Plate';
 import Button from '../../button/Button';
 import '../contentGamePageMaster.scss';
 import Avatar from '../../avatar/Avatar';
 import { useAppSelector } from '../../../redux/hooks';
-import { useHistory } from 'react-router';
+
 import HeaderPlaningIssue from '../../HeaderPlaningIssue/HeaderPlaningIssue';
 import socket from '../../../socket';
 

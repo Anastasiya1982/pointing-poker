@@ -16,4 +16,11 @@ const Avatar: FC<Props> = ({ img, fallbackText, className, id }) => {
   return <div className={classes}>{img ? <img src={img} id={id} alt="" /> : fallbackText}</div>;
 };
 
+Avatar.defaultProps = {
+  img: '',
+  fallbackText: '',
+  className: '',
+  id: '',
+};
+
 export default Avatar;
