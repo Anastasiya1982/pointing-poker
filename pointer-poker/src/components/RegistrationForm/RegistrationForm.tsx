@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Input from '../input/Input';
 import Avatar from '../avatar/Avatar';
 import './registrationForm.scss';
-import { setFirstName, setJobPosition, setLastName, setUser } from '../../redux/user/userReducer';
+import { setUser } from '../../redux/user/userReducer';
 import Button from '../button/Button';
-import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import socket from '../../socket';
 import { getFallbackText } from '../../utils/utils';
@@ -26,14 +26,13 @@ const RegistrationForm = (props: any) => {
     if (connected) {
       socket.emit('handle-connection', newUser);
       history.push('/lobby');
-    } if ( userNameError)
-  {
+    }
+    if (userNameError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
-
-  }, [connected, userNameError]);
+  }, [connected, userNameError, history, newUser]);
 
   const changeUserFirstName = (event: ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.currentTarget.value);
@@ -86,17 +85,34 @@ const RegistrationForm = (props: any) => {
   return (
     <div>
       <form className="content-form">
-        <label>Your first name:</label>
+        <label htmlFor="firstName">Your first name:</label>
         <div className="input-name">
-        {  userNameError && (<div style={{ color: 'red' }}>{userNameError}</div>)}
-        <Input className="input-modal" onChange={changeUserFirstName} value={firstName} required={true} />
+          {userNameError && <div style={{ color: 'red' }}>{userNameError}</div>}
+          <Input
+            className="input-modal"
+            onChange={changeUserFirstName}
+            value={firstName}
+            required
+            id="firstName"
+          />
         </div>
-        <label>Your last name:</label>
-        <Input className="input-modal" onChange={changeUserLastName} value={lastName} required />
-        <label>Your job position:</label>
-        <Input className="input-modal" onChange={changePosition} value={jobPosition} />
+        <label htmlFor="firstName1">Your last name:</label>
+        <Input
+          id="firstName1"
+          className="input-modal"
+          onChange={changeUserLastName}
+          value={lastName}
+          required
+        />
+        <label htmlFor="firstName2">Your job position:</label>
+        <Input
+          id="firstName2"
+          className="input-modal"
+          onChange={changePosition}
+          value={jobPosition}
+        />
         <div>
-          <label>Image:</label>
+          <label htmlFor="btnInput">Image:</label>
           <input
             className="custom-file-input"
             id="btnInput"
@@ -109,7 +125,7 @@ const RegistrationForm = (props: any) => {
           <Avatar img={img} fallbackText={newUser.fallbackText} className="avatarReal" />
         </div>
         <div className="wrapper-footer">
-          <Button label="Confirm" TypeBtn="filled" onClick={handleSubmit} disabled={!formValid}/>
+          <Button label="Confirm" TypeBtn="filled" onClick={handleSubmit} disabled={!formValid} />
           <Button label="Cancel" TypeBtn="unfilled" onClick={closeModal} />
         </div>
       </form>

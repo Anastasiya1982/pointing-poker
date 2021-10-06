@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/header/Header';
 
@@ -13,8 +15,6 @@ import {
   setUsers,
 } from '../../redux/game/gameReducer';
 import { useAppSelector } from '../../redux/hooks';
-import { useHistory } from 'react-router';
-import { useDispatch } from 'react-redux';
 import { setActiveIssue, setIssues } from '../../redux/issue/issueReducer';
 
 const LobbyPage = () => {
@@ -40,7 +40,7 @@ const LobbyPage = () => {
         dispatch(setUsers({ data: users }));
       });
     }
-  }, []);
+  }, [dispatch, history, isScrumMuster]);
 
   return (
     <div className="wrapper-lobby-page">

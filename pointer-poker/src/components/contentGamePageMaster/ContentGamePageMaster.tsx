@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import * as uuid from 'uuid';
+// import { useHistory } from 'react-router';
 import Plate from '../plate/Plate';
 import Timer from '../timer/Timer';
 import './contentGamePageMaster.scss';
@@ -7,7 +10,6 @@ import GameHeader from './GameHeader/GameHeader';
 import socket from '../../socket';
 import TeamScoreInGame from '../TeamScoreInGame/TeamScoreInGame';
 import CardsInGame from './CardsInGame/CardsInGame';
-import { useDispatch } from 'react-redux';
 import Statistic from '../StatisticOnMasterPage/Statistic';
 import Button from '../button/Button';
 import { setActiveIssue } from '../../redux/issue/issueReducer';
@@ -20,8 +22,6 @@ import {
   setStopIssueRound,
 } from '../../redux/game/gameReducer';
 
-import { useHistory } from 'react-router';
-
 const ContentGamePageMaster = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const issues = useAppSelector((state) => state.issie.issues);
@@ -32,13 +32,12 @@ const ContentGamePageMaster = () => {
   const isRoundStart = useAppSelector((state) => state.game.startIssueRound);
   const timeOfRound = useAppSelector((state) => state.game.timeOfRound);
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
 
   const deleteIssue = (index: any) => {
     const currentIssue = issues[index];
     socket.emit('delete issue', currentIssue);
   };
-
 
   useEffect(() => {
     socket.on('started new issue round', (data) => {
@@ -46,18 +45,18 @@ const ContentGamePageMaster = () => {
       dispatch(setTimeOfRound(timeOfRound));
     });
     dispatch(setIsTimerStart({ value: true }));
-  }, [isRoundStart]);
+  }, [isRoundStart, dispatch, timeOfRound]);
 
   useEffect(() => {
     socket.on('stop round', (data) => {
-      console.log(data);
+      // console.log(data);
       dispatch(setIsTimerStart({ value: false }));
       dispatch(setStartIssueRound(false));
       dispatch(setStopIssueRound(data.isRoundStop));
       dispatch(setSelectedCard(null));
       dispatch(setUsers({ data: data.users }));
     });
-  }, [isRoundStop]);
+  }, [isRoundStop, dispatch]);
 
   const setNextIssueAsActive = () => {
     const searchName = activeIssue?.title;
@@ -74,41 +73,46 @@ const ContentGamePageMaster = () => {
     <div className="wrapper-content-PM">
       <div className="content-PM">
         <GameHeader />
-        <div className="wrapper-issues-container">
-          <div className="issue-box">
-            {issues.map((issue: any, index: number) => {
-              return (
-                <Plate key={index}>
-                  <div
-                    className={
-                      issue.title === activeIssue?.title ? 'selectedIssue' : 'newIssues-content'
-                    }
-                  >
-                    <div className="newIssues-title">{issue.title}</div>
-                    <button
-                      className="issue-btn"
-                      onClick={() => {
-                        deleteIssue(index);
-                      }}
+        <div className="wrapper-content-game-page">
+          <div className="wrapper-issues-container">
+            <div className="issue-box">
+              {issues.map((issue: any, ind: number) => {
+                return (
+                  <Plate key={uuid.v4()}>
+                    <div
+                      className={
+                        issue.title === activeIssue?.title ? 'selectedIssue' : 'newIssues-content'
+                      }
                     >
-                      X
-                    </button>
-                  </div>
-                </Plate>
-              );
-            })}
+                      <div className="newIssues-title">{issue.title}</div>
+                      <button
+                        type="button"
+                        className="issue-btn"
+                        onClick={() => {
+                          deleteIssue(ind);
+                        }}
+                      >
+                        X
+                      </button>
+                    </div>
+                  </Plate>
+                );
+              })}
+            </div>
+            <div className="btn-next-wrapper">
+              {isScrumMuster ? (
+                <Button
+                  TypeBtn="filled"
+                  label="nextIssue"
+                  onClick={setNextIssueAsActive}
+                  disabled={isDisabled}
+                />
+              ) : null}
+            </div>
           </div>
-
-          {isScrumMuster ? (
-            <Button
-              TypeBtn="filled"
-              label="nextIssue"
-              onClick={setNextIssueAsActive}
-              disabled={isDisabled}
-            />
-          ) : null}
-          <Timer  />
+          <Timer />
         </div>
+
         {!isScrumMuster ? (
           <CardsInGame />
         ) : (

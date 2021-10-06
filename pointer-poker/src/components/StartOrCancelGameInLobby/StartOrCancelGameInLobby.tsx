@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import Input from '../input/Input';
 import Button from '../button/Button';
 import './StartOrCancelGameInLobby.scss';
-import { useHistory } from 'react-router';
 import { useAppSelector } from '../../redux/hooks';
 import socket from '../../socket';
 
@@ -18,12 +18,11 @@ const StartOrCancelGameInLobby: FC<any> = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const timeOfRound = useAppSelector((state) => state.game.timeOfRound);
 
-useEffect(()=>{
-  if (issues.length>0 && activeIssue) {
-    setIsDisabled(false);
-  }
-},[activeIssue]);
-
+  useEffect(() => {
+    if (issues.length > 0 && activeIssue) {
+      setIsDisabled(false);
+    }
+  }, [activeIssue, issues.length]);
 
   const startGame = () => {
     socket.emit('ready to start game', {
@@ -34,14 +33,14 @@ useEffect(()=>{
       scoreType,
       startGame: true,
       isTimerNeeded,
-      timeOfRound
+      timeOfRound,
     });
     history.push('/game');
   };
 
   const copy = async () => {
     await navigator.clipboard.writeText(text);
-    alert('Text copied');
+    // alert('Text copied');
   };
   return (
     <>
@@ -50,7 +49,7 @@ useEffect(()=>{
         <Input
           className="lobby-page-input"
           onChange={() => {
-            console.log('enter the inventation link');
+            // console.log('enter the inventation link');
           }}
           value={text}
         />
@@ -67,7 +66,9 @@ useEffect(()=>{
         <Button
           label="Cancel Game"
           TypeBtn="unfilled"
-          onClick={() => console.log('click')}
+          // onClick={() =>
+          //   console.log('click')
+          // }
           className="lobby-page-button-cancel-game"
         />
       </div>

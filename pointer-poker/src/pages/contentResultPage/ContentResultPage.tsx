@@ -7,7 +7,7 @@ const ContentResultPage = () => {
     <div className="wrapper-contentResult-page">
       <div className="heder-result">
         <div className="results-content">
-          <TableResults  />
+          <TableResults />
         </div>
       </div>
       <div className="wrapper-issue" />

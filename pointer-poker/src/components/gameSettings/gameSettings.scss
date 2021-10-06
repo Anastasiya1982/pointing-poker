@@ -39,3 +39,11 @@
 .wrapper-label {
   width: 100px;
 }
+
+
+@media (max-width: 700px) {
+  .lobby-page-game-settings-round-time-container {
+   flex-direction: column;
+   }
+  }
+ 

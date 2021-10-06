@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */
 import React, { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import * as uuid from 'uuid';
 import Plate from '../plate/Plate';
 import './Issue.scss';
 import ModalView from '../../pages/modalView/ModalView';
@@ -16,7 +18,6 @@ const IssueComponent = () => {
   const issues = useAppSelector((state) => state.issie.issues);
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
 
-
   useEffect(() => {
     socket.on('get created issues', (issues) => {
       dispatch(setIssues({ data: issues }));
@@ -24,7 +25,7 @@ const IssueComponent = () => {
     socket.on('get Issues after deleting', (issues) => {
       dispatch(setIssues({ data: issues }));
     });
-  }, [issues]);
+  }, [issues, dispatch]);
 
   const openModalAddIssues = useCallback(() => {
     setModalActive(true);
@@ -33,7 +34,7 @@ const IssueComponent = () => {
   const handleIssueClick = (index: number) => {
     const currentIssue = issues[index];
     dispatch(setActiveIssue({ data: currentIssue }));
-    socket.emit("set active issue",currentIssue );
+    socket.emit('set active issue', currentIssue);
   };
 
   const deleteIssue = (index: any) => {
@@ -48,7 +49,7 @@ const IssueComponent = () => {
           <div className="lobby-page-issues-plate">
             <Plate>
               <div className="lobby-page-issues-plate-title">Crete new issues</div>
-              <button className="btn-add-issues" onClick={openModalAddIssues}>
+              <button className="btn-add-issues" onClick={openModalAddIssues} type="button">
                 <FontAwesomeIcon className="lobby-page-icon" icon={faPlus} />
               </button>
             </Plate>
@@ -56,8 +57,9 @@ const IssueComponent = () => {
           <div className="newIssues">
             {issues.map((issue, index) => {
               return (
-                <Plate key={index}>
+                <Plate key={uuid.v4()}>
                   <div
+                    aria-hidden="true"
                     onClick={() => handleIssueClick(index)}
                     className={
                       issue.title === activeIssue?.title ? 'selectedIssue' : 'newIssues-content'
@@ -65,6 +67,7 @@ const IssueComponent = () => {
                   >
                     <div className="newIssues-title">{issue.title}</div>
                     <button
+                      type="button"
                       className="issue-btn"
                       onClick={() => {
                         deleteIssue(index);

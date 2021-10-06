@@ -11,10 +11,9 @@ interface Props {
   disabled?: boolean;
 }
 
-type TypeBtn = 'filled' | 'unfilled';
+// type TypeBtn = 'filled' | 'unfilled';
 
 const Button: FC<Props> = ({ label, onClick, className, TypeBtn, disabled }) => {
-
   return (
     <button
       type="button"
@@ -22,10 +21,16 @@ const Button: FC<Props> = ({ label, onClick, className, TypeBtn, disabled }) => 
       onClick={onClick}
       disabled={disabled}
     >
-
       {label}
     </button>
   );
+};
+
+Button.defaultProps = {
+  label: '',
+  onClick: undefined,
+  className: '',
+  disabled: false,
 };
 
 export default Button;

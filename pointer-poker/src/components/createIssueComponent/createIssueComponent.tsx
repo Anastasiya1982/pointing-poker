@@ -1,7 +1,7 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import Input from '../input/Input';
 import Button from '../button/Button';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import socket from '../../socket';
 import { setIssue } from '../../redux/issue/issueReducer';
 
@@ -11,11 +11,11 @@ interface PropsIssueType {
 
 const CreteIssueComponent: FC<PropsIssueType> = ({ setModalActive }) => {
   const [priority, setPriority] = useState('');
-  const [value,setValue]=useState('')
+  const [value, setValue] = useState('');
   const dispatch = useAppDispatch();
 
   const onHandleIssueTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      setValue(event.target.value);
+    setValue(event.target.value);
   };
 
   const onHandlePriorityChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -24,9 +24,9 @@ const CreteIssueComponent: FC<PropsIssueType> = ({ setModalActive }) => {
 
   const onHandleIssueSubmit = () => {
     dispatch(setIssue(value));
-   let newIssue={title:value, priority:priority, results: null}
-    socket.emit('create-new-issue',newIssue );
-    setValue('')
+    const newIssue = { title: value, priority, results: null };
+    socket.emit('create-new-issue', newIssue);
+    setValue('');
 
     setModalActive(false);
   };
@@ -43,7 +43,7 @@ const CreteIssueComponent: FC<PropsIssueType> = ({ setModalActive }) => {
           <span>Priority:</span>
           <div>
             <label className="label-select-modal" htmlFor="priority">
-              <select className="select-modal" name="priority" onChange={onHandlePriorityChange}>
+              <select className="select-modal" name="priority" onBlur={onHandlePriorityChange}>
                 <option value="Low">Low</option>
                 <option value="Middle">Middle</option>
                 <option value="Hight"> Hight</option>
