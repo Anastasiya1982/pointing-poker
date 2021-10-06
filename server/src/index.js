@@ -111,9 +111,14 @@ io.on('connection', (socket) => {
          gameUtils.setCards(cards);
          io.to("MyRoom").emit("show all cards to players",gameUtils.getAllCards())
   });
+    // socket.on("send Timer Value to all users",(value)=>{
+    //   console.log(value)
+    //   io.to("MyRoom").emit("set  timer value",value)
+    // });
+
   socket.on("ready to start game",(settings)=>{
          gameUtils.setCards(settings.cards);
-           io.to("MyRoom").emit("game start",(settings))
+           io.to("MyRoom").emit("game start",(settings));
   });
 
 // game
@@ -130,8 +135,8 @@ io.on('connection', (socket) => {
 
   socket.on("delete user",(user)=>{
     userUtils.userLeave(user.id);
+    // socket.disconnect(true);
     io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
-
   });
 
   socket.on("stop game and show results table",(data)=>{
@@ -139,14 +144,13 @@ io.on('connection', (socket) => {
     io.to("MyRoom").emit("show results Page to player ", data);
   })
 
-  // eslint-disable-next-line no-shadow
-  socket.on("disconnect", (socket) => {
-    console.log("Client disconnected: ", socket);
-    userUtils.userLeave(socket.id);
-    connection.splice(connection.indexOf(socket), 1);
-    io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
 
-  })
+  // socket.on("disconnect", (user) => {
+  //   console.log("Client disconnected: ", user);
+  //   userUtils.userLeave(user.id);
+  //   io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
+  //
+  // });
 
 });
 
@@ -156,50 +160,13 @@ server.listen(port, () => {
 });
 
 
+
     // socket.on("delete user",(id)=>{
-    //     console.log(id);
-    //     players=players.filter(player => player.id !== id);
-    //
     //     io.sockets.emit(" User deleted from room" ,{data:id});
     //     console.log("Игроков после удаленияЖ" ,players);
     //
     // });
     //
-    // socket.on('reset-game', (data) => {
-    //     console.log('reset-game: ', data);
-    //     players.forEach(player => player.value = -1);
-    //     // broadcastPlayers(data);
-    //     // resetGame(data);
-    // });
-    //
-    // socket.on('set-issue', value => {
-    //     console.log('set-issue: ', socket.id, value);
-    //     players.forEach(player => {
-    //         if (player.id === socket.id) {
-    //             player.name = value;
-    //         }
-    //     });
-    //
-    //
-    // });
-    //
-    // socket.on('select-card', value => {
-    //     console.log('select-card: ', socket.id, value);
-    //
-    //     players.forEach(player => {
-    //         if (player.id === socket.id) {
-    //             player.value = value;
-    //         }
-    //     });
-    //
-    //
-    // });
-    //
-    //
-    //
-
-// });
-
 
 
 

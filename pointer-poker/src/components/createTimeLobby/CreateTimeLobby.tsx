@@ -3,7 +3,9 @@ import { setTimeOfRound } from '../../redux/game/gameReducer';
 import { useAppDispatch } from '../../redux/hooks';
 import Button from '../button/Button';
 import Input from '../input/Input';
+import socket from '../../socket';
 import './createTimeLobby.scss';
+
 
 interface Props {
   setModalActive: (modalActive: boolean) => void;
@@ -24,6 +26,7 @@ const CreateTimeLobby: FC<Props> = ({ setModalActive }) => {
       return;
     }
     dispatch(setTimeOfRound(value));
+    socket.emit("send Timer Value to all users",value)
     setTimerSeconds('');
     setModalActive(false);
   };

@@ -36,10 +36,7 @@ const ContentLobbyPage: FC<Props> = () => {
   useEffect(() => {
     socket.on('get connected users', (users:any) => {
       dispatch(setUsers({ data: users }));
-    });
-    socket.on('get users after deleting', (users:any) => {
-      dispatch(setUsers({ data: users }));
-    });
+    })
   }, []);
 
   let  planingIssues=issues.map(iss=>iss.title)
