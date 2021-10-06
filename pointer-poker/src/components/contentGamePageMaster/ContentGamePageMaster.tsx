@@ -96,26 +96,23 @@ const ContentGamePageMaster = () => {
                   </Plate>
                 );
               })}
-            </div>  
-            <div className="btn-next-wrapper">            
-             {isScrumMuster ? (
-               <Button
-                TypeBtn="filled"
-                label="nextIssue"
-                onClick={setNextIssueAsActive}
-                disabled={isDisabled}
-              />
-          ) : null}
-          {isTimerNeeded && <Timer />}
+            </div>
+            <div className="btn-next-wrapper">
+              {isScrumMuster ? (
+                <Button TypeBtn="filled" label="nextIssue" onClick={setNextIssueAsActive} />
+              ) : null}
+              {isTimerNeeded && <Timer />}
+            </div>
+          </div>
+          {!isScrumMuster ? (
+            <CardsInGame />
+          ) : (
+            <div>{isScrumMusterAPlayer ? <CardsInGame /> : ''}</div>
+          )}
+          {isRoundStop ? <Statistic /> : null}
         </div>
-        {!isScrumMuster ? (
-          <CardsInGame />
-        ) : (
-          <div>{isScrumMusterAPlayer ? <CardsInGame /> : ''}</div>
-        )}
-        {isRoundStop ? <Statistic /> : null}
       </div>
-      <TeamScoreInGame />
+        <TeamScoreInGame />
     </div>
   );
 };

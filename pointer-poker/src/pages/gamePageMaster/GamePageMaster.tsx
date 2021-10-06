@@ -7,28 +7,17 @@ import ContentGamePageMaster from '../../components/contentGamePageMaster/Conten
 import './gamePageMaster.scss';
 import socket from '../../socket';
 import { useAppSelector } from '../../redux/hooks';
-
 import {
-  // setCards,
-  // setIsTimerNeeded,
   setIsTimerStart,
   setSelectedCard,
-  // setStartGame,
   setStartIssueRound,
   setStopIssueRound,
-  // setTimeOfRound,
   setUsers,
 } from '../../redux/game/gameReducer';
-import { setActiveIssue, setIssues } from '../../redux/issue/issueReducer';
-import { setVoite } from '../../redux/user/userReducer';
+import { setIssues } from '../../redux/issue/issueReducer';
 
 const GamePageMaster = () => {
-  // const isRoundStart = useAppSelector((state) => state.game.startIssueRound);
-  // const timeOfRound = useAppSelector((state) => state.game.timeOfRound);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
-  // const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
-  // const activeIssue = useAppSelector((state) => state.issie.activeIssue);
-
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -37,11 +26,12 @@ const GamePageMaster = () => {
       dispatch(setUsers({ data: data.users }));
       dispatch(setIssues({ data: data.issues }));
     });
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (!isScrumMuster) {
-      socket.on('started new issue round', (data) => {
+      socket.on('started new issue round', (data:any) => {
+        console.log(data);
         dispatch(setStartIssueRound(true));
         dispatch(setIsTimerStart({ value: true }));
         dispatch(setSelectedCard(null));
@@ -56,14 +46,11 @@ const GamePageMaster = () => {
       });
 
       socket.on('show results Page to player', (data) => {
-        dispatch(setIssues({ data: data }));
+        dispatch(setIssues({ data }));
         history.push('/results');
       });
-
-      socket.on('reset voite for all users', (data) => {});
     }
-  }, [dispatch]);
-
+  }, []);
 
   return (
     <div className="wrapper-game-page-master">

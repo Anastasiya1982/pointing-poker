@@ -3,18 +3,17 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Button from '../button/Button';
 import './timer.scss';
 import socket from '../../socket';
-// import { useDispatch } from 'react-redux';
 import {
   setStartIssueRound,
   setStopIssueRound,
   // setTimeOfRound,
   // setTimer,
   setIsTimerStart,
+  setTimeOfRound,
 } from '../../redux/game/gameReducer';
 
 const Timer = () => {
   const dispatch = useAppDispatch();
-  // const [timerStart, setTimerStart] = useState(false);
   const roundTime = useAppSelector((state) => state.game.timeOfRound);
   const [seconds, setSeconds] = useState(roundTime);
   const minutes = Math.floor(seconds / 60);
@@ -22,19 +21,12 @@ const Timer = () => {
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
   const isRoundStart = useAppSelector((state) => state.game.startIssueRound);
   const isTimerStart = useAppSelector((state) => state.game.isTimerStart);
-  // const value = isTimerStart ? 'stop' : 'start';
-
-  // const users = useAppSelector((state) => state.game.users);
-
-  if (!isScrumMuster) {
-    // console.log('Round for players:', isRoundStart);
-  }
 
   useEffect(() => {
     if (!isTimerStart) {
-      setTimeOfRound(roundTime)
+      setTimeOfRound(roundTime);
     }
-  },[isTimerStart,roundTime]);
+  }, [isTimerStart, roundTime]);
 
   useEffect(() => {
     let timer: number | undefined;
@@ -85,9 +77,6 @@ const Timer = () => {
           </div>
         </div>
       </div>
-      {/* ) : ( */}
-      {/* <Button TypeBtn="filled" onClick={() => setSeconds(120)} label="Once again" /> */}
-      {/* )} */}
     </div>
   );
 };
