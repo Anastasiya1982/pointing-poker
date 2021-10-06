@@ -28,7 +28,11 @@ const GameHeader = () => {
             <span>name:{master?.firstName}</span>
           </Plate>
         </div>
-        <Button TypeBtn="unfilled" label="Stop Game" onClick={onHandlerStopGameAndGotoResults}/>
+        <div className="btn-stop-wrapper">
+        <Button TypeBtn="filled" label="Stop Game" onClick={onHandlerStopGameAndGotoResults}/>
+        </div>
+
+        
       </div>
     </div>
   );

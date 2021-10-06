@@ -74,41 +74,45 @@ const ContentGamePageMaster = () => {
     <div className="wrapper-content-PM">
       <div className="content-PM">
         <GameHeader />
-        <div className="wrapper-issues-container">
-          <div className="issue-box">
-            {issues.map((issue: any, index: number) => {
-              return (
-                <Plate key={index}>
-                  <div
-                    className={
-                      issue.title === activeIssue?.title ? 'selectedIssue' : 'newIssues-content'
-                    }
-                  >
-                    <div className="newIssues-title">{issue.title}</div>
-                    <button
-                      className="issue-btn"
-                      onClick={() => {
-                        deleteIssue(index);
-                      }}
+        <div className="wrapper-content-game-page">
+          <div className="wrapper-issues-container">
+            <div className="issue-box">
+              {issues.map((issue: any, index: number) => {
+                return (
+                  <Plate key={index}>
+                    <div
+                      className={
+                        issue.title === activeIssue?.title ? 'selectedIssue' : 'newIssues-content'
+                      }
                     >
-                      X
-                    </button>
-                  </div>
-                </Plate>
-              );
-            })}
+                      <div className="newIssues-title">{issue.title}</div>
+                      <button
+                        className="issue-btn"
+                        onClick={() => {
+                          deleteIssue(index);
+                        }}
+                      >
+                        X
+                      </button>
+                    </div>
+                  </Plate>
+                );
+              })}
+            </div>
+            <div className="btn-next-wrapper">
+              {isScrumMuster ? (
+                <Button
+                  TypeBtn="filled"
+                  label="nextIssue"
+                  onClick={setNextIssueAsActive}
+                  disabled={isDisabled}
+                />
+              ) : null}
+            </div>
           </div>
-
-          {isScrumMuster ? (
-            <Button
-              TypeBtn="filled"
-              label="nextIssue"
-              onClick={setNextIssueAsActive}
-              disabled={isDisabled}
-            />
-          ) : null}
-          <Timer  />
+          <Timer />
         </div>
+
         {!isScrumMuster ? (
           <CardsInGame />
         ) : (

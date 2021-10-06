@@ -39,3 +39,13 @@
   justify-content: center;
   height: 80px;
 }
+
+
+@media (max-width: 700px) {
+  .wrapper-issues-container {
+    flex-direction: column;
+  }
+  .wrapper-panel {
+    flex-direction: column;
+  }
+}
