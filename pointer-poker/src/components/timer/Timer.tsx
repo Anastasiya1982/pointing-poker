@@ -20,19 +20,22 @@ const Timer = () => {
   const minutes = Math.floor(seconds / 60);
   const correctSeconds = seconds % 60;
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
-  const isTimerNeeded = useAppSelector((state) => state.game.isTimerNeeded);
   const isRoundStart = useAppSelector((state) => state.game.startIssueRound);
   const isTimerStart = useAppSelector((state) => state.game.isTimerStart);
   const value = isTimerStart ? 'stop' : 'start';
 
   const users = useAppSelector((state) => state.game.users);
 
-  console.log(minutes);
-
   if (!isScrumMuster) {
     console.log('Round for players:', isRoundStart);
   }
-  console.log(roundTime);
+
+  useEffect(() => {
+    if (!isTimerStart) {
+      setTimeOfRound(roundTime)
+    }
+  },[isTimerStart,roundTime]);
+
   useEffect(() => {
     let timer: number | undefined;
     if (seconds > 0 && isTimerStart && isRoundStart) {
@@ -47,15 +50,6 @@ const Timer = () => {
   console.log('isTimerStart', isTimerStart);
 
   const handleStartRound = () => {
-    // if(value==='start'){
-    //   socket.emit("StopIssueRound", ({
-    //     isRoundStop:true,
-    //     voite:null,
-    //     timerStart:false
-    //
-    //   }));
-    //   dispatch(setIsTimerStart({value:false}))
-    // }
     socket.emit('StartIssueRound', true);
     dispatch(setIsTimerStart({ value: true }));
     dispatch(setStartIssueRound(true));
@@ -78,22 +72,21 @@ const Timer = () => {
             <Button label="stop" TypeBtn="filled" onClick={handleStopRound} />
           </>
         ) : null}
-        {isTimerNeeded ? (
-          <div id="clockdiv">
-            <div>
-              <div className="smalltext">Minutes</div>
-              <span className="minutes" id="minute">
-                {minutes < 10 ? `0${minutes}` : minutes}
-              </span>
-            </div>
-            <div>
-              <div className="smalltext">Seconds</div>
-              <span className="seconds" id="second">
-                {correctSeconds < 10 ? `0${correctSeconds}` : correctSeconds}
-              </span>
-            </div>
+
+        <div id="clockdiv">
+          <div>
+            <div className="smalltext">Minutes</div>
+            <span className="minutes" id="minute">
+              {minutes < 10 ? `0${minutes}` : minutes}
+            </span>
           </div>
-        ) : null}
+          <div>
+            <div className="smalltext">Seconds</div>
+            <span className="seconds" id="second">
+              {correctSeconds < 10 ? `0${correctSeconds}` : correctSeconds}
+            </span>
+          </div>
+        </div>
       </div>
       {/* ) : ( */}
       {/* <Button TypeBtn="filled" onClick={() => setSeconds(120)} label="Once again" /> */}

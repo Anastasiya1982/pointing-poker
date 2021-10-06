@@ -60,6 +60,8 @@ io.on('connection', (socket) => {
         connection.push(socket.id)
         socket.join("MyRoom");
     });
+    // socket.leave("MyRoom");
+    //
 
     socket.on('handle-connection', (newUser) => {
          if (userUtils.userJoin( newUser)) {
@@ -141,16 +143,14 @@ io.on('connection', (socket) => {
 
   socket.on("stop game and show results table",(data)=>{
     console.log(data);
-    io.to("MyRoom").emit("show results Page to player ", data);
+    io.to("MyRoom").emit("show results Page to player", data);
   })
 
 
-  // socket.on("disconnect", (user) => {
-  //   console.log("Client disconnected: ", user);
-  //   userUtils.userLeave(user.id);
-  //   io.to("MyRoom").emit("get users after deleting", userUtils.getUsers());
-  //
-  // });
+  socket.on("disconnecting", (user) => {
+    console.log(user);
+    userUtils.userLeave(user.id);
+  })
 
 });
 

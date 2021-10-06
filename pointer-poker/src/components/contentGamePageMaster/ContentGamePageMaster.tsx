@@ -26,6 +26,7 @@ const ContentGamePageMaster = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const issues = useAppSelector((state) => state.issie.issues);
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
+  const isTimerNeeded = useAppSelector((state) => state.game.isTimerNeeded);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
   const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
   const isRoundStop = useAppSelector((state) => state.game.stopIssueRound);
@@ -39,7 +40,6 @@ const ContentGamePageMaster = () => {
     socket.emit('delete issue', currentIssue);
   };
 
-
   useEffect(() => {
     socket.on('started new issue round', (data) => {
       dispatch(setStartIssueRound(data));
@@ -50,7 +50,6 @@ const ContentGamePageMaster = () => {
 
   useEffect(() => {
     socket.on('stop round', (data) => {
-      console.log(data);
       dispatch(setIsTimerStart({ value: false }));
       dispatch(setStartIssueRound(false));
       dispatch(setStopIssueRound(data.isRoundStop));
@@ -107,7 +106,7 @@ const ContentGamePageMaster = () => {
               disabled={isDisabled}
             />
           ) : null}
-          <Timer  />
+          {isTimerNeeded && <Timer />}
         </div>
         {!isScrumMuster ? (
           <CardsInGame />

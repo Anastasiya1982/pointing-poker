@@ -10,25 +10,28 @@ import socket from '../../../socket';
 
 const GameHeader = () => {
   const issues = useAppSelector((state) => state.issie.issues);
-  const history=useHistory();
+  const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
+  const history = useHistory();
 
-  const onHandlerStopGameAndGotoResults=()=>{
-    socket.emit("stop game and show results table",(issues))
-    history.push('/results')
-  }
+  const onHandlerStopGameAndGotoResults = () => {
+    socket.emit('stop game and show results table', issues);
+    history.push('/results');
+  };
   const master = useAppSelector((state) => state.game.scrumMaster);
   return (
     <div className="header-content">
-      <HeaderPlaningIssue/>
+      <HeaderPlaningIssue />
       <div className="wrapper-panel">
         <div className="scram-master">
           <div>Scram master:</div>
-          <Plate  >
+          <Plate>
             <Avatar img={master?.img} fallbackText={master?.fallbackText} />
             <span>name:{master?.firstName}</span>
           </Plate>
         </div>
-        <Button TypeBtn="unfilled" label="Stop Game" onClick={onHandlerStopGameAndGotoResults}/>
+        {isScrumMuster && (
+          <Button TypeBtn="unfilled" label="Stop Game" onClick={onHandlerStopGameAndGotoResults} />
+        )}
       </div>
     </div>
   );
