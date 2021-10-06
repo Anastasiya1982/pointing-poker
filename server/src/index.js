@@ -64,6 +64,7 @@ io.on('connection', (socket) => {
     //
 
     socket.on('handle-connection', (newUser) => {
+      console.log(newUser);
          if (userUtils.userJoin( newUser)) {
              // socket.emit("user-submit-successfully");
              io.to("MyRoom").emit("get connected users", userUtils.getUsers());
@@ -147,9 +148,10 @@ io.on('connection', (socket) => {
   })
 
 
-  socket.on("disconnecting", (user) => {
-    console.log(user);
-    userUtils.userLeave(user.id);
+  socket.on("disconnecting", () => {
+    console.log("disconnect", socket.id);
+    userUtils.userLeave(socket.id);
+    io.to("MyRoom").emit("get users after deleting",userUtils.getUsers());
   })
 
 });
