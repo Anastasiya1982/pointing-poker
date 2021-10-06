@@ -1,7 +1,6 @@
 import React from 'react';
 import * as uuid from 'uuid';
 import { useAppSelector } from '../../redux/hooks';
-// import CardsInGame from '../contentGamePageMaster/CardsInGame/CardsInGame';
 import { countResults } from '../../utils/utils';
 import './Statistic.scss';
 import Cup from '../../assets/littleCup.png';

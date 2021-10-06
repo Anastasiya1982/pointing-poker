@@ -11,6 +11,7 @@ import socket from '../../../socket';
 
 const GameHeader = () => {
   const issues = useAppSelector((state) => state.issie.issues);
+  const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
   const history = useHistory();
 
   const onHandlerStopGameAndGotoResults = () => {
@@ -30,7 +31,7 @@ const GameHeader = () => {
           </Plate>
         </div>
         <div className="btn-stop-wrapper">
-          <Button TypeBtn="filled" label="Stop Game" onClick={onHandlerStopGameAndGotoResults} />
+          {isScrumMuster && <Button TypeBtn="filled" label="Stop Game" onClick={onHandlerStopGameAndGotoResults} />}
         </div>
       </div>
     </div>
