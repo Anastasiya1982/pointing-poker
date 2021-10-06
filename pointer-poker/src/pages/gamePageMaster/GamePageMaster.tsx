@@ -30,8 +30,7 @@ const GamePageMaster = () => {
 
   useEffect(() => {
     if (!isScrumMuster) {
-      socket.on('started new issue round', (data:any) => {
-        console.log(data);
+      socket.on('started new issue round', () => {
         dispatch(setStartIssueRound(true));
         dispatch(setIsTimerStart({ value: true }));
         dispatch(setSelectedCard(null));
@@ -50,7 +49,7 @@ const GamePageMaster = () => {
         history.push('/results');
       });
     }
-  }, []);
+  }, [dispatch, history, isScrumMuster]);
 
   return (
     <div className="wrapper-game-page-master">

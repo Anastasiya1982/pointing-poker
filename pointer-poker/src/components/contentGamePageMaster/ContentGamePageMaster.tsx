@@ -112,7 +112,7 @@ const ContentGamePageMaster = () => {
           {isRoundStop ? <Statistic /> : null}
         </div>
       </div>
-        <TeamScoreInGame />
+      <TeamScoreInGame />
     </div>
   );
 };
