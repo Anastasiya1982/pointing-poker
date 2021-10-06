@@ -75,6 +75,7 @@ const RegistrationForm = (props: any) => {
   const onSetUserPhotoToAvatar = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
+      // eslint-disable-next-line @typescript-eslint/no-shadow
       reader.onload = (event: any) => {
         setImage(event.target.result);
       };
@@ -92,7 +93,6 @@ const RegistrationForm = (props: any) => {
             className="input-modal"
             onChange={changeUserFirstName}
             value={firstName}
-            required
             id="firstName"
           />
         </div>
@@ -102,7 +102,6 @@ const RegistrationForm = (props: any) => {
           className="input-modal"
           onChange={changeUserLastName}
           value={lastName}
-          required
         />
         <label htmlFor="firstName2">Your job position:</label>
         <Input

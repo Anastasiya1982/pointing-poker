@@ -8,6 +8,7 @@ export const getFallbackText = (firstName: string, lastName: string) => {
   if (lastName === '') {
     last = firstName[firstName.length - 1];
   } else {
+    // eslint-disable-next-line prefer-destructuring
     last = lastName[0];
   }
 
@@ -24,24 +25,6 @@ export const generateRandomNumber = () => {
   return n;
 };
 
-// export const funcPercent = function toPercentages(arrTest:Array<any>) {
-//  let result = arrTest.reduce(function (acc, el) {
-//     acc[el] = (acc[el] || 0) + 1;
-//     return acc;
-//   }, {});
-//   const arrValueFromObj = Object.values(result);
-//   const sumValues = (result:any) => Object.values(result).reduce((a, b) => a + b);
-//   let numberPercent = 0;
-//   let arrValueFromObjNEW = [];
-//   for (let i = 0; i < arrValueFromObj.length; i++) {
-//     numberPercent = arrValueFromObj[i] * (100 / sumValues(result))
-//     arrValueFromObjNEW.push(numberPercent)
-//   }
-//   return arrValueFromObjNEW.map(function (x: number) {
-//     return parseFloat((x).toFixed(2));
-//   });
-// };
-
 export function countResults(arr: any) {
   if (arr === null) return;
   const { length } = arr;
@@ -54,7 +37,7 @@ export function countResults(arr: any) {
 
     return { ...acc, [item]: onePersonPercent };
   }, {});
-
+  // eslint-disable-next-line consistent-return
   return Object.entries(withoutRound).map(([key, value]) => [key, Math.round(<number>value)]);
 }
 

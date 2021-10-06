@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import * as uuid from 'uuid';
-// import { useHistory } from 'react-router';
 import Plate from '../plate/Plate';
 import Timer from '../timer/Timer';
 import './contentGamePageMaster.scss';
@@ -23,7 +22,6 @@ import {
 } from '../../redux/game/gameReducer';
 
 const ContentGamePageMaster = () => {
-  const [isDisabled, setIsDisabled] = useState(false);
   const issues = useAppSelector((state) => state.issie.issues);
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
@@ -49,7 +47,6 @@ const ContentGamePageMaster = () => {
 
   useEffect(() => {
     socket.on('stop round', (data) => {
-      // console.log(data);
       dispatch(setIsTimerStart({ value: false }));
       dispatch(setStartIssueRound(false));
       dispatch(setStopIssueRound(data.isRoundStop));
@@ -101,12 +98,7 @@ const ContentGamePageMaster = () => {
             </div>
             <div className="btn-next-wrapper">
               {isScrumMuster ? (
-                <Button
-                  TypeBtn="filled"
-                  label="nextIssue"
-                  onClick={setNextIssueAsActive}
-                  disabled={isDisabled}
-                />
+                <Button TypeBtn="filled" label="nextIssue" onClick={setNextIssueAsActive} />
               ) : null}
             </div>
           </div>
