@@ -19,8 +19,8 @@ import {
   // setTimeOfRound,
   setUsers,
 } from '../../redux/game/gameReducer';
-import { setIssues } from '../../redux/issue/issueReducer';
-// import { setVoite } from '../../redux/user/userReducer';
+import { setActiveIssue, setIssues } from '../../redux/issue/issueReducer';
+import { setVoite } from '../../redux/user/userReducer';
 
 const GamePageMaster = () => {
   // const isRoundStart = useAppSelector((state) => state.game.startIssueRound);
@@ -37,16 +37,11 @@ const GamePageMaster = () => {
       dispatch(setUsers({ data: data.users }));
       dispatch(setIssues({ data: data.issues }));
     });
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (!isScrumMuster) {
-      socket.on('Show results for all players', (data: any) => {
-        dispatch(setUsers({ data: data.users }));
-        dispatch(setIssues({ data: data.issues }));
-      });
-
-      socket.on('started new issue round', () => {
+      socket.on('started new issue round', (data) => {
         dispatch(setStartIssueRound(true));
         dispatch(setIsTimerStart({ value: true }));
         dispatch(setSelectedCard(null));
@@ -59,13 +54,16 @@ const GamePageMaster = () => {
 
         dispatch(setUsers({ data: data.users }));
       });
+
       socket.on('show results Page to player', (data) => {
-        dispatch(setIssues({ data }));
+        dispatch(setIssues({ data: data }));
         history.push('/results');
       });
-      socket.on('reset voite for all users', () => {});
+
+      socket.on('reset voite for all users', (data) => {});
     }
-  }, [dispatch, history, isScrumMuster]);
+  }, [dispatch]);
+
 
   return (
     <div className="wrapper-game-page-master">

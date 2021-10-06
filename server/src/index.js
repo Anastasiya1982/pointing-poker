@@ -50,12 +50,22 @@ app.get('/', (req, res) => {
 
 const connection = [];
 io.on('connection', (socket) => {
-  console.log('Успешное соединение  : ', socket.id);
-  socket.on('ROOM:JOIN', (data) => {
-    console.log(`connection to room  ; ${data}`);
-    connection.push(socket.id);
-    socket.join('MyRoom');
-  });
+    console.log("Успешное соединение  : ", socket.id);
+    socket.on("ROOM:JOIN",(data)=> {
+        console.log(`connection to room  ; ${data}`);
+        connection.push(socket.id)
+        socket.join("MyRoom");
+    });  
+
+    socket.on('handle-connection', (newUser) => {
+      console.log(newUser);
+         if (userUtils.userJoin( newUser)) {
+             // socket.emit("user-submit-successfully");
+             io.to("MyRoom").emit("get connected users", userUtils.getUsers());
+             io.to("MyRoom").emit("show-ScrumMuster-Data",userUtils.getMaster());
+         }
+    });
+
 
   socket.on('handle-connection', (newUser) => {
     if (userUtils.userJoin(newUser)) {
@@ -137,14 +147,14 @@ io.on('connection', (socket) => {
 
   socket.on('stop game and show results table', (data) => {
     console.log(data);
-    io.to('MyRoom').emit('show results Page to player', data);
-  });
+    io.to("MyRoom").emit("show results Page to player", data);
+  })
 
   socket.on("disconnecting", () => {
     console.log("disconnect", socket.id);
     userUtils.userLeave(socket.id);
     io.to("MyRoom").emit("get users after deleting",userUtils.getUsers());
-  });
+  })
 
 });
 

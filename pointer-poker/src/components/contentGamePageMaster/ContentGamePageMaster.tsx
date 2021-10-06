@@ -24,6 +24,7 @@ import {
 const ContentGamePageMaster = () => {
   const issues = useAppSelector((state) => state.issie.issues);
   const activeIssue = useAppSelector((state) => state.issie.activeIssue);
+  const isTimerNeeded = useAppSelector((state) => state.game.isTimerNeeded);
   const isScrumMuster = useAppSelector((state) => state.user.isScrumMaster);
   const isScrumMusterAPlayer = useAppSelector((state) => state.game.isScrumMasterAPlayer);
   const isRoundStop = useAppSelector((state) => state.game.stopIssueRound);
@@ -95,16 +96,18 @@ const ContentGamePageMaster = () => {
                   </Plate>
                 );
               })}
-            </div>
-            <div className="btn-next-wrapper">
-              {isScrumMuster ? (
-                <Button TypeBtn="filled" label="nextIssue" onClick={setNextIssueAsActive} />
-              ) : null}
-            </div>
-          </div>
-          <Timer />
+            </div>  
+            <div className="btn-next-wrapper">            
+             {isScrumMuster ? (
+               <Button
+                TypeBtn="filled"
+                label="nextIssue"
+                onClick={setNextIssueAsActive}
+                disabled={isDisabled}
+              />
+          ) : null}
+          {isTimerNeeded && <Timer />}
         </div>
-
         {!isScrumMuster ? (
           <CardsInGame />
         ) : (

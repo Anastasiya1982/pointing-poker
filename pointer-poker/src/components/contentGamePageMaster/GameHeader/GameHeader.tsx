@@ -30,9 +30,9 @@ const GameHeader = () => {
             <span>name:{master?.firstName}</span>
           </Plate>
         </div>
-        <div className="btn-stop-wrapper">
-          {isScrumMuster && <Button TypeBtn="filled" label="Stop Game" onClick={onHandlerStopGameAndGotoResults} />}
-        </div>
+        {isScrumMuster && (
+          <Button TypeBtn="unfilled" label="Stop Game" onClick={onHandlerStopGameAndGotoResults} />
+        )}
       </div>
     </div>
   );
