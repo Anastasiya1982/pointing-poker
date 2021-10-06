@@ -20,7 +20,6 @@ const initialState: IssueState = {
   },
   issues: [],
   activeIssue: null,
-
 };
 
 export const issueSlice = createSlice({

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 // eslint-disable-next-line no-use-before-define
@@ -26,14 +27,14 @@ const Card: FC<CardProps> = ({ number, id, className }) => {
   const handleChangeActiveCard = useCallback(() => {
     dispatch(setSelectedCard({ id, number }));
     socket.emit('player selected one card', { value: number, userId: user.id, activeIssue });
-  }, [dispatch, id, value]);
+  }, [dispatch, id, activeIssue, number, user.id]);
 
   return (
-    <div className={classes} onClick={handleChangeActiveCard} id={id}>
+    <div aria-hidden="true" className={classes} onClick={handleChangeActiveCard} id={id}>
       {number === 0 ? (
         <div className="card-coffee">
           <div className="card-unknown">unknown</div>
-          <button className="btn-change-number">
+          <button className="btn-change-number" type="button">
             <FontAwesomeIcon className="lobby-page-icon" icon={faPen} />
           </button>
           <div className="card-img-conatainer">
@@ -44,7 +45,7 @@ const Card: FC<CardProps> = ({ number, id, className }) => {
       ) : (
         <div className="card">
           <div className="card-value">{value}</div>
-          <button className="btn-change-number">
+          <button className="btn-change-number" type="button">
             <FontAwesomeIcon className="lobby-page-icon" icon={faPen} />
           </button>
           <div className="card-number">{number}</div>
@@ -53,6 +54,10 @@ const Card: FC<CardProps> = ({ number, id, className }) => {
       )}
     </div>
   );
+};
+
+Card.defaultProps = {
+  className: '',
 };
 
 export default Card;

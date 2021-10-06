@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import Button from '../button/Button';
+import * as uuid from 'uuid';
 import './Chat.scss';
-import Input from '../input/Input';
+import { useDispatch } from 'react-redux';
 import socket from '../../socket';
 import { useAppSelector } from '../../redux/hooks';
 import Message from '../Message/Message';
-import { useDispatch } from 'react-redux';
 import { setMessages } from '../../redux/chat/chatReducer';
+import Button from '../button/Button';
 
 const Chat = () => {
   const [message, setMessage] = useState('');
@@ -26,14 +26,14 @@ const Chat = () => {
     socket.on('receive-message', (data) => {
       dispatch(setMessages({ data }));
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="chat-container">
       <h3>Chat</h3>
       <div className="all-messages">
-        {messagesList.map((msg, index) => {
-          return <Message key={index} message={msg.message} user={msg.user} />;
+        {messagesList.map((msg) => {
+          return <Message key={uuid.v4()} message={msg.message} user={msg.user} />;
         })}
       </div>
       <div className="createMessage">

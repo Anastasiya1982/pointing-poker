@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useCallback, useState } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import { setCards } from '../../redux/game/gameReducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { generateRandomId } from '../../utils/utils';
@@ -19,13 +19,13 @@ const CreateCards: FC<PropsCardType> = ({ setModalActive }) => {
     setCardNumber(event.target.value);
   };
 
-  const handleAddCard = (event: ChangeEvent<HTMLButtonElement>) => {
-    let id = generateRandomId();
+  const handleAddCard = () => {
+    const id = generateRandomId();
     const value = cardNumber;
     if (value === '' || !/^[1-9]+$/.test(value)) {
       return;
     }
-    let newCards = [...cards];
+    const newCards = [...cards];
     dispatch(setCards([...newCards, { id, value }]));
     setCardNumber('');
     setModalActive(false);

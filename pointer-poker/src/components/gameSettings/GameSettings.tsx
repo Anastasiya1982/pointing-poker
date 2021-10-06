@@ -6,7 +6,6 @@ import {
 } from '../../redux/game/gameReducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import BtnSwitch from '../btnSwitch/BtnSwitch';
-import Timer from '../timer/Timer';
 import './gameSettings.scss';
 import CreateTimeLobby from '../createTimeLobby/CreateTimeLobby';
 import ModalView from '../../pages/modalView/ModalView';
@@ -68,7 +67,7 @@ const GameSettings = () => {
           <select
             className="lobby-page-game-settings-select"
             name="settings"
-            onChange={changeInputScoreType}
+            onBlur={changeInputScoreType}
           >
             <option defaultValue="story point">story point</option>
             <option value="percent">percent</option>
