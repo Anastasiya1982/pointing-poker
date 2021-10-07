@@ -1,1 +1,1 @@
-# -pointing-poker
+# pointing-poker
